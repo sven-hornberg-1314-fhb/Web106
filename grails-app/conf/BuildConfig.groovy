@@ -49,7 +49,10 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         // runtime 'mysql:mysql-connector-java:5.1.24'
-    }
+    
+	    test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
+
+	}
 
     plugins {
         // plugins for the build system only
@@ -58,6 +61,7 @@ grails.project.dependency.resolution = {
         // plugins for the compile step
         compile ":scaffolding:2.0.1"
         compile ':cache:1.1.1'
+
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.2" // or ":hibernate4:4.1.11.2"
@@ -68,5 +72,9 @@ grails.project.dependency.resolution = {
         //runtime ":zipped-resources:1.0.1"
         //runtime ":cached-resources:1.1"
         //runtime ":yui-minify-resources:0.1.5"
+
+	test(":spock:0.7") {
+	      exclude "spock-grails-support"
+    	}
     }
 }
