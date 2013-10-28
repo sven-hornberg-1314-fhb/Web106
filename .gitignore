@@ -38,6 +38,7 @@ Thumbs.db
 
 # project specific #
 /target
+/target-eclipse
 /grails-app/conf/oauth.properties
 .classpath
 .project
