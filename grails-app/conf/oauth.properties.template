@@ -1,0 +1,10 @@
+auth.linkedin.key =
+auth.linkedin.secret =
+auth.twitter.key =
+auth.twitter.secret =
+auth.facebook.key =
+auth.facebook.secret =
+auth.google.key =
+auth.google.secret =
+auth.github.key =
+auth.github.secret =
