@@ -1,6 +1,6 @@
 package de.sixfourpixel.web106
 
-import de.sixfourpixel.web106.page.Page;
+import de.sixfourpixel.web106.domain.Page;
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 

@@ -2,8 +2,8 @@ package de.sixfourpixel.web106
 
 
 
-import de.sixfourpixel.web106.page.Page;
-import de.sixfourpixel.web106.page.PageController;
+import de.sixfourpixel.web106.controller.PageController;
+import de.sixfourpixel.web106.domain.Page;
 import grails.test.mixin.*
 import spock.lang.*
 
