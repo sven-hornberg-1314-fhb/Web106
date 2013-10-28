@@ -50,7 +50,7 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         // runtime 'mysql:mysql-connector-java:5.1.24'
     
-	    test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
+
 
 	}
 
@@ -73,8 +73,5 @@ grails.project.dependency.resolution = {
         //runtime ":cached-resources:1.1"
         //runtime ":yui-minify-resources:0.1.5"
 
-	test(":spock:0.7") {
-	      exclude "spock-grails-support"
-    	}
     }
 }
