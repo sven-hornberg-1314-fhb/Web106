@@ -1,4 +1,4 @@
-package de.sixfourpixel.web106.controller
+package de.sixfourpixel.web106.page
 
 
 
