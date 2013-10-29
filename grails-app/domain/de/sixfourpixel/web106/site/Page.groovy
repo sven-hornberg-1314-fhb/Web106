@@ -1,4 +1,4 @@
-package de.sixfourpixel.web106.page
+package de.sixfourpixel.web106.site
 
 class Page {
 
