@@ -1,5 +1,5 @@
-Web106
+SAAS Homepagebaukasten auf Basis von AWS und Grails
 
-https://github.com/sven-hornberg-1314-fhb/Web106/wiki
+Mehr Informationen unter: https://github.com/sven-hornberg-1314-fhb/Web106/wiki
 
-Beschreibung kommt noch
+Alle Builds: https://travis-ci.org/sven-hornberg-1314-fhb/Web106/builds
