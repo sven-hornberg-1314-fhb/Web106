@@ -2,11 +2,11 @@ package de.sixfourpixel.web106.site
 
 import grails.converters.JSON
 
-import static org.springframework.http.HttpStatus.*
-
 class PageController {
 
     static scaffold = true
+    def helloService
+
 
     def sven() {
         def objTest = new Expando()
@@ -16,4 +16,11 @@ class PageController {
         render(text: textInhalt ,contentType:"text/json",encoding:"UTF-8")
 
     }
+
+
+    def test() {
+        helloService.callHello()
+        render(text:"done calling Hello in Service")
+    }
+
 }
