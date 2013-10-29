@@ -13,8 +13,11 @@ class HelloService {
         def myPage = Page.newInstance()
         myPage.title = "PageService"
 
+        myPage.visibleFrom = new Date()
+        myPage.visibleTo = new Date()
 
-        myPage.save(flush: true)
+
+        myPage.save(flush: true, failOnError : true)
 
 
         println(Page.all as JSON)
