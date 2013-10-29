@@ -1,6 +1,5 @@
 package de.sixfourpixel.web106.site
 
-import de.sixfourpixel.web106.dyntostatic.CrawlerService
 import grails.converters.JSON
 
 import static org.springframework.http.HttpStatus.*
