@@ -4,6 +4,14 @@ class Page {
 
 	String title
 
+    static hasMany=[boxes:Box]
+
+    /**
+     * site is rendered or not
+     */
+    boolean isPublic = false
+
+
     /**
      * Date for the first allowed view
      */
@@ -18,5 +26,7 @@ class Page {
 	
     static constraints = {
         title blank:false
+
+
     }
 }

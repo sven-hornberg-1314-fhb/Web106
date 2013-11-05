@@ -1,6 +1,7 @@
 package de.sixfourpixel.web106.site
 
-class PageController {
+
+class BoxController {
 
     static scaffold = true
 }
