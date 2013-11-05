@@ -1,9 +1,5 @@
 Installscripts for: 
 
-development:
+ubuntu 1204 development:
 
-sudo python development.py
-
-running app:
-
-sudo python run_app.py
+sudo python ubuntu1204_dev.py
