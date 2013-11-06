@@ -43,11 +43,11 @@ Thumbs.db
 .classpath
 
 #intellij
-.iml
-.ipr
-.iws
+*.iml
+*.ipr
+*.iws
 .idea/
 
-
+projectFilesBackup/
 .project
 *~
