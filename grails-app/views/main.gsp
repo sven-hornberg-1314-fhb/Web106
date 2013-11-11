@@ -28,7 +28,10 @@
     <sec:ifAnyGranted roles="ROLE_ADMIN, ROLE_USER">Hallo,</sec:ifAnyGranted>
 
     <sec:ifAllGranted roles="ROLE_ADMIN">
-        allmächtiger <sec:username />
+        allmächtiger <sec:username /> <br/>
+        <g:link controller="administration" action="listUsers">Users</g:link><br/>
+        <g:link controller="administration" action="listRoles">Roles</g:link><br/>
+        <g:link controller="administration" action="listUserRoles">UserRoles</g:link><br/>
     </sec:ifAllGranted>
 
     <sec:ifAnyGranted roles="ROLE_USER, ROLE_SUPERUSER">

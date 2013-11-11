@@ -4,12 +4,8 @@
 import de.sixfourpixel.web106.login.Role
 import de.sixfourpixel.web106.login.User
 import de.sixfourpixel.web106.login.UserRole
-import grails.converters.JSON
-import grails.plugins.springsecurity.Secured
 
 class UserController {
-
-
 
 	def index = {
 		render(view: "/user/register")
@@ -29,11 +25,14 @@ class UserController {
             } else {
                 // validate/save ok, store user in session, redirect to homepage
                 UserRole.create u, Role.findByAuthority('ROLE_USER'), true
+
+                // is the session used anymore? ,comes from former example
                 session.user = u
                 redirect(uri:"/")
             }
         } else if (session.user) {
             // don't allow registration while user is logged in
+            //TODO not working
             redirect(uri:"/")
         }
     }
@@ -46,8 +45,4 @@ class UserController {
         redirect(controller: "logout")
     }
 
-
-    def list = {
-        render User.all as JSON
-    }
 }
