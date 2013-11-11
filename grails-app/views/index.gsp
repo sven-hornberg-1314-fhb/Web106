@@ -118,5 +118,17 @@
 				</ul>
 			</div>
 		</div>
+    <hr/>
+
+    <sec:ifNotLoggedIn>
+        <g:link controller="login" action="auth">Login</g:link>
+    </sec:ifNotLoggedIn>
+
+
+    <sec:ifLoggedIn>
+        <sec:username /> (<g:link controller="logout">sign out</g:link>)
+    </sec:ifLoggedIn>
+
+
 	</body>
 </html>
