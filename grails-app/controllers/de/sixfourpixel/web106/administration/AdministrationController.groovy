@@ -9,7 +9,7 @@ import de.sixfourpixel.web106.login.*
 class AdministrationController {  
   
   def index() {
-    render "Some sensitive content"
+    render (view: "/index")
   }
 
   def listUsers(){

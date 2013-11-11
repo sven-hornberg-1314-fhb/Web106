@@ -29,6 +29,7 @@
 
     <sec:ifAllGranted roles="ROLE_ADMIN">
         allmächtiger <sec:username /> <br/>
+        <g:link controller="administration" action="index">Controller Overview</g:link><br/>
         <g:link controller="administration" action="listUsers">Users</g:link><br/>
         <g:link controller="administration" action="listRoles">Roles</g:link><br/>
         <g:link controller="administration" action="listUserRoles">UserRoles</g:link><br/>
