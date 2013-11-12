@@ -4,9 +4,10 @@
 <head>
 <title>Simple GSP page</title>
 <g:javascript library="jquery" />
+<r:require module="jquery-ui"/>
 <r:layoutResources />
-<jqui:resources theme="darkness" />
-
+<!--<jqui:resources theme="darkness" />
+-->
 <style type="text/css">
 <!--
 #layout {
