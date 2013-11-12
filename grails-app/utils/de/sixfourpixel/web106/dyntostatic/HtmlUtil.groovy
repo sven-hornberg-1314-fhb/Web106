@@ -15,7 +15,6 @@ class HtmlUtil {
 				
 		List<NodeChild> linkNodes = []
 		List<String> links = []
-		links.add("http://www.google.de")
 		
 		//find all link tags
 		rootNode.'**'.findAll { it.name() == 'a' }.each { linkNodes.add(it) }
