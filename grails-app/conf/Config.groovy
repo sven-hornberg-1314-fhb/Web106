@@ -129,3 +129,15 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
         '/**/favicon.ico': ['permitAll'],
 
 ]
+
+oauth {
+    providers {
+        google {
+            api = org.scribe.builder.api.GoogleApi
+            key = '114245312107-5ssmfnglsgofjaed0gtcerjro03of66c.apps.googleusercontent.com'
+            secret = 'pw5wt1aYfQai4AcWJ7gkRWBa'
+            callback = 'http://localhost:8080/Web106/'
+            scope = 'https://www.googleapis.com/auth/userinfo.profile'
+        }
+    }
+}

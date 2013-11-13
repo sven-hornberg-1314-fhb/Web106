@@ -43,5 +43,11 @@
 
 </sec:ifLoggedIn>
 
+<oauth:connect provider="google" id="google-connect-link">Connect to Google</oauth:connect>
+
+<oauth:connected provider="google">CONNECTED TO GOOGLE</oauth:connected>
+
+<oauth:disconnected provider="google">NOT CONNECTED TO GOOGLE</oauth:disconnected>
+
 </body>
 </html>
