@@ -14,6 +14,10 @@ os.system("mkdir grails")
 os.system("cd grails")
 os.system("wget http://dist.springframework.org.s3.amazonaws.com/release/GRAILS/grails-2.3.1.zip")
 
+#os.mkdir(path)
+#os.chdir(~)
+#with open('.bashrc', 'a') as file:
+#    file.write('input')
 
 #JAVA_HOME=/usr/lib/jvm/java-7-oracle
 #M2_HOME="~/grails/apache-maven-3.1.1"
