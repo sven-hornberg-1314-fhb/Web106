@@ -34,19 +34,28 @@ apt-get install openjdk-7-jdk openjdk-7-source openjdk-7-doc openjdk-7-jre-headl
 cd ~/
 
 #change owning user from grails dir
-chown -R $(whoami) /grails
+chown -R $(whoami) grails
+
+#craete & chown .m2
+mkdir .m2
+chown -R $(whoami) .m2
 
 ### setting env vars
 
-grailsenvvars= "JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-i386\n"
-grailsenvvars+= "#M2_HOME=~/grails/apache-maven-3.1.1\n"
-grailsenvvars+= "GRAILS_HOME=~/grails/grails-2.3.1\n"
-grailsenvvars+= "#MAVEN_REPO=~/.m2"
-grailsenvvars+= "GRADLE_HOME=~/grails/gradle-1.8\n"
-grailsenvvars+= "PATH=$PATH:$HOME/.local/bin:$HOME/bin:$GRAILS_HOME/bin:M2_HOME:$JAVA_HOME/bin:$GRADLE_HOME/bin\n\n"
-grailsenvvars+= "export PATH\nexport JAVA_HOME\nexport GRAILS_HOME\nexport M2_HOME\nexport GRADLE_HOME\nexport MAVEN_REPO"
+echo "JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-i386\n" >> .bashrc
+echo "M2_HOME=~/grails/apache-maven-3.1.1\n" >> .bashrc
+echo "GRAILS_HOME=~/grails/grails-2.3.1\n" >> .bashrc
+echo "MAVEN_REPO=~/.m2" >> .bashrc
+echo "GRADLE_HOME=~/grails/gradle-1.8\n" >> .bashrc
 
-echo $grailsenvvars >> .bashrc
+echo "PATH=\$PATH:\$HOME/.local/bin:\$HOME/bin:\$GRAILS_HOME/bin:M2_HOME:\$JAVA_HOME/bin:\$GRADLE_HOME/bin\n" >> .bashrc
+
+echo "export JAVA_HOME\n" >> .bashrc 
+echo "export M2_HOME\n" >> .bashrc 
+echo "export GRAILS_HOME\n" >> .bashrc 
+echo "export MAVEN_REPO\n" >> .bashrc 
+echo "export GRADLE_HOME\n" >> .bashrc 
+echo "export PATH\n" >> .bashrc 
 
 echo "please reboot and test grails & java"
 
