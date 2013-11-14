@@ -5,8 +5,9 @@
   Time: 16:51
   To change this template use File | Settings | File Templates.
 --%>
+<%@page import="org.scribe.model.OAuthRequest; org.scribe.model.Token" %>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="uk.co.desirableobjects.oauth.scribe.OauthService" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
   <title></title>
@@ -43,11 +44,21 @@
 
 </sec:ifLoggedIn>
 
-<oauth:connect provider="google" id="google-connect-link">Connect to Google</oauth:connect>
-
+<oauth:connect provider="google" id="google-connect-link" >Connect to Google</oauth:connect>
 <oauth:connected provider="google">CONNECTED TO GOOGLE</oauth:connected>
-
 <oauth:disconnected provider="google">NOT CONNECTED TO GOOGLE</oauth:disconnected>
+
+<oauth:connect provider="twitter">CONENCT TO Twitter</oauth:connect>
+<oauth:connected provider="twitter">CONNECTED</oauth:connected>
+<oauth:disconnected provider="twitter">disCONNECTED</oauth:disconnected>
+
+<br/>
+<%
+
+ Token accessToken = (Token) session.getAttribute("google:oasAccessToken")
+
+%>
+profile: ${session}
 
 </body>
 </html>

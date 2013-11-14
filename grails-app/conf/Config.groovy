@@ -1,3 +1,5 @@
+import de.sixfourpixel.web106.GitHubApi
+
 // locations to search for config files that get merged into the main config;
 // config files can be ConfigSlurper scripts, Java properties files, or classes
 // in the classpath in ConfigSlurper format
@@ -136,8 +138,16 @@ oauth {
             api = org.scribe.builder.api.GoogleApi
             key = '114245312107-5ssmfnglsgofjaed0gtcerjro03of66c.apps.googleusercontent.com'
             secret = 'pw5wt1aYfQai4AcWJ7gkRWBa'
-            callback = 'http://localhost:8080/Web106/'
+            callback = 'http://localhost:8080/Web106/oauth/google/callback'
             scope = 'https://www.googleapis.com/auth/userinfo.profile'
+        }
+
+        twitter {
+            api =      org.scribe.builder.api.TwitterApi
+            key =  'RbZjsZWh5oYnwD9Vo7Vq1Q'
+            secret =   'gTbl8T6oDeWKkMeVH7MtbzyPLjeSn8OhZwvYvZdj8'
+            callback = 'http://localhost:8080/Web106/oauth/twitter/callback'
+
         }
     }
 }
