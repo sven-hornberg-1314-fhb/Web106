@@ -43,22 +43,23 @@
      (<g:link controller="logout">sign out</g:link>)
 
 </sec:ifLoggedIn>
+<br/>
+<oauth:connect provider="google" id="google-connect-link" >Login with Google</oauth:connect>
+<oauth:connected provider="google">CONNECTED</oauth:connected>
+<oauth:disconnected provider="google">DISCONNECTED</oauth:disconnected>
+                                                                                     <br/>
+<oauth:connect provider="twitter">Login with Twitter</oauth:connect>
 
-<oauth:connect provider="google" id="google-connect-link" >Connect to Google</oauth:connect>
-<oauth:connected provider="google">CONNECTED TO GOOGLE</oauth:connected>
-<oauth:disconnected provider="google">NOT CONNECTED TO GOOGLE</oauth:disconnected>
+<oauth:connected provider="twitter"> CONNECTED with
 
-<oauth:connect provider="twitter">CONENCT TO Twitter</oauth:connect>
-<oauth:connected provider="twitter">CONNECTED</oauth:connected>
-<oauth:disconnected provider="twitter">disCONNECTED</oauth:disconnected>
+${session.getAttribute("twitter:oasAccessToken")}
+    <g:link controller="oauth" action="logout" params="[provider:'twitter']">Logout</g:link>
+</oauth:connected>
+<oauth:disconnected provider="twitter">DISCONNECTED</oauth:disconnected>
 
 <br/>
-<%
 
- Token accessToken = (Token) session.getAttribute("google:oasAccessToken")
 
-%>
-profile: ${session}
 
 </body>
 </html>

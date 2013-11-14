@@ -147,6 +147,7 @@ oauth {
             key =  'RbZjsZWh5oYnwD9Vo7Vq1Q'
             secret =   'gTbl8T6oDeWKkMeVH7MtbzyPLjeSn8OhZwvYvZdj8'
             callback = 'http://localhost:8080/Web106/oauth/twitter/callback'
+            successUri = '/oauth/twitter/callback'
 
         }
     }
