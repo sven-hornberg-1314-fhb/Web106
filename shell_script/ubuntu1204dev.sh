@@ -39,14 +39,14 @@ chown -R $(whoami) /grails
 ### setting env vars
 
 grailsenvvars= "JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-i386\n"
-+ "#M2_HOME=~/grails/apache-maven-3.1.1\n"
-+ "GRAILS_HOME=~/grails/grails-2.3.1\n"
-+ "#MAVEN_REPO=~/.m2"
-+ "GRADLE_HOME=~/grails/gradle-1.8\n"
-+ "PATH=$PATH:$HOME/.local/bin:$HOME/bin:$GRAILS_HOME/bin:M2_HOME:$JAVA_HOME/bin:$GRADLE_HOME/bin\n\n"
-+ "export PATH\nexport JAVA_HOME\nexport GRAILS_HOME\nexport M2_HOME\nexport GRADLE_HOME\nexport MAVEN_REPO"
+grailsenvvars+= "#M2_HOME=~/grails/apache-maven-3.1.1\n"
+grailsenvvars+= "GRAILS_HOME=~/grails/grails-2.3.1\n"
+grailsenvvars+= "#MAVEN_REPO=~/.m2"
+grailsenvvars+= "GRADLE_HOME=~/grails/gradle-1.8\n"
+grailsenvvars+= "PATH=$PATH:$HOME/.local/bin:$HOME/bin:$GRAILS_HOME/bin:M2_HOME:$JAVA_HOME/bin:$GRADLE_HOME/bin\n\n"
+grailsenvvars+= "export PATH\nexport JAVA_HOME\nexport GRAILS_HOME\nexport M2_HOME\nexport GRADLE_HOME\nexport MAVEN_REPO"
 
-$grailsenvvars >> .bashrc
+echo $grailsenvvars >> .bashrc
 
 echo "please reboot and test grails & java"
 
