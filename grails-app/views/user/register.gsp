@@ -210,6 +210,26 @@
                              class="${hasErrors(bean:user,field:'password','errors')}" />
         </div>
 
+        <label for="email">Email</label>
+        <div class="rightcol">
+            <g:passwordField name="email"
+                             class="${hasErrors(bean:user,field:'email','errors')}" />
+        </div>
+
+        <label for="FirstName">Vorname</label>
+        <div class="rightcol">
+            <g:passwordField name="FirstName"
+                             class="${hasErrors(bean:user,field:'email','errors')}" />
+        </div>
+
+        <label for="LastName">Nachname</label>
+        <div class="rightcol">
+            <g:passwordField name="LastName"
+                             class="${hasErrors(bean:user,field:'email','errors')}" />
+        </div>
+
+        <!-- TOKENS -->
+
 
         <label>&nbsp;</label>
         <div class="rightcol">

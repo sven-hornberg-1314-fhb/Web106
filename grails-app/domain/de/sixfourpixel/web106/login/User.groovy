@@ -1,5 +1,7 @@
 package de.sixfourpixel.web106.login
 
+import org.scribe.model.Token
+
 class User {
 
 	transient springSecurityService
@@ -7,6 +9,14 @@ class User {
 	String username
 	String password
 	boolean enabled
+
+    String email
+    String firstName
+    String lastName
+
+    //e.g. tokens<Facebook,FBToken>
+    Map<String,Token> tokens;
+
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
@@ -14,6 +24,10 @@ class User {
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
+        email blank:true
+        firstName blank:true
+        lastName blank:true
+        tokens blank:true
 	}
 
 	static mapping = {
