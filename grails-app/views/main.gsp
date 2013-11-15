@@ -11,16 +11,13 @@
 <html>
 <head>
   <title></title>
-    <style>
 
-
-    </style>
 </head>
 <body>
 
 <sec:ifNotLoggedIn>
-    <g:link controller="login" action="auth">Login</g:link>
-    <g:link controller="user" action="index">Register</g:link>
+    <g:link controller="login" action="auth"><button>Login</button></g:link>
+    <g:link controller="user" action="wizard"><button>Register</button></g:link>
 </sec:ifNotLoggedIn>
 
 
@@ -43,25 +40,27 @@
      (<g:link controller="logout">sign out</g:link>)
 
 </sec:ifLoggedIn>
-<br/>
-<oauth:connect provider="google" id="google-connect-link" >Login with Google</oauth:connect>
-<oauth:connected provider="google">CONNECTED
+<hr/>
 
-    ${session.getAttribute("google:oasAccessToken")}
+
+
+<!--
+<oauth:connect provider="google" id="google-connect-link" >Login with Google</oauth:connect> -->
+<oauth:connected provider="google">CONNECTED to Google with  ${session.getAttribute("google:oasAccessToken")}
     <g:link controller="oauth" action="logout" params="[provider:'twitter']">Logout</g:link>
 </oauth:connected>
-<oauth:disconnected provider="google">DISCONNECTED</oauth:disconnected>
                                                                                      <br/>
-<oauth:connect provider="twitter">Login with Twitter</oauth:connect>
 
-<oauth:connected provider="twitter"> CONNECTED with
-
-${session.getAttribute("twitter:oasAccessToken")}
+<!--<oauth:connect provider="twitter">Login with Twitter</oauth:connect>      -->
+<oauth:connected provider="twitter"> CONNECTED to Twitter with ${session.getAttribute("twitter:oasAccessToken")}
     <g:link controller="oauth" action="logout" params="[provider:'twitter']">Logout</g:link>
 </oauth:connected>
-<oauth:disconnected provider="twitter">DISCONNECTED</oauth:disconnected>
 
-<br/>
+<hr/>
+
+${session}
+
+
 
 </body>
 </html>

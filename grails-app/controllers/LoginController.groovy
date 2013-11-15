@@ -36,9 +36,10 @@ class LoginController {
 		}
 	}
 
-	/**
+      /**
 	 * Show the login page.
 	 */
+
 	def auth = {
 
 		def config = SpringSecurityUtils.securityConfig
@@ -52,6 +53,7 @@ class LoginController {
 		String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
 		render view: view, model: [postUrl: postUrl,
 		                           rememberMeParameter: config.rememberMe.parameter]
+
 	}
 
 	/**

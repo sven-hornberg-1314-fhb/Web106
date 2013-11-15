@@ -45,4 +45,8 @@ class UserController {
         redirect(controller: "logout")
     }
 
+    def wizard = {
+         render view: "wizard"
+    }
+
 }

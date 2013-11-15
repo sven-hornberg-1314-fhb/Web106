@@ -89,30 +89,45 @@
 	<div class='inner'>
 		<div class='fheader'><g:message code="springSecurity.login.header"/></div>
 
+        <% boolean localEnabled = true %>
+
 		<g:if test='${flash.message}'>
 			<div class='login_message'>${flash.message}</div>
 		</g:if>
 
-		<form action='${postUrl}' method='POST' id='loginForm' class='cssform' autocomplete='off'>
-			<p>
-				<label for='username'><g:message code="springSecurity.login.username.label"/>:</label>
-				<input type='text' class='text_' name='j_username' id='username'/>
-			</p>
+        <g:if test='${localEnabled}'>
 
-			<p>
-				<label for='password'><g:message code="springSecurity.login.password.label"/>:</label>
-				<input type='password' class='text_' name='j_password' id='password'/>
-			</p>
+            <form action='${postUrl}' method='POST' id='loginForm' class='cssform' autocomplete='off'>
+                <p>
+                    <label for='username'><g:message code="springSecurity.login.username.label"/>:</label>
+                    <input type='text' class='text_' name='j_username' id='username'/>
+                </p>
 
-			<p id="remember_me_holder">
-				<input type='checkbox' class='chk' name='${rememberMeParameter}' id='remember_me' <g:if test='${hasCookie}'>checked='checked'</g:if>/>
-				<label for='remember_me'><g:message code="springSecurity.login.remember.me.label"/></label>
-			</p>
+                <p>
+                    <label for='password'><g:message code="springSecurity.login.password.label"/>:</label>
+                    <input type='password' class='text_' name='j_password' id='password'/>
+                </p>
 
-			<p>
-				<input type='submit' id="submit" value='${message(code: "springSecurity.login.button")}'/>
-			</p>
-		</form>
+                <p id="remember_me_holder">
+                    <input type='checkbox' class='chk' name='${rememberMeParameter}' id='remember_me' <g:if test='${hasCookie}'>checked='checked'</g:if>/>
+                    <label for='remember_me'><g:message code="springSecurity.login.remember.me.label"/></label>
+                </p>
+
+                <p>
+                    <input type='submit' id="submit" value='${message(code: "springSecurity.login.button")}'/>
+                </p>
+            </form>
+
+        </g:if>
+
+        <g:if test='${!localEnabled}'>
+            <center><oauth:connect provider="google" >Login with Google</oauth:connect></center> <br />
+            <center><oauth:connect provider="twitter">Login with Twitter</oauth:connect></center>
+        </g:if>
+
+
+
+        <g:link uri="/">Zurück</g:link>
 	</div>
 </div>
 <script type='text/javascript'>
