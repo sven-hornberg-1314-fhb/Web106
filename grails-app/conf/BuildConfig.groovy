@@ -68,11 +68,11 @@ grails.project.dependency.resolution = {
         runtime ":hibernate:3.6.10.2" // or ":hibernate4:4.1.11.2"
         runtime ":database-migration:1.3.5"
         runtime ":jquery:1.10.2"
-        runtime ":resources:1.2.1"
-        // Uncomment these (or add new ones) to enable additional resources capabilities
-        //runtime ":zipped-resources:1.0.1"
-        //runtime ":cached-resources:1.1"
-        //runtime ":yui-minify-resources:0.1.5"
+        runtime ":ResourceHolder:1.2.1"
+        // Uncomment these (or add new ones) to enable additional ResourceHolder capabilities
+        //runtime ":zipped-ResourceHolder:1.0.1"
+        //runtime ":cached-ResourceHolder:1.1"
+        //runtime ":yui-minify-ResourceHolder:0.1.5"
 
     }
 }

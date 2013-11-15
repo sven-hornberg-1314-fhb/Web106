@@ -12,6 +12,7 @@ import uk.co.desirableobjects.oauth.scribe.holder.RedirectHolder
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import uk.co.desirableobjects.oauth.scribe.exception.MissingRequestTokenException
 import grails.converters.JSON
+import de.sixfourpixel.web106.ResourceHolder
 
 
 class OauthController {
@@ -47,9 +48,12 @@ class OauthController {
     }
 
     def resource(){
+
         Token twitterAccessToken = session[oauthService.findSessionKeyForAccessToken('twitter')]
 
-        def resourceURL = "https://api.twitter.com/1.1/account/verify_credentials.json"
+        def resourceURL = ResourceHolder.resource.twitter
+
+        //def resourceURL = "https://api.twitter.com/1.1/account/verify_credentials.json"
         def res = oauthService.getTwitterResource(twitterAccessToken, resourceURL)
 
         return res
