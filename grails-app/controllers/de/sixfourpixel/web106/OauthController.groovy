@@ -29,23 +29,24 @@ class OauthController {
      */
     def index(){
 
-        def response = JSON.parse(resource().getBody())
-        //render response.name
-        //render response.id
-        //render response.screen_name
+        def provider = session.getAttribute('providername').toString().capitalize()
+        def res = resource()
+
+        def response = JSON.parse(res.getBody())
+        def method = ResourceHolder.greeting."${provider}"
+        def username = response."$method" as String
 
         //look for User with same username as in oauth login session
-        def user_exists =  User.findByUsername("${response.screen_name}")
+        def user_exists =  User.findByUsername(username)
+
 
         if(user_exists){
             log.info user_exists
             //get user data and write to session e.g. username for greeting
             redirect(uri: "/")
         }else{
-
             //create dummy object of new user
-            def user = new User(username: "${response.screen_name}")
-
+            def user = new User(username: username)
             render(view: "/user/register" ,model: [user: user])
         }
 
