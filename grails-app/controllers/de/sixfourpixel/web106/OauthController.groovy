@@ -21,6 +21,12 @@ class OauthController {
 
     OauthService oauthService
 
+    /**
+     *  turns response to JSON
+     *  checks existence of user
+     *  switches to registration or login page
+     * @return
+     */
     def index(){
 
         def response = JSON.parse(resource().getBody())
@@ -30,8 +36,6 @@ class OauthController {
 
         //look for User with same username as in oauth login session
         def user_exists =  User.findByUsername("${response.screen_name}")
-
-        render user_exists
 
         if(user_exists){
             log.info user_exists
@@ -47,20 +51,33 @@ class OauthController {
 
     }
 
+    /**
+     * gets providerspecific content of user information
+     * @return
+     *      res, provider content
+     */
     def resource(){
 
-        Token twitterAccessToken = session[oauthService.findSessionKeyForAccessToken('twitter')]
+        def provider = session.getAttribute('providername')
+        Token accessToken = session[oauthService.findSessionKeyForAccessToken(provider)]
 
-        def resourceURL = ResourceHolder.resource.twitter
+        provider = provider.toString().capitalize()
+        def resourceURL = ResourceHolder.resource.get(provider)
 
-        //def resourceURL = "https://api.twitter.com/1.1/account/verify_credentials.json"
-        def res = oauthService.getTwitterResource(twitterAccessToken, resourceURL)
+        //def res = oauthService.get@provider"Resource(accessToken, resourceURL)
+
+        def args = [accessToken,resourceURL]
+        def method =  "get"+provider+"Resource"
+        def res = oauthService."$method"(*args)
 
         return res
     }
 
+    /**
+     * resets complete session
+     * @return
+     */
     def logout(){
-        session[oauthService.findSessionKeyForAccessToken(params.provider)]
         session.invalidate()
         redirect(uri:'/')
     }
@@ -126,6 +143,9 @@ class OauthController {
 
         session[oauthService.findSessionKeyForRequestToken(providerName)] = requestToken
         String url = oauthService.getAuthorizationUrl(providerName, requestToken)
+
+        //set provider to session
+        session.setAttribute("providername",providerName)
 
         RedirectHolder.setUri(params.redirectUrl)
         return redirect(url: url)
