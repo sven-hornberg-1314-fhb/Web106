@@ -13,6 +13,7 @@ import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import uk.co.desirableobjects.oauth.scribe.exception.MissingRequestTokenException
 import grails.converters.JSON
 
+
 class OauthController {
 
     private static final Token EMPTY_TOKEN = new Token('', '')
@@ -21,20 +22,22 @@ class OauthController {
 
     def index(){
 
-        render  resource() as JSON
+        //res = resource()
+        def response = JSON.parse(resource().getBody())
+        render response.name
 
         //look for User with same username as in oauth login session
         def user_exists =  User.findByUsername("marcman89")
 
         if(user_exists){
             log.info user_exists
-            //get user data and write to session?
-            redirect(uri: "/")
+            //get user data and write to session e.g. username for greeting
+            //redirect(uri: "/")
         }else{
 
             log.info "User doesn't exist"
             //map JSON params to User DO for registration
-            redirect(uri: "/user/index")
+            //redirect(uri: "/user/index")
         }
 
     }
