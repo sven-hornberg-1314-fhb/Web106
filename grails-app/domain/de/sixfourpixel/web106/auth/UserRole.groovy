@@ -1,4 +1,4 @@
-package de.sixfourpixel.web106.login
+package de.sixfourpixel.web106.auth
 
 import org.apache.commons.lang.builder.HashCodeBuilder
 

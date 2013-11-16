@@ -1,4 +1,4 @@
-package de.sixfourpixel.web106.login
+package de.sixfourpixel.web106.auth
 
 class Role {
 

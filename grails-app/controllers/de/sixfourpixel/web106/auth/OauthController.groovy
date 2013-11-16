@@ -1,9 +1,6 @@
-package de.sixfourpixel.web106
+package de.sixfourpixel.web106.auth
 
-import de.sixfourpixel.web106.login.User
 import grails.plugins.springsecurity.SpringSecurityService
-import groovy.json.JsonSlurper
-import org.scribe.builder.api.TwitterApi
 import org.scribe.model.Token
 import org.scribe.model.Verifier
 import uk.co.desirableobjects.oauth.scribe.OauthProvider
@@ -27,7 +24,7 @@ class OauthController {
     /**
      *  turns response to JSON
      *  checks existence of user
-     *  switches to registration or login page
+     *  switches to registration or auth page
      * @return
      */
     def index(){
@@ -39,7 +36,7 @@ class OauthController {
         def method = ResourceHolder.greeting."${provider}"
         def username = response."$method" as String
 
-        //look for User with same username as in oauth login session
+        //look for User with same username as in oauth auth session
         def user_exists =  User.findByUsername(username)
 
 

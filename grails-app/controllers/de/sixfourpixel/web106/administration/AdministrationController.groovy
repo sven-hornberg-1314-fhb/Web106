@@ -3,7 +3,7 @@ package de.sixfourpixel.web106.administration
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 
-import de.sixfourpixel.web106.login.*
+import de.sixfourpixel.web106.auth.*
 
 @Secured(['ROLE_ADMIN'])
 class AdministrationController {  

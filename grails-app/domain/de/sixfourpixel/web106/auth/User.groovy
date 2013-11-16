@@ -1,6 +1,4 @@
-package de.sixfourpixel.web106.login
-
-import org.scribe.model.Token
+package de.sixfourpixel.web106.auth
 
 class User {
 
