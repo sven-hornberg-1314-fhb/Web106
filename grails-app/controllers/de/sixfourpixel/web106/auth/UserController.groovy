@@ -24,9 +24,9 @@ class UserController {
             //u.password = u.password.encodeAsSHA256()
             u.enabled=true
 
-            def provider = session.getAttribute('providername')
-            Token accessToken = session[oauthService.findSessionKeyForAccessToken(provider)]
-            u.tokens.put(provider,accessToken)
+            //def provider = session.getAttribute('providername')
+            //Token accessToken = session[oauthService.findSessionKeyForAccessToken(provider)]
+            //u.tokens.put(provider,accessToken)
 
             if (! u.save(flush: true)) {
                 // validation failed, render registration page again

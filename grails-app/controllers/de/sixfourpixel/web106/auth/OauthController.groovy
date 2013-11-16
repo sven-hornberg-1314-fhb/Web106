@@ -45,9 +45,13 @@ class OauthController {
             redirect(uri: "/")
         }else{
 
+            def provider = session.getAttribute('providername')
+            Token accessToken = session[oauthService.findSessionKeyForAccessToken(provider)]
+
             if(session.providername){
                 session.setAttribute('step','Step2')
-                def user = new User(username: username)
+                def user = new User(username: username )
+                user.tokens.put(provider,accessToken)
                 render(view: "/user/register" ,model: [user: user])
             }else{
                 session.setAttribute('step','Step1')
