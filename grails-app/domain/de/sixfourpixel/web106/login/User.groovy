@@ -24,10 +24,10 @@ class User {
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
-        email blank:true
-        firstName blank:true
-        lastName blank:true
-        tokens blank:true
+        email blank:false ,email:true
+        firstName nullable: true
+        lastName nullable:true
+        tokens  nullable:true
 	}
 
 	static mapping = {

@@ -27,8 +27,11 @@ class UserController {
                 UserRole.create u, Role.findByAuthority('ROLE_USER'), true
 
                 // is the session used anymore? ,comes from former example
-                session.user = u
-                redirect(uri:"/")
+                //session.user = u
+                //redirect(uri:"/")
+
+                //instead clear session
+                redirect(action: logout)
             }
         } else if (session.user) {
             // don't allow registration while user is logged in
@@ -46,7 +49,7 @@ class UserController {
     }
 
     def wizard = {
-         render view: "wizard"
+         render view: "register"
     }
 
 }

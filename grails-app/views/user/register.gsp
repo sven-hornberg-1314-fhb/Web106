@@ -1,241 +1,189 @@
 <html>
 <head>
-    <title>POP - User Registration</title>
-    <meta name="layout" content="main" />
-    <style>/* reset everything */
-    * {
-        margin:  0px;
+    <meta name='layout' content='main'/>
+    <title><g:message code="springSecurity.login.title"/></title>
+    <style type='text/css' media='screen'>
+    #login {
+        margin: 15px 0px;
         padding: 0px;
-        border:  0px;
-    }
-
-        /* for font size settings, see also
-         * http://www.alistapart.com/articles/howtosizetextincss/
-         */
-    html {
-        font-size: 62.5%;
-    }
-
-    body {
-        font-family: "Century Gothic", Verdana, sans-serif;
         text-align: center;
-        font-size: 1.2em;
-        line-height: 1.8em;
     }
 
-        /* header formatting */
-    h1, h2, h3, h4, h5, h6 {
-        color: #004A7F;
-        font-weight: normal;
-        margin: 0em 0em 0.5em 0em;
-    }
-
-    h1 { font-size: 2.2em; }
-    h2 { font-size: 2.0em; }
-    h3 { font-size: 1.8em; }
-    h4 { font-size: 1.6em; }
-    h5 { font-size: 1.4em; }
-    h6 { font-size: 1.2em; }
-
-    a { color: #FF9900; text-decoration: none; }
-    a:link {}
-    a:visited {}
-    a:hover { text-decoration: underline overline;}
-    a:active {}
-
-    div#wrapper {
-        width: 800px;
-        margin: 10px auto;
+    #login .inner {
+        width: 340px;
+        padding-bottom: 6px;
+        margin: 60px auto;
         text-align: left;
-        background: #FFFFFF;
+        border: 1px solid #aab;
+        background-color: #f0f0fa;
+        -moz-box-shadow: 2px 2px 2px #eee;
+        -webkit-box-shadow: 2px 2px 2px #eee;
+        -khtml-box-shadow: 2px 2px 2px #eee;
+        box-shadow: 2px 2px 2px #eee;
     }
 
-    div#login {
-        float: right;
+    #login .inner .fheader {
+        padding: 18px 26px 14px 26px;
+        background-color: #f7f7ff;
+        margin: 0px 0 14px 0;
+        color: #2e3741;
+        font-size: 18px;
+        font-weight: bold;
     }
 
-    div#footer {
-        text-align: center;
-        border-top: 1px solid #333333;
+    #login .inner .cssform p {
+        clear: left;
+        margin: 0;
+        padding: 4px 0 3px 0;
+        padding-left: 105px;
+        margin-bottom: 20px;
+        height: 1%;
     }
 
-        /* ----- simple input form ----- */
-    .simpleform {
-        margin: 0 auto 1.0em auto;
-        width: 80%;
+    #login .inner .cssform input[type='text'] {
+        width: 120px;
     }
 
-    .simpleform fieldset {
-        padding: 0.5em;
-        border: solid 2px #b7ddf2;
-        background: #ebf4fb;
-    }
-
-    .simpleform legend {
-        color: #004A7F;
-        font-size: 1.4em;
-        font-weight: normal;
-    }
-
-    .simpleform p {
-        margin-bottom: 1.0em;
-    }
-
-    .simpleform p.info {
-        color: #666666;
-        padding-bottom: 0.5em;
-        border-bottom: 1px solid #b7ddf2;
-        margin-bottom: 1.0em;
-    }
-
-    .simpleform label {
-        width: 30%;
-        clear: both;
+    #login .inner .cssform label {
+        font-weight: bold;
         float: left;
         text-align: right;
-        display: inline;
-        font-size: 1.2em;
-        font-weight: bold;
-        padding: 0.3em 0em;
+        margin-left: -105px;
+        width: 110px;
+        padding-top: 3px;
+        padding-right: 10px;
     }
 
-    .simpleform div.rightcol {
-        width: 68%;
-        float: right;
+    #login #remember_me_holder {
+        padding-left: 120px;
+    }
+
+    #login #submit {
+        margin-left: 15px;
+    }
+
+    #login #remember_me_holder label {
+        float: none;
+        margin-left: 0;
         text-align: left;
-        display: inline;
-        font-size: 1.2em;
-        font-weight: bold;
-        padding: 0.3em 0em;
+        width: 200px
     }
 
-    .simpleform div.rightcol input {
-        font-size: 1.0em;
-        border: 1px solid #aacfe4;
-        width: 70%;
+    #login .inner .login_message {
+        padding: 6px 25px 20px 25px;
+        color: #c33;
     }
 
-    .simpleform div.rightcol span.info {
-        font-size: 0.8em;
-        font-weight: normal;
-        color: #666666;
+    #login .inner .text_ {
+        width: 120px;
     }
 
-    .simpleform div.rightcol input.button {
-        background-color: #FFFFFF;
-        border: 1px solid #999999;
-        border-color: #CCCCCC #CCCCCC #999999 #999999;
-        padding: 0.1em 0.0em;
-        text-align: center;
-        width: 33%;
+    #login .inner .chk {
+        height: 12px;
     }
-
-    .simpleform div.rightcol input.button:hover {
-        background: #FF9900;
-        color: #FFFFFF;
-    }
-
-    .simpleform div.rightcol input:focus,
-    .simpleform div.rightcol select:focus,
-    .simpleform div.rightcol textarea:focus {
-        border: 1px solid gray;
-    }
-
-    .simpleform div.rightcol input.errors {
-        border: 1px solid red;
-    }
-
-        /* grails messages and errors */
-    .message {
-        background: #f3f8fc url(../images/skin/information.png) 8px 50% no-repeat;
-        border: 1px solid #b2d1ff;
-        color: #006dba;
-        margin: 10px 0 5px 0;
-        padding: 5px 5px 5px 30px
-    }
-
-    div.errors {
-        background: #fff3f3;
-        border: 1px solid red;
-        color: #cc0000;
-        margin: 10px 0 5px 0;
-        padding: 5px 0 5px 0;
-    }
-    div.errors ul {
-        list-style: none;
-        padding: 0;
-    }
-    div.errors li {
-        background: url(../images/skin/exclamation.png) 8px 0% no-repeat;
-        line-height: 16px;
-        padding-left: 30px;
-    }
-
-    td.errors select {
-        border: 1px solid red;
-    }
-    td.errors input {
-        border: 1px solid red;
-    }</style>
+    </style>
 </head>
+
 <body>
+<div id='login'>
+    <div class='inner'>
+        <div class='fheader'><g:message code="springSecurity.login.header"/></div>
 
-<g:form class="simpleform" url="[controller:'user',action:'register']">
-    <fieldset>
-        <legend>User Registration</legend>
-        <p class="info">
-            Complete the form below to create an account!
-        </p>
-        <g:hasErrors bean="${user}">
-            <div class="errors">
-                <g:renderErrors bean="${user}"/>
-            </div>
-        </g:hasErrors>
+        <g:if test='${flash.message}'>
+            <div class='login_message'>${flash.message}</div>
+        </g:if>
 
-        <label for="username">Username</label>
-        <div class="rightcol">
-            <g:textField name="username" value="${user?.username}"
-                         class="${hasErrors(bean:user,field:'username','errors')}"/>
-        </div>
+        <g:if test="${!params.get(step)}">
+            ${params.put(step, 2)}
+        </g:if>
 
-        <label for="password">Password</label>
-        <div class="rightcol">
-            <g:passwordField name="password"
-                             class="${hasErrors(bean:user,field:'password','errors')}" />
-        </div>
-
-        <label for="confirm">Confirm Password</label>
-        <div class="rightcol">
-            <g:passwordField name="confirm"
-                             class="${hasErrors(bean:user,field:'password','errors')}" />
-        </div>
-
-        <label for="email">Email</label>
-        <div class="rightcol">
-            <g:passwordField name="email"
-                             class="${hasErrors(bean:user,field:'email','errors')}" />
-        </div>
-
-        <label for="FirstName">Vorname</label>
-        <div class="rightcol">
-            <g:passwordField name="FirstName"
-                             class="${hasErrors(bean:user,field:'email','errors')}" />
-        </div>
-
-        <label for="LastName">Nachname</label>
-        <div class="rightcol">
-            <g:passwordField name="LastName"
-                             class="${hasErrors(bean:user,field:'email','errors')}" />
-        </div>
-
-        <!-- TOKENS -->
+        <g:if test="${params.get(step)==1}">
+            <h1>STEP 1</h1>
+            <center><oauth:connect provider="google" >Login with Google</oauth:connect></center> <br />
+            <center><oauth:connect provider="twitter">Login with Twitter</oauth:connect></center>
+            <hr/>
+        </g:if>
 
 
-        <label>&nbsp;</label>
-        <div class="rightcol">
-            <g:submitButton class="button" name="submitButton" value="Create Account" />
-        </div>
-    </fieldset>
-</g:form>
+        <g:if test="${params.get(step)==2}">
+
+            <h1>STEP 2</h1>
+            <g:form class="simpleform" url="[controller:'user',action:'register']">
+                <fieldset>
+                    <legend>User Registration</legend>
+                    <p class="info">
+                        Complete the form below to create an account!
+                    </p>                                           <br/>
+                    <g:hasErrors bean="${user}">
+                        <div class="errors">
+                            <g:renderErrors bean="${user}"/>
+                        </div>
+                    </g:hasErrors>
+
+                    <label for="username">Username</label>
+                    <div class="rightcol">
+                        <g:textField name="username" value="${user?.username}"
+                                     class="${hasErrors(bean:user,field:'username','errors')}"/>
+                    </div>
+
+                    <label for="password">Password</label>
+                    <div class="rightcol">
+                        <g:passwordField name="password"
+                                         class="${hasErrors(bean:user,field:'password','errors')}" />
+                    </div>
+
+                    <label for="confirm">Confirm Password</label>
+                    <div class="rightcol">
+                        <g:passwordField name="confirm"
+                                         class="${hasErrors(bean:user,field:'password','errors')}" />
+                    </div>
+
+                    <label for="email">Email</label>
+                    <div class="rightcol">
+                        <g:textField name="email"   value="${user?.email}"
+                                     class="${hasErrors(bean:user,field:'email','errors')}" />
+                    </div>
+
+                    <label for="FirstName">Vorname</label>
+                    <div class="rightcol">
+                        <g:textField name="FirstName" value="${user?.firstName}"
+                                     class="${hasErrors(bean:user,field:'firstName','errors')}" />
+                    </div>
+
+                    <label for="LastName">Nachname</label>
+                    <div class="rightcol">
+                        <g:textField name="LastName"  value="${user?.lastName}"
+                                     class="${hasErrors(bean:user,field:'lastName','errors')}" />
+                    </div>
+
+                <!-- TOKENS -->
+                    <label for="#">Tokens</label>
+                    <div class="rightcol">
+                    <g:each in="${user?.tokens}" var="entry">
+                        ${entry.key} = ${entry.value}<br/>
+                    </g:each>
+                    </div>
+
+                    <label>&nbsp;</label>
+                    <div class="rightcol">
+                        <g:submitButton class="button" name="submitButton" value="Create Account" />
+                    </div>
+                </fieldset>
+            </g:form>
+
+
+        </g:if>
+
+
+        <g:link uri="/">Zurück</g:link>
+    </div>
+</div>
+<script type='text/javascript'>
+    <!--
+    (function() {
+        document.forms['loginForm'].elements['j_username'].focus();
+    })();
+    // -->
+</script>
 </body>
 </html>
