@@ -34,11 +34,12 @@ apt-get install openjdk-7-jdk openjdk-7-source openjdk-7-doc openjdk-7-jre-headl
 cd ~/
 
 #change owning user from grails dir
-chown -R $(whoami) grails
+user=$(stat -c '%U' ~/.local)
+chown -R $user:$user grails
 
 #craete & chown .m2
 mkdir .m2
-chown -R $(whoami) .m2
+chown -R $user:$user .m2
 
 ### setting env vars
 
@@ -55,7 +56,10 @@ echo "export M2_HOME\n" >> .bashrc
 echo "export GRAILS_HOME\n" >> .bashrc 
 echo "export MAVEN_REPO\n" >> .bashrc 
 echo "export GRADLE_HOME\n" >> .bashrc 
-echo "export PATH\n" >> .bashrc 
+echo "export PATH\n" >> .bashrc
+
+###last update & upgrade
+apt-get update && apt-get upgrade -y
 
 echo "please reboot and test grails & java"
 
