@@ -29,24 +29,21 @@ class OauthController {
      */
     def index(){
 
-        def provider = session.getAttribute('providername').toString().capitalize()
+        def providername = session.getAttribute('providername').toString().capitalize()
         def res = resource()
 
-        def response = JSON.parse(res.getBody())
-        def method = ResourceHolder.greeting."${provider}"
+        def response = JSON.parse(res.body)
+        def method = ResourceHolder.greeting."${providername}"
         def username = response."$method" as String
 
         //look for User with same username as in oauth auth session
         def user_exists =  User.findByUsername(username)
 
-
         if(user_exists){
-            log.info user_exists
             session.user = User.findByUsername(username)
             session.removeAttribute('step')
             redirect(uri: "/")
         }else{
-            //create dummy object of new user
 
             if(session.providername){
                 session.setAttribute('step','Step2')
@@ -56,10 +53,7 @@ class OauthController {
                 session.setAttribute('step','Step1')
                 render(view: "/user/register")
             }
-
-
         }
-
     }
 
     /**
@@ -74,8 +68,6 @@ class OauthController {
 
         provider = provider.toString().capitalize()
         def resourceURL = ResourceHolder.resource.get(provider)
-
-        //def res = oauthService.get@provider"Resource(accessToken, resourceURL)
 
         def args = [accessToken,resourceURL]
         def method =  "get"+provider+"Resource"
