@@ -93,19 +93,18 @@
             <div class='login_message'>${flash.message}</div>
         </g:if>
 
-        <g:if test="${!params.get(step)}">
-            ${params.put(step, 2)}
+        <g:if test='${!session.step}'>
+            ${session.setAttribute('step','Step1')}
         </g:if>
 
-        <g:if test="${params.get(step)==1}">
+        <g:if test="${session.step=='Step1'}">
             <h1>STEP 1</h1>
             <center><oauth:connect provider="google" >Login with Google</oauth:connect></center> <br />
             <center><oauth:connect provider="twitter">Login with Twitter</oauth:connect></center>
             <hr/>
         </g:if>
 
-
-        <g:if test="${params.get(step)==2}">
+        <g:if test="${session.step=='Step2'}">
 
             <h1>STEP 2</h1>
             <g:form class="simpleform" url="[controller:'user',action:'register']">

@@ -10,6 +10,7 @@ import uk.co.desirableobjects.oauth.scribe.OauthService
 class UserController {
     OauthService oauthService
 
+
 	def index = {
 
         //falls token in der session --> step2
@@ -38,6 +39,7 @@ class UserController {
 
                 // is the session used anymore? ,comes from former example
                 session.user = u
+                session.removeAttribute('step')
                 redirect(uri:"/")
 
             }
@@ -49,7 +51,12 @@ class UserController {
     }
 
     def login = {
-        redirect(controller: "login")
+        if(!session.user){
+            redirect(controller: "login")
+        }else{
+            redirect(uri:"/")
+        }
+
     }
 
     def logout = {

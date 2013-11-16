@@ -120,8 +120,10 @@
 
         </g:if>
 
+
+
         <g:if test='${!localEnabled}'>
-            <center><oauth:connect provider="google" >Login with Google</oauth:connect></center> <br />
+            <center><oauth:connect provider="google">Login with Google</oauth:connect></center> <br />
             <center><oauth:connect provider="twitter">Login with Twitter</oauth:connect></center>
         </g:if>
 

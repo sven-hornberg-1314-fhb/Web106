@@ -1,6 +1,7 @@
 package de.sixfourpixel.web106
 
 import de.sixfourpixel.web106.login.User
+import grails.plugins.springsecurity.SpringSecurityService
 import groovy.json.JsonSlurper
 import org.scribe.builder.api.TwitterApi
 import org.scribe.model.Token
@@ -16,6 +17,8 @@ import de.sixfourpixel.web106.ResourceHolder
 
 
 class OauthController {
+
+    SpringSecurityService springSecurityService
 
     private static final Token EMPTY_TOKEN = new Token('', '')
 
@@ -43,12 +46,21 @@ class OauthController {
         if(user_exists){
             log.info user_exists
             session.user = User.findByUsername(username)
-            //get user data and write to session e.g. username for greeting
+            session.removeAttribute('step')
             redirect(uri: "/")
         }else{
             //create dummy object of new user
-            def user = new User(username: username)
-            render(view: "/user/register" ,model: [user: user])
+
+            if(session.providername){
+                session.setAttribute('step','Step2')
+                def user = new User(username: username)
+                render(view: "/user/register" ,model: [user: user])
+            }else{
+                session.setAttribute('step','Step1')
+                render(view: "/user/register")
+            }
+
+
         }
 
     }

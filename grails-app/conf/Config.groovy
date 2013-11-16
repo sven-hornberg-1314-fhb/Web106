@@ -140,6 +140,7 @@ oauth {
             secret = 'pw5wt1aYfQai4AcWJ7gkRWBa'
             callback = 'http://localhost:8080/Web106/oauth/google/callback'
             scope = 'https://www.googleapis.com/auth/userinfo.profile'
+            successUri = '/oauth/google/callback'
         }
 
         twitter {
