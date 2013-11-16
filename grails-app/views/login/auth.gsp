@@ -89,7 +89,7 @@
 	<div class='inner'>
 		<div class='fheader'><g:message code="springSecurity.login.header"/></div>
 
-        <% boolean localEnabled = true %>
+        <% boolean localEnabled = false %>
 
 		<g:if test='${flash.message}'>
 			<div class='login_message'>${flash.message}</div>

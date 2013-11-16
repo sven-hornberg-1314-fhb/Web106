@@ -4,11 +4,17 @@
 import de.sixfourpixel.web106.login.Role
 import de.sixfourpixel.web106.login.User
 import de.sixfourpixel.web106.login.UserRole
+import org.scribe.model.Token
+import uk.co.desirableobjects.oauth.scribe.OauthService
 
 class UserController {
+    OauthService oauthService
 
 	def index = {
-		render(view: "/user/register")
+
+        //falls token in der session --> step2
+		//render(view: "/user/register")
+        redirect(uri: "/user/register")
 	}
 
     def register = {
@@ -16,8 +22,12 @@ class UserController {
         if (request.method == 'POST') {
             // create domain object and assign parameters using data binding
             def u = new User(params)
-            //u.passwordHashed = u.password.encodeAsPassword()
+            //u.password = u.password.encodeAsSHA256()
             u.enabled=true
+
+            def provider = session.getAttribute('providername')
+            Token accessToken = session[oauthService.findSessionKeyForAccessToken(provider)]
+            u.tokens.put(provider,accessToken)
 
             if (! u.save(flush: true)) {
                 // validation failed, render registration page again
@@ -27,11 +37,9 @@ class UserController {
                 UserRole.create u, Role.findByAuthority('ROLE_USER'), true
 
                 // is the session used anymore? ,comes from former example
-                //session.user = u
-                //redirect(uri:"/")
+                session.user = u
+                redirect(uri:"/")
 
-                //instead clear session
-                redirect(action: logout)
             }
         } else if (session.user) {
             // don't allow registration while user is logged in
@@ -46,10 +54,6 @@ class UserController {
 
     def logout = {
         redirect(controller: "logout")
-    }
-
-    def wizard = {
-         render view: "register"
     }
 
 }

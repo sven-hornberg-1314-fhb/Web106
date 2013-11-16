@@ -15,7 +15,7 @@ class User {
     String lastName
 
     //e.g. tokens<Facebook,FBToken>
-    Map<String,Token> tokens;
+    def tokens = [:]
 
 	boolean accountExpired
 	boolean accountLocked
@@ -23,11 +23,11 @@ class User {
 
 	static constraints = {
 		username blank: false, unique: true
-		password blank: false
-        email blank:false ,email:true
-        firstName nullable: true
-        lastName nullable:true
-        tokens  nullable:true
+		password blank: true, nullable: true
+        email blank:false ,email:true, unique:true
+        firstName blank:false, nullable: true
+        lastName blank:false, nullable: true
+        tokens  blank:true
 	}
 
 	static mapping = {

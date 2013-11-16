@@ -42,6 +42,7 @@ class OauthController {
 
         if(user_exists){
             log.info user_exists
+            session.user = User.findByUsername(username)
             //get user data and write to session e.g. username for greeting
             redirect(uri: "/")
         }else{
