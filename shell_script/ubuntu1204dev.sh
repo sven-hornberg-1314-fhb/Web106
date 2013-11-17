@@ -51,14 +51,14 @@ echo "GRAILS_HOME=/home/$user/grails/grails-2.3.1" >> .bashrc
 echo "MAVEN_REPO=/home/$user/.m2" >> .bashrc
 echo "GRADLE_HOME=/home/$user/grails/gradle-1.8" >> .bashrc
 
-echo "PATH=\$PATH:\$HOME/.local/bin:\$HOME/bin:\$GRAILS_HOME/bin:M2_HOME:\$JAVA_HOME/bin:\$GRADLE_HOME/bin" >> .bashrc
+echo "PATH=\$PATH:\$HOME/.local/bin:\$HOME/bin:\$GRAILS_HOME/bin:\$M2_HOME/bin:\$JAVA_HOME/bin:\$GRADLE_HOME/bin" >> .bashrc
 
-#echo "export JAVA_HOME\n" >> .bashrc 
-#echo "export M2_HOME\n" >> .bashrc 
-#echo "export GRAILS_HOME\n" >> .bashrc 
-#echo "export MAVEN_REPO\n" >> .bashrc 
-#echo "export GRADLE_HOME\n" >> .bashrc 
-#echo "export PATH\n" >> .bashrc
+echo "export JAVA_HOME\n" >> .bashrc 
+echo "export M2_HOME\n" >> .bashrc 
+echo "export GRAILS_HOME\n" >> .bashrc 
+echo "export MAVEN_REPO\n" >> .bashrc 
+echo "export GRADLE_HOME\n" >> .bashrc 
+echo "export PATH\n" >> .bashrc
 
 ###last update & upgrade
 apt-get update && apt-get upgrade -y
