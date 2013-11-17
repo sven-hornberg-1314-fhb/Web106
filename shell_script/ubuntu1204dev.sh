@@ -43,20 +43,22 @@ chown -R $user:$user .m2
 
 ### setting env vars
 
-echo "JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-i386\n" >> .bashrc
-echo "M2_HOME=~/grails/apache-maven-3.1.1\n" >> .bashrc
-echo "GRAILS_HOME=~/grails/grails-2.3.1\n" >> .bashrc
-echo "MAVEN_REPO=~/.m2" >> .bashrc
-echo "GRADLE_HOME=~/grails/gradle-1.8\n" >> .bashrc
+### setting env vars
 
-echo "PATH=\$PATH:\$HOME/.local/bin:\$HOME/bin:\$GRAILS_HOME/bin:M2_HOME:\$JAVA_HOME/bin:\$GRADLE_HOME/bin\n" >> .bashrc
+echo "JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-i386" >> .bashrc
+echo "M2_HOME=/home/$user/grails/apache-maven-3.1.1" >> .bashrc
+echo "GRAILS_HOME=/home/$user/grails/grails-2.3.1" >> .bashrc
+echo "MAVEN_REPO=/home/$user/.m2" >> .bashrc
+echo "GRADLE_HOME=/home/$user/grails/gradle-1.8" >> .bashrc
 
-echo "export JAVA_HOME\n" >> .bashrc 
-echo "export M2_HOME\n" >> .bashrc 
-echo "export GRAILS_HOME\n" >> .bashrc 
-echo "export MAVEN_REPO\n" >> .bashrc 
-echo "export GRADLE_HOME\n" >> .bashrc 
-echo "export PATH\n" >> .bashrc
+echo "PATH=\$PATH:\$HOME/.local/bin:\$HOME/bin:\$GRAILS_HOME/bin:M2_HOME:\$JAVA_HOME/bin:\$GRADLE_HOME/bin" >> .bashrc
+
+#echo "export JAVA_HOME\n" >> .bashrc 
+#echo "export M2_HOME\n" >> .bashrc 
+#echo "export GRAILS_HOME\n" >> .bashrc 
+#echo "export MAVEN_REPO\n" >> .bashrc 
+#echo "export GRADLE_HOME\n" >> .bashrc 
+#echo "export PATH\n" >> .bashrc
 
 ###last update & upgrade
 apt-get update && apt-get upgrade -y
