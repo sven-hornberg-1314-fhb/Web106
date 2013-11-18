@@ -12,6 +12,8 @@ import uk.co.desirableobjects.oauth.scribe.exception.MissingRequestTokenExceptio
 import grails.converters.JSON
 import web106.ResourceHolder
 
+import javax.servlet.http.HttpSession
+
 
 class OauthController {
 
@@ -20,6 +22,24 @@ class OauthController {
     private static final Token EMPTY_TOKEN = new Token('', '')
 
     OauthService oauthService
+
+
+    private boolean checkAdmin(String providername, String username) {
+
+        print username
+
+        boolean returnValue = false
+
+        if(providername=='twitter'){
+            grailsApplication.config.oauth.admins.twitter.each{
+                if(username.equals(it)){
+                    returnValue = true
+                }
+            }
+        }
+        return returnValue
+    }
+
 
     /**
      *  turns response to JSON
@@ -41,6 +61,7 @@ class OauthController {
 
         if(user_exists){
             session.user = User.findByUsername(username)
+
             session.removeAttribute('step')
             redirect(uri: "/")
         }else{
@@ -52,6 +73,7 @@ class OauthController {
                 session.setAttribute('step','Step2')
                 def user = new User(username: username )
                 user.tokens.put(provider,accessToken)
+
                 render(view: "/oauth/register" ,model: [user: user])
             }else{
                 session.setAttribute('step','Step1')
@@ -80,7 +102,7 @@ class OauthController {
         return res
     }
 
-   def register = {
+   def register() {
         // new user posts his registration details
         if (request.method == 'POST') {
             // create domain object and assign parameters using data binding
@@ -99,9 +121,13 @@ class OauthController {
                 // validate/save ok, store user in session, redirect to homepage
                 UserRole.create u, Role.findByAuthority('ROLE_USER'), true
 
+                if(session.providername != "" && checkAdmin(session.providername, u.username)) {
+                    UserRole.create u, Role.findByAuthority('ROLE_ADMIN'), true
+                }
                 // is the session used anymore? ,comes from former example
                 session.user = u
                 session.removeAttribute('step')
+
                 redirect(uri:"/")
 
             }
