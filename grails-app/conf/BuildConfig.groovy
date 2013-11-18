@@ -49,7 +49,6 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         // runtime 'mysql:mysql-connector-java:5.1.24'
-    
 
 
 	}
@@ -64,13 +63,14 @@ grails.project.dependency.resolution = {
 	    compile ":spring-security-core:1.2.7.3"
         compile ':oauth:2.3'
         compile ":aws-sdk:1.6.4"
+        compile ":twitter-bootstrap:3.0.2"
+		compile ":lesscss-resources:1.3.3" 		
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.2" // or ":hibernate4:4.1.11.2"
         runtime ":database-migration:1.3.5"
         runtime ":jquery:1.10.2"
         runtime ":resources:1.2.1"
-
         // Uncomment these (or add new ones) to enable additional ResourceHolder capabilities
         //runtime ":zipped-ResourceHolder:1.0.1"
         //runtime ":cached-ResourceHolder:1.1"
