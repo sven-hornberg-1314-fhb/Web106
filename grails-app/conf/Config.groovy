@@ -150,4 +150,9 @@ oauth {
 
         }
     }
+
+    admins{
+        twitter=['fuubah']
+        google=['Marcel Hinderlich']
+    }
 }

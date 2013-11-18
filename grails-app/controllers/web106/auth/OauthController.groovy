@@ -1,8 +1,10 @@
 package web106.auth
 
-import grails.plugins.springsecurity.SpringSecurityService
 import org.scribe.model.Token
 import org.scribe.model.Verifier
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.context.SecurityContextHolder
 import uk.co.desirableobjects.oauth.scribe.OauthProvider
 import uk.co.desirableobjects.oauth.scribe.OauthService
 import uk.co.desirableobjects.oauth.scribe.SupportedOauthVersion
@@ -15,11 +17,35 @@ import web106.ResourceHolder
 
 class OauthController {
 
-    SpringSecurityService springSecurityService
-
     private static final Token EMPTY_TOKEN = new Token('', '')
 
     OauthService oauthService
+
+
+    private boolean checkAdmin(String providername, String username) {
+
+        print username
+
+        boolean returnValue = false
+
+        if(providername=='twitter'){
+            grailsApplication.config.oauth.admins.twitter.each{
+                if(username.equals(it)){
+                    returnValue = true
+                }
+            }
+        }
+
+        if(providername=='google'){
+            grailsApplication.config.oauth.admins.google.each{
+                if(username.equals(it)){
+                    returnValue = true
+                }
+            }
+        }
+        return returnValue
+    }
+
 
     /**
      *  turns response to JSON
@@ -40,7 +66,11 @@ class OauthController {
         def user_exists =  User.findByUsername(username)
 
         if(user_exists){
-            session.user = User.findByUsername(username)
+            //session.user = User.findByUsername(username)
+
+            Authentication auth = new UsernamePasswordAuthenticationToken (user_exists.username,null,user_exists.getGrantedAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(auth);
+
             session.removeAttribute('step')
             redirect(uri: "/")
         }else{
@@ -50,12 +80,13 @@ class OauthController {
 
             if(session.providername){
                 session.setAttribute('step','Step2')
-                def user = new User(username: username )
+                def user = new User(username: username)
                 user.tokens.put(provider,accessToken)
-                render(view: "/user/register" ,model: [user: user])
+
+                render(view: "/oauth/register" ,model: [user: user])
             }else{
                 session.setAttribute('step','Step1')
-                render(view: "/user/register")
+                render(view: "/oauth/register")
             }
         }
     }
@@ -78,6 +109,54 @@ class OauthController {
         def res = oauthService."$method"(*args)
 
         return res
+    }
+
+   def register() {
+        // new user posts his registration details
+        if (request.method == 'POST') {
+            // create domain object and assign parameters using data binding
+            def u = new User(params)
+            //u.password = u.password.encodeAsSHA256()
+            u.enabled=true
+
+            //def provider = session.getAttribute('providername')
+            //Token accessToken = session[oauthService.findSessionKeyForAccessToken(provider)]
+            //u.tokens.put(provider,accessToken)
+
+            if (! u.save(flush: true)) {
+                // validation failed, render registration page again
+                return [user:u]
+            } else {
+                // validate/save ok, store user in session, redirect to homepage
+                UserRole.create u, Role.findByAuthority('ROLE_USER'), true
+
+                if(session.providername != "" && checkAdmin(session.providername, u.username)) {
+                    UserRole.create u, Role.findByAuthority('ROLE_ADMIN'), true
+                }
+                // is the session used anymore? ,comes from former example
+                //session.user = u
+                session.removeAttribute('step')
+
+                Authentication auth = new UsernamePasswordAuthenticationToken (u.username,null,u.getGrantedAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(auth);
+
+                redirect(uri:"/")
+
+            }
+        } else if (session.user) {
+            // don't allow registration while user is logged in
+            //TODO not working
+            redirect(uri:"/")
+        }
+    }
+
+    def login = {
+        if(!session.user){
+            redirect(controller: "login")
+        }else{
+            redirect(uri:"/")
+        }
+
     }
 
     /**

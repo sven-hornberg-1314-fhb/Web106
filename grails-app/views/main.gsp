@@ -16,8 +16,8 @@
 <body>
 
 <sec:ifNotLoggedIn>
-    <g:link controller="user" action="login"><button>Login</button></g:link>
-    <g:link controller="user" action="register"><button>Register</button></g:link>
+    <g:link controller="oauth" action="login"><button>Login</button></g:link>
+    <g:link controller="oauth" action="register"><button>Register</button></g:link>
 </sec:ifNotLoggedIn>
 
 
@@ -36,6 +36,10 @@
     <sec:ifAnyGranted roles="ROLE_USER, ROLE_SUPERUSER">
         einfältiger <sec:username />
     </sec:ifAnyGranted>
+
+    <sec:ifAllGranted roles="ROLE_ADMIN, ROLE_USER">
+        ADMIN & USER
+    </sec:ifAllGranted>
 
 
 </sec:ifLoggedIn>

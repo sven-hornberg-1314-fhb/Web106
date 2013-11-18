@@ -8,4 +8,6 @@ package web106.site.component
  * To change this template use File | Settings | File Templates.
  */
 class MenuComponent extends AbstractComponent{
+
+    String menuName
 }
