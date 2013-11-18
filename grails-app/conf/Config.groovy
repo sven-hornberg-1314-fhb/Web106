@@ -150,4 +150,8 @@ oauth {
 
         }
     }
+
+    admins{
+        twitter=['fuubah']
+    }
 }

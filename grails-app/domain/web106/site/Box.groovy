@@ -11,6 +11,6 @@ import web106.site.component.AbstractComponent
  */
 class Box {
 
-    String id
-    static hasOne = [component:AbstractComponent]
+    String idName
+    static hasMany = [component:AbstractComponent]
 }
