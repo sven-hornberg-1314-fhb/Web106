@@ -115,9 +115,9 @@ log4j = {
 }
 
 // Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'de.sixfourpixel.web106.auth.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'de.sixfourpixel.web106.auth.UserRole'
-grails.plugins.springsecurity.authority.className = 'de.sixfourpixel.web106.auth.Role'
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'web106.auth.User'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'web106.auth.UserRole'
+grails.plugins.springsecurity.authority.className = 'web106.auth.Role'
 
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
         '/':               ['permitAll'],

@@ -1,4 +1,4 @@
-package de.sixfourpixel.web106.auth
+package web106.auth
 
 import grails.plugins.springsecurity.SpringSecurityService
 import org.scribe.model.Token
@@ -10,7 +10,7 @@ import uk.co.desirableobjects.oauth.scribe.holder.RedirectHolder
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import uk.co.desirableobjects.oauth.scribe.exception.MissingRequestTokenException
 import grails.converters.JSON
-import de.sixfourpixel.web106.ResourceHolder
+import web106.ResourceHolder
 
 
 class OauthController {

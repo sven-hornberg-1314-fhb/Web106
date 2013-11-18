@@ -1,6 +1,6 @@
-import de.sixfourpixel.web106.auth.Role
-import de.sixfourpixel.web106.auth.User
-import de.sixfourpixel.web106.auth.UserRole
+import web106.auth.Role
+import web106.auth.User
+import web106.auth.UserRole
 
 class BootStrap {
 

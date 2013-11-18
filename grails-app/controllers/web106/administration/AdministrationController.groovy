@@ -1,9 +1,9 @@
-package de.sixfourpixel.web106.administration
+package web106.administration
 
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 
-import de.sixfourpixel.web106.auth.*
+import web106.auth.*
 
 @Secured(['ROLE_ADMIN'])
 class AdministrationController {  

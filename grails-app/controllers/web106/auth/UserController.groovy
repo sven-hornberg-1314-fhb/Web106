@@ -1,8 +1,7 @@
-package de.sixfourpixel.web106.auth
+package web106.auth
 /**
  * controls local registration process, access of oauth providers auth
  */
-import org.scribe.model.Token
 import uk.co.desirableobjects.oauth.scribe.OauthService
 
 class UserController {

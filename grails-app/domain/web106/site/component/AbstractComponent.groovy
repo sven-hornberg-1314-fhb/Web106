@@ -1,6 +1,6 @@
-package de.sixfourpixel.web106.site.component
+package web106.site.component
 
-import de.sixfourpixel.web106.site.Box
+import web106.site.Box
 /**
  * Created with IntelliJ IDEA.
  * User: marcman

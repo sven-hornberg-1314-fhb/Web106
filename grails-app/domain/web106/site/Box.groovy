@@ -1,6 +1,6 @@
-package de.sixfourpixel.web106.site
+package web106.site
 
-import de.sixfourpixel.web106.site.component.AbstractComponent
+import web106.site.component.AbstractComponent
 
 /**
  * Created with IntelliJ IDEA.

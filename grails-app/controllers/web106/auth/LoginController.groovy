@@ -1,4 +1,4 @@
-package de.sixfourpixel.web106.auth
+package web106.auth
 
 import grails.converters.JSON
 

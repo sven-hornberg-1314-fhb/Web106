@@ -1,4 +1,4 @@
-package de.sixfourpixel.web106
+package web106
 
 /**
  * Created with IntelliJ IDEA.

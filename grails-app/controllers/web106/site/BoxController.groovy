@@ -1,4 +1,4 @@
-package de.sixfourpixel.web106.site
+package web106.site
 
 
 class BoxController {

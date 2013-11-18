@@ -1,6 +1,6 @@
-package de.sixfourpixel.web106
+package web106
 
-import de.sixfourpixel.web106.auth.OauthController
+import web106.auth.OauthController
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 
