@@ -16,8 +16,8 @@
 <body>
 
 <sec:ifNotLoggedIn>
-    <g:link controller="user" action="login"><button>Login</button></g:link>
-    <g:link controller="user" action="register"><button>Register</button></g:link>
+    <g:link controller="oauth" action="login"><button>Login</button></g:link>
+    <g:link controller="oauth" action="register"><button>Register</button></g:link>
 </sec:ifNotLoggedIn>
 
 

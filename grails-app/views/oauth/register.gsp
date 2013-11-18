@@ -107,7 +107,7 @@
         <g:if test="${session.step=='Step2'}">
 
             <h1>STEP 2</h1>
-            <g:form class="simpleform" url="[controller:'user',action:'register']">
+            <g:form class="simpleform" url="[controller:'oauth',action:'register']">
                 <fieldset>
                     <legend>User Registration</legend>
                     <p class="info">
