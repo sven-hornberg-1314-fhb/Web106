@@ -1,5 +1,7 @@
 package web106.auth
 
+import org.springframework.security.core.GrantedAuthority
+
 class User {
 
 	transient springSecurityService
@@ -33,8 +35,23 @@ class User {
 	}
 
 	Set<Role> getAuthorities() {
-		UserRole.findAllByUser(this).collect { it.role } as Set
+		UserRole.findAllByUser(this).collect { it.role } as Collection<GrantedAuthority>
 	}
+
+    public Collection<GrantedAuthority> getGrantedAuthorities() {
+        //make everyone ROLE_USER
+        Collection<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
+
+        GrantedAuthority grantedAuthority = new GrantedAuthority() {
+            //anonymous inner type
+            public String getAuthority() {
+                return "ROLE_USER";
+            }
+        };
+
+        grantedAuthorities.add(grantedAuthority);
+        return grantedAuthorities;
+    }
 
 	def beforeInsert() {
 		encodePassword()

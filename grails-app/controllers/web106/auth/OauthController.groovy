@@ -1,8 +1,10 @@
 package web106.auth
 
-import grails.plugins.springsecurity.SpringSecurityService
 import org.scribe.model.Token
 import org.scribe.model.Verifier
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.context.SecurityContextHolder
 import uk.co.desirableobjects.oauth.scribe.OauthProvider
 import uk.co.desirableobjects.oauth.scribe.OauthService
 import uk.co.desirableobjects.oauth.scribe.SupportedOauthVersion
@@ -12,12 +14,8 @@ import uk.co.desirableobjects.oauth.scribe.exception.MissingRequestTokenExceptio
 import grails.converters.JSON
 import web106.ResourceHolder
 
-import javax.servlet.http.HttpSession
-
 
 class OauthController {
-
-    SpringSecurityService springSecurityService
 
     private static final Token EMPTY_TOKEN = new Token('', '')
 
@@ -62,6 +60,9 @@ class OauthController {
         if(user_exists){
             session.user = User.findByUsername(username)
 
+            Authentication auth = new UsernamePasswordAuthenticationToken (user_exists.username,null,user_exists.getGrantedAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(auth);
+
             session.removeAttribute('step')
             redirect(uri: "/")
         }else{
@@ -71,7 +72,7 @@ class OauthController {
 
             if(session.providername){
                 session.setAttribute('step','Step2')
-                def user = new User(username: username )
+                def user = new User(username: username)
                 user.tokens.put(provider,accessToken)
 
                 render(view: "/oauth/register" ,model: [user: user])
@@ -127,6 +128,9 @@ class OauthController {
                 // is the session used anymore? ,comes from former example
                 session.user = u
                 session.removeAttribute('step')
+
+                Authentication auth = new UsernamePasswordAuthenticationToken (u.username,null,u.getGrantedAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(auth);
 
                 redirect(uri:"/")
 
