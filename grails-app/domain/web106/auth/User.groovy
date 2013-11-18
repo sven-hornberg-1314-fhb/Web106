@@ -1,6 +1,7 @@
 package web106.auth
 
 import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.AuthorityUtils
 
 class User {
 
@@ -35,22 +36,21 @@ class User {
 	}
 
 	Set<Role> getAuthorities() {
-		UserRole.findAllByUser(this).collect { it.role } as Collection<GrantedAuthority>
+		UserRole.findAllByUser(this).collect { it.role.authority }
 	}
 
     public Collection<GrantedAuthority> getGrantedAuthorities() {
         //make everyone ROLE_USER
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
 
-        GrantedAuthority grantedAuthority = new GrantedAuthority() {
-            //anonymous inner type
-            public String getAuthority() {
-                return "ROLE_USER";
-            }
-        };
+        def test = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_ADMIN, ROLE_USER")
 
-        grantedAuthorities.add(grantedAuthority);
-        return grantedAuthorities;
+        print "authorities"+getAuthorities()
+        print "granted"+test
+
+        grantedAuthorities.addAll(test)
+
+        return  grantedAuthorities
     }
 
 	def beforeInsert() {

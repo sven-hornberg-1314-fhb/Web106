@@ -37,6 +37,10 @@
         einfältiger <sec:username />
     </sec:ifAnyGranted>
 
+    <sec:ifAllGranted roles="ROLE_ADMIN, ROLE_USER">
+        ADMIN & USER
+    </sec:ifAllGranted>
+
 
 </sec:ifLoggedIn>
 <hr/>

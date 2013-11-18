@@ -35,6 +35,14 @@ class OauthController {
                 }
             }
         }
+
+        if(providername=='google'){
+            grailsApplication.config.oauth.admins.google.each{
+                if(username.equals(it)){
+                    returnValue = true
+                }
+            }
+        }
         return returnValue
     }
 
@@ -58,7 +66,7 @@ class OauthController {
         def user_exists =  User.findByUsername(username)
 
         if(user_exists){
-            session.user = User.findByUsername(username)
+            //session.user = User.findByUsername(username)
 
             Authentication auth = new UsernamePasswordAuthenticationToken (user_exists.username,null,user_exists.getGrantedAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
@@ -126,7 +134,7 @@ class OauthController {
                     UserRole.create u, Role.findByAuthority('ROLE_ADMIN'), true
                 }
                 // is the session used anymore? ,comes from former example
-                session.user = u
+                //session.user = u
                 session.removeAttribute('step')
 
                 Authentication auth = new UsernamePasswordAuthenticationToken (u.username,null,u.getGrantedAuthorities());
