@@ -5,8 +5,6 @@ import org.springframework.security.core.authority.AuthorityUtils
 
 class User {
 
-	transient springSecurityService
-
 	String username
 	String password
 	boolean enabled
@@ -35,42 +33,20 @@ class User {
 		password column: '`password`'
 	}
 
-	Set<Role> getAuthorities() {
-		UserRole.findAllByUser(this).collect { it.role.authority }
-	}
-
-    /**
-     * TODO dependencies: UserUtils
-     */
     public Collection<GrantedAuthority> getGrantedAuthorities() {
-        //make everyone ROLE_USER
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
 
-        String mail = 'email:'+email
+        Set auth = UserRole.findAllByUser(this).collect { it.role.authority } as Set
+        String ja = auth.join(",")
 
-        def test = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_ADMIN, ROLE_USER, "+mail)
+        def jpi = AuthorityUtils.commaSeparatedStringToAuthorityList(ja)
+        def mail = AuthorityUtils.createAuthorityList('email:'+email)
 
-        print "authorities"+getAuthorities()
-        print "granted"+test
-
-        grantedAuthorities.addAll(test)
+        grantedAuthorities.addAll(jpi)
+        grantedAuthorities.addAll(mail)
 
         return  grantedAuthorities
     }
-
-	/*def beforeInsert() {
-		encodePassword()
-	}
-
-	def beforeUpdate() {
-		if (isDirty('password')) {
-			encodePassword()
-		}
-	}
-
-	protected void encodePassword() {
-		password = springSecurityService.encodePassword(password)
-	}  */
 
 
 }

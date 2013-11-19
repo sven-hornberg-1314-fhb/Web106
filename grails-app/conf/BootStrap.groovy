@@ -5,8 +5,8 @@ import web106.auth.UserRole
 class BootStrap {
 
   def init = { servletContext ->
-    def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
-    def userRole = new Role(authority: 'ROLE_USER').save(flush: true)
+      def userRole = Role.findByAuthority('ROLE_USER') ?: new Role(authority: 'ROLE_USER').save(failOnError: true)
+      def adminRole = Role.findByAuthority('ROLE_ADMIN') ?: new Role(authority: 'ROLE_ADMIN').save(failOnError: true)
 
     /*
     def testUser = new User(username: 'admin', enabled: true, password: 'admin', email:'hinderli@fh-brandenburg.de', firstName: 'marcel', lastName: 'test')
