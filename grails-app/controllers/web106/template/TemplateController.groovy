@@ -17,4 +17,15 @@ class TemplateController {
 		render(template:"berlin/template", model:[stadt:"Berlin"])
 	}
 
+    def list() {
+
+        def list = [
+
+            1: "Berlin",
+            2: "Kairo"
+        ]
+
+        render list;
+    }
+
 }

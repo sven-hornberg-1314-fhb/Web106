@@ -7,7 +7,6 @@ class Page {
 	String title
 
     static hasMany=[boxes:Box]
-	static belongsTo = [workGroup: WorkGroup]
 
     /**
      * site is rendered or not
@@ -29,5 +28,7 @@ class Page {
 	
     static constraints = {
         title blank:false
+        visibleFrom blank:true
+        visibleTo blank:true
     }
 }
