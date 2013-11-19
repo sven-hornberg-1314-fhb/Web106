@@ -39,11 +39,16 @@ class User {
 		UserRole.findAllByUser(this).collect { it.role.authority }
 	}
 
+    /**
+     * TODO dependencies: UserUtils
+     */
     public Collection<GrantedAuthority> getGrantedAuthorities() {
         //make everyone ROLE_USER
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
 
-        def test = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_ADMIN, ROLE_USER")
+        String mail = 'email:'+email
+
+        def test = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_ADMIN, ROLE_USER, "+mail)
 
         print "authorities"+getAuthorities()
         print "granted"+test
@@ -53,7 +58,7 @@ class User {
         return  grantedAuthorities
     }
 
-	def beforeInsert() {
+	/*def beforeInsert() {
 		encodePassword()
 	}
 
@@ -65,5 +70,7 @@ class User {
 
 	protected void encodePassword() {
 		password = springSecurityService.encodePassword(password)
-	}
+	}  */
+
+
 }
