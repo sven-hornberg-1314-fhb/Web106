@@ -21,16 +21,26 @@
 
 
 <div class="container">
+
+<div class="row">
     <h3>Wähle eine Workgroup:</h3>
-
-
     <g:each in="${workgroup}">
     <g:form name="${it.name}" action="selectWorkGroup">
        <g:hiddenField name="workId" value= "${it.id}"/>
-        <input type="submit" class="btn btn-default"> Workgroup: ${it.name}</input>
+        <button type="submit" class="btn btn-default"> Workgroup: ${it.name}</button>
     </g:form>
     </g:each>
+</div>
 
+<div class="row">
+	<h3>eine neue Workgroup anlegen:</h3>
+	<g:form name="newWorkgroup" action="create">
+	
+		<label>Name der Workgroup</label>
+		<g:textField name="name" required="true" />
+		<button type="submit" class="btn btn-default">Workgroup anlegen</button>
+	</g:form>
+</div>
 
 
 

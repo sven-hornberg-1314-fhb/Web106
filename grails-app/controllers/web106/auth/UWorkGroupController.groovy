@@ -1,5 +1,7 @@
 package web106.auth
 
+import org.apache.jasper.compiler.Node.ParamsAction;
+
 import grails.converters.JSON
 import web106.UserUtils
 import web106.auth.WorkGroup
@@ -10,6 +12,26 @@ class UWorkGroupController {
     static allowedMethods = [selectWorkGroup:'POST']
     def index() { }
 
+	def create() {
+		
+		
+		def mail  = UserUtils.newInstance().emailFromCurrentUser
+		User currentUser = User.find {email== mail}
+		
+		WorkGroup newWorkGroup = new WorkGroup() 
+		newWorkGroup.name = params.name
+		def usersList = [] 
+		usersList.add(newWorkGroup.user)
+		usersList.add(currentUser)
+		
+		newWorkGroup.user = usersList as Set
+		
+		newWorkGroup.save(FailonError: true)
+		
+		
+		redirect( action: "listWorkGroups")
+	}
+	
     def listWorkGroups() {
 
         def mail  = UserUtils.newInstance().emailFromCurrentUser
@@ -17,6 +39,7 @@ class UWorkGroupController {
 
         def currentWorkgroups = WorkGroup.findAll {user.id == currentUser.id}
 
+	
         def model = [
                 workgroup : currentWorkgroups
 

@@ -15,7 +15,6 @@ class UserUtils {
         def authorities = SecurityContextHolder.getContext().authentication.authorities
         def email = null
         authorities.each(){
-            print it.authority
             if(it.toString().startsWith('email')){
                  email = it.toString().substring(6)
             }
