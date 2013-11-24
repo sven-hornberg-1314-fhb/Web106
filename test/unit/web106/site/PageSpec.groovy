@@ -34,5 +34,22 @@ class PageSpec extends Specification {
 		newPage.title == "Welcome to my new Page!"
     }
 	
+	def "save new Page"() {
+		setup:
+		
+		def visibleFromDate = new Date()
+		def visibleToDate = new Date()
+		
+		def newPage = new Page(title: "saveMe", visibleTo: visibleToDate, visibleFrom : visibleFromDate)
+		
+		when:
+		
+		newPage.save(flush: true, failOnError: true)
+		
+		then:
+		
+		newPage.id > 0
+	}
+	
 	
 }
