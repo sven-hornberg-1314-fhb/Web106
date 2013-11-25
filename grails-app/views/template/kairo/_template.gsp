@@ -1,8 +1,6 @@
  <!DOCTYPE html>
 <html>
    <head>
-      <r:require modules="bootstrap"/>
-      <!-- <r:require modules="bootstrap, jquery, application, bootstrap-js"/> -->
 	  <style type="text/css">
 	  .color{
 	  background-color: grey;

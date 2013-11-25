@@ -26,14 +26,15 @@
 	
 	</div>
 	<div id="main" class="pure-u-7-8">
-	
-	
-		<h3>Seitenfunktionen</h3>
-		<div class="container">
-			<g:link action="create">neue Seite anlegen</g:link>
-		</div>
-		</div>
+
+    	<h3>Workgroup ${name} erfolgreich ausgewählt:</h3>
+	</div>
 </div>
+
+
+
+
+
 <r:layoutResources />
 </body>
 </html>

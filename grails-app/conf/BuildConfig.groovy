@@ -63,8 +63,6 @@ grails.project.dependency.resolution = {
 	    compile ":spring-security-core:1.2.7.3"
         compile ':oauth:2.3'
         compile ":aws-sdk:1.6.4"
-        compile ":twitter-bootstrap:3.0.2"
-		compile ":lesscss-resources:1.3.3"
         compile ":quartz:1.0.1"
 
         // plugins needed at runtime but not for compilation

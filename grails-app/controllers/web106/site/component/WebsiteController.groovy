@@ -7,7 +7,7 @@ import web106.template.TemplateController
 import web106.UserUtils
 
 
-class UWebsiteController {
+class WebsiteController {
 
 
     def index() {

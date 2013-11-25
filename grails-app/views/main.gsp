@@ -11,9 +11,23 @@
 <html>
 <head>
   <title></title>
-
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/grids-min.css">
 </head>
 <body>
+
+<sec:ifLoggedIn>
+<div id="menu" class="pure-g">
+
+
+    
+    <div id="nav" class="pure-u-1-8">
+    
+		<g:render template="/shared/backendsidebar" />
+	
+	</div>
+
+</sec:ifLoggedIn>
 
 <sec:ifNotLoggedIn>
     <g:link controller="oauth" action="login"><button>Login</button></g:link>
@@ -22,11 +36,12 @@
 
 
 <sec:ifLoggedIn>
+	<div id="main" class="pure-u-7-8">
 
     <sec:ifAnyGranted roles="ROLE_ADMIN, ROLE_USER">Hallo,</sec:ifAnyGranted>
 
     <sec:ifAllGranted roles="ROLE_ADMIN">
-        allmächtiger <sec:username /> <br/>
+        admin: <sec:username /> <br/>
         <g:link controller="administration" action="index">Controller Overview</g:link><br/>
         <g:link controller="administration" action="listUsers">Users</g:link><br/>
         <g:link controller="administration" action="listRoles">Roles</g:link><br/>
@@ -34,14 +49,15 @@
     </sec:ifAllGranted>
 
     <sec:ifAnyGranted roles="ROLE_USER, ROLE_SUPERUSER">
-        einfältiger <sec:username />
+        user: <sec:username />
     </sec:ifAnyGranted>
 
     <sec:ifAllGranted roles="ROLE_ADMIN, ROLE_USER">
         ADMIN & USER
     </sec:ifAllGranted>
 
-
+</div>
+</div>
 </sec:ifLoggedIn>
 <hr/>
 
