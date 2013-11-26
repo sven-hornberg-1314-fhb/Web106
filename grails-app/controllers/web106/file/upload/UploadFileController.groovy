@@ -6,7 +6,9 @@ import web106.auth.User
 
 class UploadFileController {
 
-    def index() { }
+    def index() {
+        render(view:"create");
+    }
 	
 	def create() {
 	
