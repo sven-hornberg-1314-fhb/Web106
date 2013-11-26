@@ -24,7 +24,6 @@ public class FileTypeConverter {
 	
 	
 	public static String replaceAT(String mail){
-		JFrame frame = null;
 		try{
 			mail = mail.replaceAll("@", "-");
 		}
