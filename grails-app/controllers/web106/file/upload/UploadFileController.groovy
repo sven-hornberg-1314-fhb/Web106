@@ -4,7 +4,7 @@ import upload.convert.FileTypeConverter
 import web106.UserUtils
 import web106.auth.User
 
-class UUploadFileController {
+class UploadFileController {
 
     def index() { }
 	
