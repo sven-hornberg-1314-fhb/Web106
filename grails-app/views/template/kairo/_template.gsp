@@ -25,6 +25,9 @@
 </head>
 <body>
 
+		<g:render template="/shared/centermessagebox" />
+
+
 		<div id="main" class="pure-u-1">
 			
 			

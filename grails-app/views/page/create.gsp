@@ -98,11 +98,11 @@
 						<g:render template="/template/berlin/template" />
 				</div>
 				<div class="pure-u-1-4">
-					<div><b>Komponenten</b></div><br>
+					<div><b>Bausteine</b></div><br>
 					
 					<div id="dragtest" class="component">
-						TextKomponente
-						<g:link>
+						TextKomponente<br>
+						<g:link controller="ContentComponent">
 						<i class="fa fa-cogs"></i>Komponente bearbeiten</g:link>
 					</div>
 				</div>

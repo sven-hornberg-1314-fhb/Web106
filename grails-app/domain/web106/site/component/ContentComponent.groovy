@@ -6,5 +6,7 @@ package web106.site.component
 class ContentComponent extends AbstractComponent{
 
 
+	
+	
     String text;
 }

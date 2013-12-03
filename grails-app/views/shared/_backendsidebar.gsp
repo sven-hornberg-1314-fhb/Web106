@@ -1,31 +1,39 @@
 <!-- Sidebar -->
 <div id="sidebar">
+	<div style="background-color: grey;height: 100px; width: 100px; margin-left: 60px;margin-top: 30px">
+		LOGO
+	</div>
+	
 	<ul>
-
 		<ul>
 		<li><a href="${createLink(uri: '/')}">Start</a></li>
 		</ul>
 
-		<ul>Benutzer<br><br>		
+		<ul><b>Benutzer</b><br><br>		
 			<li><g:link controller="WorkGroup">WorkGroups</g:link></li>
 		</ul>
 
-		<ul>Webseite<br><br>
+		<ul><b>Webseite</b><br><br>
 		<li><g:link controller="Website" >Website</g:link></li>		
 		<li><g:link controller="Page" >Page</g:link></li>
 		<li><g:link controller="Template" >Template</g:link></li>
 		</ul>
 
+		<ul><b>Bausteine</b><br><br>	
+		<li><g:link controller="MenuComponent" >MenuComponent</g:link></li>
+		<li><g:link controller="ContentComponent" >ContentComponent</g:link></li>
+		</ul>
 
-		<ul>Module<br><br>
+
+		<ul><b>Module</b><br><br>
 		<li>Dateiupload</li>
 		<li>Bildergalerie</li>
 		<li>Export</li>
 		</ul>
 
-		<ul>Einstellungen<br><br>
+		<ul><b>Einstellungen</b><br><br>
 		</ul>
-		<ul>Admin<br><br>
+		<ul><b>Admin</b><br><br>
 		</ul>
 	</ul>
 </div>

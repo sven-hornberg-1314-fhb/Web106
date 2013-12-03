@@ -9,7 +9,7 @@ import web106.site.Box
 abstract class AbstractComponent {
 
     Box box
-    String id
+    String name
 
 
 
