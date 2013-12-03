@@ -18,7 +18,7 @@ class PageController {
 		
 			
 		
-		render "cool"
+		render view:'create'
     }
 	 
 }

@@ -2,45 +2,66 @@
 <html>
    <head>
 	  <style type="text/css">
-	  .color{
+	  .grey{
 	  background-color: grey;
-	  border-style:solid;
-	  border-width:medium;
-	  border-color:white;
 	  }
-	  
+	  .blue{
+	  background-color: blue;
+	  }	
+	  .red{
+	  background-color: red;
+	  }  
+	  .green{
+	  background-color: green;
+	  }
 	  <!--
 	  -->
-	  </style>
-	<r:layoutResources />
-   </head>
+	 </style>
+<link rel="stylesheet"
+	href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
+<link rel="stylesheet"
+	href="http://yui.yahooapis.com/pure/0.3.0/grids-min.css">
+<r:layoutResources />
+</head>
 <body>
 
 
+		<div id="main" class="pure-u-1">
+			
+			
+			
+			<div class="pure-g-r">
+				<div class="pure-u-1 grey">
+					<h3>Welcome to ${stadt}</h3>
+				</div>
+			</div>
+			<div class="pure-g-r">
+				<div class="pure-u-1-3 blue">
+					Side
+				</div>
+				<div class="pure-u-1-3 grey">
+					Content
+				</div>
+				<div class="pure-u-1-3 red">
+					Side
+				</div>
+			</div>
 
-<div class="container">
-
-
-      <div class="row">
-        <div class="col-md-8 color">Head
-              <h3>Welcome to ${stadt}</h3>
-
-        </div>
-      </div>
-       <div class="row">
-        <div class="col-md-2 color">Side</div>
-        <div class="col-md-4 color">Content Lorem ipsum do tempordolor sit amet.</div>
-        <div class="col-md-2 color">Side2</div>
-          </div>
-         <div class="row">
-        <div class="col-md-4 color">Foot1</div>
-       <div class="col-md-4 color">Foot1</div>
-      </div>
-
- 
- 	
-      
-</div>
+			<div class="pure-g-r">
+				<div class="pure-u-1-2 green">
+					<h3>Footer</h3>
+				</div>
+				<div class="pure-u-1-2 green">
+					<h3>Footer2</h3>
+				</div>
+			</div>	
+		</div>
 	<r:layoutResources />
 </body>
 </html>
+	 
+	 
+	 
+	 
+	 
+	
