@@ -62,4 +62,6 @@ class WorkGroupController {
        render view: "SuccessWorkgroupSelection", model:[name: name]
 
     }
+	
+
 }

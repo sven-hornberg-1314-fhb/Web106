@@ -4,6 +4,7 @@
 		LOGO
 	</div>
 	
+	
 	<ul>
 		<ul>
 		<li><a href="${createLink(uri: '/')}">Start</a></li>
