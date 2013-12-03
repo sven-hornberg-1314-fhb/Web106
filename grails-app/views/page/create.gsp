@@ -28,7 +28,7 @@
         $(function() {
 
         	
-                $('.component').draggable();
+                $('.component').draggable({ revert: true });
 
                 $(".compo4nent").droppable(
                         {
