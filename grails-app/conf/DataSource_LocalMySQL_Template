@@ -1,0 +1,46 @@
+/*LOCAL MYSQL
+1 install mysql e.g. with lampp package
+2 start apache and mysql server
+3 create database web106 and web106_prod
+4 uncomment runtime 'mysql:mysql-connector-java:5.1.27' in BuildConfig.groovy (dependencies section)
+5 rename DataSource_LocalMySQL_Template to DataSource.groovy (maybe backup existing one)
+6 grails run-app
+*/
+
+dataSource {
+    pooled = true
+    driverClassName = "com.mysql.jdbc.Driver"
+    dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+}
+hibernate {
+    cache.use_second_level_cache = true
+    cache.use_query_cache = true
+    cache.region.factory_class = 'net.sf.ehcache.hibernate.EhCacheRegionFactory'
+}
+// environment specific settings
+environments {
+    development {
+        dataSource {
+            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+            url = "jdbc:mysql://localhost/web106?useUnicode=yes&characterEncoding=UTF-8"
+            username = "root"
+            password = ""
+        }
+    }
+    test {
+        dataSource {
+            dbCreate = "update"
+            url = "jdbc:mysql://localhost/web106_prod?useUnicode=yes&characterEncoding=UTF-8"
+            username = "root"
+            password = ""
+        }
+    }
+    production {
+        dataSource {
+            dbCreate = "update"
+            url = "jdbc:mysql://localhost/web106_prod?useUnicode=yes&characterEncoding=UTF-8"
+            username = "root"
+            password = ""
+        }
+    }
+}
