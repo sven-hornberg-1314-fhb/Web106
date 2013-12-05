@@ -241,4 +241,8 @@ class OauthController {
 
     }
 
+    def error (){
+        render(view: 'error')
+    }
+
 }
