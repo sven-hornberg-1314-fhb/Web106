@@ -59,7 +59,18 @@ class WorkGroupController {
        def selectedWorkgroup = WorkGroup.find{id == workId}
        def name = selectedWorkgroup.name
 
-       render view: "SuccessWorkgroupSelection", model:[name: name]
+	   print session.getAttribute("beforeUri")
+	   
+	   if(session.getAttribute("beforeUri") != null && session.getAttribute("beforeUri") != "") {
+		   
+		   String uriPath = session.getAttribute("beforeUri");
+		   session.removeAttribute("beforeUri")
+		   redirect(uri: uriPath) 
+		   
+	   } else {
+	   
+       		render view: "SuccessWorkgroupSelection", model:[name: name]
+	   }
 
     }
 	
