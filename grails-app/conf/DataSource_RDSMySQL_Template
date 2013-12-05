@@ -1,0 +1,39 @@
+/*RDS MYSQL
+4 uncomment runtime 'mysql:mysql-connector-java:5.1.27' in BuildConfig.groovy (dependencies section)
+5 rename DataSource_RDSMySQL_Template to DataSource.groovy (maybe backup existing one)
+6 grails run-app
+*/
+
+dataSource {
+    pooled = true
+    driverClassName = "com.mysql.jdbc.Driver"
+    dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+    username = "web106"
+    password = "D|u>vYo+8J"
+}
+hibernate {
+    cache.use_second_level_cache = true
+    cache.use_query_cache = true
+    cache.region.factory_class = 'net.sf.ehcache.hibernate.EhCacheRegionFactory'
+}
+// environment specific settings
+environments {
+    development {
+        dataSource {
+            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+url = "jdbc:mysql://web106.cklr3ydv9uj8.eu-west-1.rds.amazonaws.com:3306/web106_prod"
+        }
+    }
+    test {
+        dataSource {
+            dbCreate = "update"
+url = "jdbc:mysql://web106.cklr3ydv9uj8.eu-west-1.rds.amazonaws.com:3306/web106_prod"
+        }
+    }
+    production {
+        dataSource {
+            dbCreate = "update"
+url = "jdbc:mysql://web106.cklr3ydv9uj8.eu-west-1.rds.amazonaws.com:3306/web106_prod"
+        }
+    }
+}
