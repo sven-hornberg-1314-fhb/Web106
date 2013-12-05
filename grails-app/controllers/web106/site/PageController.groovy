@@ -1,5 +1,9 @@
 package web106.site
 
+import grails.converters.JSON
+import web106.site.component.ContentComponent
+import web106.auth.WorkGroup
+
 class PageController {
 	
 	def activeWorkGroup
@@ -27,11 +31,22 @@ class PageController {
 
     def create(){
 		
-		def data
+		//find ContentComponents 
+		def selectedWorkgroup = WorkGroup.find{id == activeWorkGroup}
+		
+		def contents = ContentComponent.findAll() {
+		
+			workGroup == selectedWorkgroup;
+		}
 		
 		
+		def model = [
+                contents : contents
+
+        ]
 		
-		render view:'create' , model : data
+		
+		render view:'create' , model : model
     }
 	 
 }

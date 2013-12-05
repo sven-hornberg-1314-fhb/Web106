@@ -30,11 +30,10 @@
         	
                 $('.component').draggable({ revert: true });
 
-                $(".compo4nent").droppable(
+                $(".dropbox").droppable(
                         {
                                 drop : function(event, ui) {
-                                        $(this).addClass("ui-state-highlight").html(
-                                                        "Dropped!");
+                                        $(this).addClass("ui-state-highlight");
                                 }
                 });
                 
@@ -99,12 +98,15 @@
 				</div>
 				<div class="pure-u-1-4">
 					<div><b>Bausteine</b></div><br>
+			
+					<g:each var="con" in="${contents}">	
 					
-					<div id="dragtest" class="component">
-						TextKomponente<br>
-						<g:link controller="ContentComponent">
-						<i class="fa fa-cogs"></i>Komponente bearbeiten</g:link>
-					</div>
+						<div id="dragtest" class="component">
+							${con.name}<br>
+							<g:link controller="ContentComponent">
+							<i class="fa fa-cogs"></i>Komponente bearbeiten</g:link>
+						</div>
+					</g:each>
 				</div>
 			</div>
 

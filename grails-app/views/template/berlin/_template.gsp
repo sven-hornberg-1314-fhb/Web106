@@ -43,27 +43,27 @@
 			
 			
 			<div class="pure-g-r">
-				<div class="pure-u-1 grey">
+				<div class="pure-u-1 grey dropbox">
 					<h3>Welcome to ${stadt}</h3>
 				</div>
 			</div>
 			<div class="pure-g-r">
-				<div class="pure-u-1-3 blue">
+				<div class="pure-u-1-3 blue dropbox">
 					Side
 				</div>
-				<div class="pure-u-1-3 grey">
+				<div class="pure-u-1-3 grey dropbox">
 					Content
 				</div>
-				<div class="pure-u-1-3 red">
+				<div class="pure-u-1-3 red dropbox">
 					Side
 				</div>
 			</div>
 
 			<div class="pure-g-r">
-				<div class="pure-u-1-2 green">
+				<div class="pure-u-1-2 green dropbox">
 					<h3>Footer</h3>
 				</div>
-				<div class="pure-u-1-2 green">
+				<div class="pure-u-1-2 green dropbox">
 					<h3>Footer2</h3>
 				</div>
 			</div>	
