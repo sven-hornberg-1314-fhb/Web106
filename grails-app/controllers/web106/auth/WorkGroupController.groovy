@@ -58,9 +58,8 @@ class WorkGroupController {
 
        def selectedWorkgroup = WorkGroup.find{id == workId}
        def name = selectedWorkgroup.name
-
-	   print session.getAttribute("beforeUri")
 	   
+	   //back to old page  
 	   if(session.getAttribute("beforeUri") != null && session.getAttribute("beforeUri") != "") {
 		   
 		   String uriPath = session.getAttribute("beforeUri");

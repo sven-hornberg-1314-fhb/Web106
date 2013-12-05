@@ -33,6 +33,9 @@
                 $(".dropbox").droppable(
                         {
                                 drop : function(event, ui) {
+
+										//remotefuntion eine method im controller aufgerufen werden und eine id gesendet werden
+                                    
                                         $(this).addClass("ui-state-highlight");
                                 }
                 });
