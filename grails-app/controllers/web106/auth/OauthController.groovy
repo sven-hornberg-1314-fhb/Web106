@@ -24,8 +24,6 @@ class OauthController {
 
     private boolean checkAdmin(String providername, String username) {
 
-        print username
-
         boolean returnValue = false
 
         if(providername=='twitter'){
@@ -173,7 +171,12 @@ class OauthController {
         String providerName = params.provider
         OauthProvider provider = oauthService.findProviderConfiguration(providerName)
 
-        Verifier verifier = extractVerifier(provider, params)
+        //Verifier verifier = e xtractVerifier(provider, params)
+
+        //get verifiert from QueryString
+        String ver =  params.get('oauth_verifier') as String
+
+        Verifier verifier = new Verifier(ver)
 
         if (!verifier) {
             redirect(uri: provider.failureUri)
