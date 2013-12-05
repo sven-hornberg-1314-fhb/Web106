@@ -153,4 +153,29 @@ class PageSpec extends Specification {
 			
 	}
 	
+	def "create without boxes"() {
+		
+		setup:
+		
+		
+			def visibleFromDate = new Date()
+			def visibleToDate = new Date()
+			
+			def newPage = new Page(title: "saveMe", visibleTo: visibleToDate, visibleFrom : visibleFromDate)
+		
+		
+		when:
+	
+			newPage.save(flush: true, failOnError: true)
+	
+		then:
+		
+			def searchPage = Page.find {
+				title == "saveMe"
+			}
+			searchPage.id != null 
+			
+			
+	}
+	
 }
