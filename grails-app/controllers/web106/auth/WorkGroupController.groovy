@@ -63,5 +63,9 @@ class WorkGroupController {
 
     }
 	
+	def selectedWorkGroupName() {
+		"Bla"
+	}
+	
 
 }

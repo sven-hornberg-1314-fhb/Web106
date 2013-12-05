@@ -17,7 +17,7 @@ class AbstractComponent {
 	
 
     static constraints = {
-        box blank:true
+        box blank:true, nullable : true
 
 
     }
