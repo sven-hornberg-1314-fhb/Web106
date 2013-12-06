@@ -39,9 +39,9 @@
                             $(this).addClass("ui-state-highlight");
                             //remotefuntion eine method im controller aufgerufen werden und eine id gesendet werden
 
-                            var draggableId = ui.draggable.attr("id");
+                            /*var draggableId = ui.draggable.attr("id");
                             var droppableId = $(this).attr("id");
-                            alert("draggableId: "+draggableId+" droppableId: "+droppableId)
+                            alert("draggableId: "+draggableId+" droppableId: "+droppableId) */
 
 
                         }
