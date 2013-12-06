@@ -28,17 +28,28 @@
         $(function() {
 
         	
-                $('.component').draggable({ revert: true });
 
-                $(".dropbox").droppable(
-                        {
-                                drop : function(event, ui) {
+            $('.component').draggable({ revert: true });
 
-										//remotefuntion eine method im controller aufgerufen werden und eine id gesendet werden
-                                    
-                                        $(this).addClass("ui-state-highlight");
-                                }
-                });
+            $(".dropbox").droppable(
+                    {
+                        drop : function(event, ui) {
+
+                            $(this).addClass("ui-state-highlight");
+                            //remotefuntion eine method im controller aufgerufen werden und eine id gesendet werden
+
+                            var draggableId = ui.draggable.attr("id");
+                            var droppableId = $(this).attr("id");
+                            alert("draggableId: "+draggableId+" droppableId: "+droppableId)
+
+
+                        }
+
+
+
+
+
+                    });
                 
         });
 </script>

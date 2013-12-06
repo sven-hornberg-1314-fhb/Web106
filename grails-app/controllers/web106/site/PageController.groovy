@@ -56,6 +56,10 @@ class PageController {
 		]
 		
 		render view:'create_step2' , model : model
-	}
-	 
+    }
+
+    def remote(){
+        print "remote"
+    }
+
 }
