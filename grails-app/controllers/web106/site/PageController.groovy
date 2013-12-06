@@ -59,7 +59,7 @@ class PageController {
     }
 
     def remote(){
-        print "remote"
+        print params
     }
 
 }

@@ -30,12 +30,31 @@
 
 			$('#centermessagebox').fadeIn();
 
-                    $('#header').on(
-                            'drop',
-                            function(){
-                                <g:remoteFunction controller="page" action="remote" id="1" />
+            /*$('#header').on(
+                   'drop', function(event, ui){
+                        var draggableId = ui.draggable.attr("id");
+                        var droppableId = $(this).attr("id");
+                        alert("draggableId: "+draggableId+" droppableId: "+droppableId)
+                                <g:remoteFunction controller="page" action="remote" params="[id:'1', draggableId:'test']"/>
                             }
-                    );
+                    );  */
+
+            $('#header').on(
+                    'drop', function(event, ui){
+                        var draggableId = ui.draggable.attr("id");
+                        var droppableId = $(this).attr("id");
+                        alert("draggableId: "+draggableId+" droppableId: "+droppableId)
+
+                        jQuery.ajax({
+                            url: "${createLink(controller: 'page', action: 'remote')}",
+                            data: {draggableId:draggableId, droppableId:droppableId},
+                            success: function (data) {
+                                alert(data);
+                            }
+                        });
+
+                    }
+            );
         });
 </script>
 </head>
