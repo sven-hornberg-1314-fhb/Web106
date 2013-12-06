@@ -48,5 +48,9 @@ class PageController {
 		
 		render view:'create' , model : model
     }
+
+    def remote(){
+        print "remote"
+    }
 	 
 }

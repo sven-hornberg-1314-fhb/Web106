@@ -29,7 +29,13 @@
         $(function() {
 
 			$('#centermessagebox').fadeIn();
-                
+
+                    $('#header').on(
+                            'drop',
+                            function(){
+                                <g:remoteFunction controller="page" action="remote" id="1" />
+                            }
+                    );
         });
 </script>
 </head>
@@ -43,27 +49,27 @@
 			
 			
 			<div class="pure-g-r">
-				<div class="pure-u-1 grey dropbox">
+				<div id="header" class="pure-u-1 grey dropbox">
 					<h3>Welcome to ${stadt}</h3>
 				</div>
 			</div>
-			<div class="pure-g-r">
+			<div id="sidebar1" class="pure-g-r">
 				<div class="pure-u-1-3 blue dropbox">
 					Side
 				</div>
-				<div class="pure-u-1-3 grey dropbox">
+				<div id="content" class="pure-u-1-3 grey dropbox">
 					Content
 				</div>
-				<div class="pure-u-1-3 red dropbox">
+				<div id="sidebar2" class="pure-u-1-3 red dropbox">
 					Side
 				</div>
 			</div>
 
-			<div class="pure-g-r">
+			<div id="footer" class="pure-g-r">
 				<div class="pure-u-1-2 green dropbox">
 					<h3>Footer</h3>
 				</div>
-				<div class="pure-u-1-2 green dropbox">
+				<div id="footer2" class="pure-u-1-2 green dropbox">
 					<h3>Footer2</h3>
 				</div>
 			</div>	
