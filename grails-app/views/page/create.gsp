@@ -107,6 +107,9 @@
             </div>
         </div>
         <br>
+        
+        <g:submitButton name="Speichern"/>
+        
         <hr>
         <div class="pure-g-r">
             <div class="pure-u-3-4">
