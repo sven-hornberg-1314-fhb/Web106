@@ -31,7 +31,17 @@ class PageController {
 
     def create(){
 		
-		//find ContentComponents 
+		def model = [
+
+		]
+	
+		
+		render view:'create' , model : model
+    }
+	
+	def create_step2() {
+		
+		//find ContentComponents
 		def selectedWorkgroup = WorkGroup.find{id == activeWorkGroup}
 		
 		def contents = ContentComponent.findAll() {
@@ -41,12 +51,11 @@ class PageController {
 		
 		
 		def model = [
-                contents : contents
+				contents : contents
 
-        ]
+		]
 		
-		
-		render view:'create' , model : model
-    }
+		render view:'create_step2' , model : model
+	}
 	 
 }

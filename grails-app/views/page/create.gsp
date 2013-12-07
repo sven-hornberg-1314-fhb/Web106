@@ -28,18 +28,7 @@
         $(function() {
 
         	
-                $('.component').draggable({ revert: true });
 
-                $(".dropbox").droppable(
-                        {
-                                drop : function(event, ui) {
-
-										//remotefuntion eine method im controller aufgerufen werden und eine id gesendet werden
-                                    
-                                        $(this).addClass("ui-state-highlight");
-                                }
-                });
-                
         });
 </script>
 
@@ -95,22 +84,11 @@
 			<br>
 			<hr>
 			<div class="pure-g-r">
-				<div class="pure-u-3-4">
+				<div class="pure-u-1">
 				
 						<g:render template="/template/berlin/template" />
 				</div>
-				<div class="pure-u-1-4">
-					<div><b>Bausteine</b></div><br>
-			
-					<g:each var="con" in="${contents}">	
-					
-						<div id="dragtest" class="component">
-							${con.name}<br>
-							<g:link controller="ContentComponent">
-							<i class="fa fa-cogs"></i>Komponente bearbeiten</g:link>
-						</div>
-					</g:each>
-				</div>
+				
 			</div>
 
 			
