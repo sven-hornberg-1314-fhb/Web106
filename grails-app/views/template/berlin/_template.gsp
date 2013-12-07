@@ -14,6 +14,11 @@
 	  .green{
 	  background-color: green;
 	  }
+	  
+	  .centermessagebox {
+	  		    margin: 0 auto;
+	  }
+	  
 	  <!--
 	  -->
 	 </style>
@@ -28,7 +33,12 @@
 <script type="text/javascript">
         $(function() {
 
-			$('#centermessagebox').fadeIn();
+        	
+        	if(document.URL.indexOf("template") == -1) {
+            	$('.centermessagebox').hide();
+            } 
+
+		
 
             /*$('#header').on(
                    'drop', function(event, ui){
