@@ -45,9 +45,8 @@ class ContentComponentController {
 			
 			
 			conCom.save(FailonError: true, flush: true)
-			render conCom as JSON
 		
-		
+			redirect controller: params.controller
 	}
 	
 	def list() {
