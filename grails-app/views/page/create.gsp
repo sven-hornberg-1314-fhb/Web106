@@ -38,60 +38,64 @@
 <body>
 
 
-	<div id="menu" class="pure-g-r">
+<div id="menu" class="pure-g-r">
 
-		<div id="nav" class="pure-u-1-8">
+    <div id="nav" class="pure-u-1-8">
 
-			<g:render template="/shared/backendsidebar" />
+        <g:render template="/shared/backendsidebar" />
 
-		</div>
-		<div id="main" class="pure-u-7-8">
+    </div>
+    <div id="main" class="pure-u-7-8">
 
 
-			<h3>Legen Sie Ihre Seite an</h3>
+        <h3>Legen Sie Ihre Seite an</h3>
 
-			<div class="pure-g-r">
-				<div class="pure-u-1-8">Titel der Seite:</div>
-				<div class="pure-u-1-4">
-					<input type="text" placeholder="Titel">
-				</div>
-			</div>
+        <div class="pure-g-r">
+            <div class="pure-u-1-8">Titel der Seite:</div>
+            <div class="pure-u-1-4">
+                <input type="text" placeholder="Titel">
+            </div>
+        </div>
 
-			<br>
-			<div class="pure-g-r">
-				<div class="pure-u-1-8">Seite ist aktiv online</div>
-				<div class="pure-u-1-4">
-					<g:checkBox name="online"/>
-				</div>
-			</div>
+        <br>
+        <div class="pure-g-r">
+            <div class="pure-u-1-8">Seite ist aktiv online</div>
+            <div class="pure-u-1-4">
+                <g:checkBox name="online"/>
+            </div>
+        </div>
 
-			<br>
-			<div class="pure-g-r">
-				<div class="pure-u-1-8">Visable From:</div>
-				<div class="pure-u-1-4">
-					<g:datePicker precision="day" relativeYears="[0..2]"
-						name="startDate" />
-				</div>
-				<div class="pure-u-1-8">Visable To:</div>
-				<div class="pure-u-1-4">
-					<g:datePicker precision="day" relativeYears="[0..10]"
-						name="startDate" />
-				</div>
-				<div class="pure-u-1-8">Für immer:</div>
-				<div class="pure-u-1-8">
-					<g:checkBox name="immer" />
-				</div>
-			</div>
-			<br>
-			<hr>
-			<div class="pure-g-r">
-				<div class="pure-u-1">
-				
-						<g:render template="/template/berlin/template" />
-				</div>
-				
-			</div>
-</div>
+        <br>
+        <div class="pure-g-r">
+            <div class="pure-u-1-8">Visable From:</div>
+            <div class="pure-u-1-4">
+                <g:datePicker precision="day" relativeYears="[0..2]"
+                              name="startDate" />
+            </div>
+            <div class="pure-u-1-8">Visable To:</div>
+            <div class="pure-u-1-4">
+                <g:datePicker precision="day" relativeYears="[0..10]"
+                              name="startDate" />
+            </div>
+            <div class="pure-u-1-8">Für immer:</div>
+            <div class="pure-u-1-8">
+                <g:checkBox name="immer" />
+            </div>
+        </div>
+        <br>
+        
+        <g:submitButton name="Speichern"/>
+        
+        <hr>
+        <div class="pure-g-r">
+            <div class="pure-u-1">
+
+                <g:render template="/template/berlin/template" />
+            </div>
+           
+        </div>
+
+    </div>
 </div>
 <r:layoutResources />
 </body>
