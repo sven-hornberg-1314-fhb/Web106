@@ -66,8 +66,25 @@ class ContentComponentController {
 			workGroup == aworkGroup
 		}
 		
-		render contents as JSON
 		
-		render view: 'listown', model : ['text': 'meinCoolerText']
+		def model =[
+			contents : contents	
+		]		
+				
+		render view: 'listown', model : model
+	}
+	
+	def edit() {
+		print "edit: " + params.id
+		
+		//back to index
+		redirect controller: params.controller
+	}
+	
+	def delete() {
+		print "delte: " + params.id
+		
+		//back to index
+		redirect controller: params.controller
 	}
 }
