@@ -112,14 +112,22 @@
         
             <div class="pure-u-1-3">
                 <g:render template="/template/berlin/template" />
-                <g:submitButton name="TemplateBerlin"/>
+                
+                <g:remoteLink action="selecttemplate"
+	              update="success"
+	              params='[template:"berlin"]'
+	              >TemplateBerlin</g:remoteLink>
             </div>
             
             <div class="pure-u-1-8"></div>
              
             <div class="pure-u-1-3">
                 <g:render template="/template/kairo/template" />
-                <g:submitButton name="TemplateKairo"/>
+                
+                <g:remoteLink action="selecttemplate"
+	              update="success"
+	              params='[template:"kairo"]'
+	              >TemplateKairo</g:remoteLink>
             </div>
             
             <div class="pure-u-1-8"></div>
