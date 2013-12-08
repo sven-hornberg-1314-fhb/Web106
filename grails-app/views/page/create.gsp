@@ -46,6 +46,7 @@
 
     </div>
     <div id="main" class="pure-u-7-8">
+    <g:form action="create_step2">
 
 
         <div class="pure-g-r">
@@ -57,7 +58,7 @@
         	<div class="pure-u-1-8"></div>
             <div class="pure-u-1-8">Titel der Seite:</div>
             <div class="pure-u-1-4">
-                <input type="text" placeholder="Titel">
+                <g:textField name="titel" placeholder="Titel"/>
             </div>
         </div>
 
@@ -95,6 +96,10 @@
             <div class="pure-u-1-8">
                 <g:checkBox name="immer" />
             </div>
+            <div class="pure-u-1-8">Template</div>
+            <div class="pure-u-1-8">
+                <g:select name="template" from="["Berlin","Kairo"]"/>
+            </div>
             </div>
         <br>
         <div class="pure-g-r">
@@ -106,6 +111,8 @@
         	</div>
         </div>
         
+        </g:form>
+        
         <hr>
         <div class="pure-g-r">            
         	<div class="pure-u-1-8"></div>
@@ -113,10 +120,7 @@
             <div class="pure-u-1-3">
                 <g:render template="/template/berlin/template" />
                 
-                <g:remoteLink action="selecttemplate"
-	              update="success"
-	              params='[template:"berlin"]'
-	              >TemplateBerlin</g:remoteLink>
+
             </div>
             
             <div class="pure-u-1-8"></div>
@@ -124,10 +128,7 @@
             <div class="pure-u-1-3">
                 <g:render template="/template/kairo/template" />
                 
-                <g:remoteLink action="selecttemplate"
-	              update="success"
-	              params='[template:"kairo"]'
-	              >TemplateKairo</g:remoteLink>
+    
             </div>
             
             <div class="pure-u-1-8"></div>

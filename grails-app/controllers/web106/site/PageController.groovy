@@ -41,6 +41,9 @@ class PageController {
 	
 	def create_step2() {
 		
+        print params
+		
+		
 		//find ContentComponents
 		def selectedWorkgroup = WorkGroup.find{id == activeWorkGroup}
 		
@@ -61,5 +64,13 @@ class PageController {
     def remote(){
         print params
     }
+	
+	def selecttemplate() {
+		params.template
+		
+		flash.template = params.template
+		print params
+	
+	}
 
 }
