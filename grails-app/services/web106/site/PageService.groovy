@@ -6,7 +6,8 @@ import grails.transaction.Transactional
 class PageService {
 	
 	Page create(final Page page) {
-		
+	
+		return page.save();	
 	}
 	
 	Page saveOrUpdate(final Page page) {

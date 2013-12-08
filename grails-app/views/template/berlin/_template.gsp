@@ -23,9 +23,9 @@
 	  -->
 	 </style>
 <link rel="stylesheet"
-	href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
+	href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css" />
 <link rel="stylesheet"
-	href="http://yui.yahooapis.com/pure/0.3.0/grids-min.css">
+	href="http://yui.yahooapis.com/pure/0.3.0/grids-min.css" />
 <g:javascript library="jquery" />
 <r:require module="jquery-ui"/>
 <r:layoutResources />
@@ -38,16 +38,6 @@
             	$('.centermessagebox').hide();
             } 
 
-		
-
-            /*$('#header').on(
-                   'drop', function(event, ui){
-                        var draggableId = ui.draggable.attr("id");
-                        var droppableId = $(this).attr("id");
-                        alert("draggableId: "+draggableId+" droppableId: "+droppableId)
-                                <g:remoteFunction controller="page" action="remote" params="[id:'1', draggableId:'test']"/>
-                            }
-                    );  */
 
             $('#header').on(
                     'drop', function(event, ui){
@@ -82,8 +72,8 @@
 					<h3>Welcome to ${stadt}</h3>
 				</div>
 			</div>
-			<div id="sidebar1" class="pure-g-r">
-				<div class="pure-u-1-3 blue dropbox">
+			<div class="pure-g-r">
+				<div id="sidebar1" class="pure-u-1-3 blue dropbox">
 					Side
 				</div>
 				<div id="content" class="pure-u-1-3 grey dropbox">
@@ -94,8 +84,8 @@
 				</div>
 			</div>
 
-			<div id="footer" class="pure-g-r">
-				<div class="pure-u-1-2 green dropbox">
+			<div class="pure-g-r">
+				<div id="footer" class="pure-u-1-2 green dropbox">
 					<h3>Footer</h3>
 				</div>
 				<div id="footer2" class="pure-u-1-2 green dropbox">
