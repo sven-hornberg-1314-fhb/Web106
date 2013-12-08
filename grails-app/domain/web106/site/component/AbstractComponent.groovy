@@ -15,6 +15,13 @@ class AbstractComponent {
 
     static belongsTo = [workGroup: WorkGroup]
 	
+	/**
+	 * Render HTML
+	 * @return html
+	 */
+	String renderHTML() {
+			
+	}
 
     static constraints = {
         box blank:true, nullable : true

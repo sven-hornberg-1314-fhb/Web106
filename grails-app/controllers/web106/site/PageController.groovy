@@ -40,8 +40,17 @@ class PageController {
     }
 	
 	def create_step2() {
+		//create page
+		
+		//create boxes and map to page
+		
+		//redirect to edit
+	}
+	
+	def edit() {
 		
         print params
+		
 		
 		
 		//find ContentComponents
@@ -58,7 +67,7 @@ class PageController {
 
 		]
 		
-		render view:'create_step2' , model : model
+		render view:'edit' , model : model
     }
 
     def remote(){
