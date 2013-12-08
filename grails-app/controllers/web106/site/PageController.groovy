@@ -51,7 +51,7 @@ class PageController {
 	def create_step2() {
 		
 
-		String contents = groovyPageRenderer.render(template:"/template/kairo/template", model:[])	
+		String contents = groovyPageRenderer.render(template:"/template/berlin/template", model:[])	
 		//get all div ids with class dropbox
 		
 		def rootNode = new XmlSlurper().parseText(contents)
@@ -69,15 +69,27 @@ class PageController {
 			}
 		}
 		
-	
+		//TODO 
+		
 		
 		//create page
 		Page newPage = new Page()
+		newPage.boxes = []
+		newPage.title = params.titel
 		
 		//create boxes and map to page
+		boxids.each {
+		
+			def box = new Box()
+			box.idName = it
+			newPage.boxes.add(box)
+			
+			box.save()
+		}
+		newPage.save(failOnError: true)
 		
 		//redirect to edit
-		render boxids as JSON
+		render newPage as JSON
 		
 	}
 	
