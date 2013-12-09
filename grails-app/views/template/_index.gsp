@@ -30,10 +30,9 @@
 	<h3>Wähle ein Template:</h3>
 
 	
-	<div class="btn btn-default"><a href="${createLink(action: 'berlin')}">Berlin</a></div>
-	
-	<div class="btn btn-default"><a href="${createLink(action: 'kairo')}">Kairo</a></div>
-
+	<g:each var="template" in="${templates}">
+		<div class="btn btn-default"><a href="${createLink(action: template.name.toLowerCase())}">${template.name}</a></div>
+	</g:each>
  	</div>
  	
       

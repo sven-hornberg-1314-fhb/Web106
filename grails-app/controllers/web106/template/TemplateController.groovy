@@ -1,5 +1,6 @@
 package web106.template
 
+import web106.site.Template;
 import grails.converters.JSON
 
 class TemplateController {
@@ -7,7 +8,10 @@ class TemplateController {
 	
     def index() { 
 		
-		render(template:"index")		
+		def model = [
+			templates : Template.all 
+		]
+		render(template:"index", model : model )		
 	}
 	
 	def kairo() {
@@ -49,14 +53,10 @@ class TemplateController {
 	}
 
     def list() {
-
-        def list = [
-
-            1: "Berlin",
-            2: "Kairo"
-        ]
-
-        render list;
+		
+        render Template.all as JSON;
     }
+	
+
 
 }

@@ -3,6 +3,7 @@ package web106.site
 import grails.test.mixin.TestFor;
 import grails.test.mixin.TestMixin
 import grails.test.mixin.support.GrailsUnitTestMixin
+import spock.lang.Shared;
 import spock.lang.Specification
 import grails.test.mixin.Mock
 import web106.site.*
@@ -10,11 +11,14 @@ import web106.site.*
  * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
  */
 @TestMixin(GrailsUnitTestMixin)
-@Mock([Page, Box])
+@Mock([Page, Box,Template])
 @TestFor(Page)
 class PageSpec extends Specification {
-
-    def setup() {
+	
+	@Shared Template template
+    
+	def setup() {
+		template = new Template(name:'Berlin')
     }
 
     def cleanup() {
@@ -23,7 +27,11 @@ class PageSpec extends Specification {
     def "page set title"() {
 
 		setup:
-			def newPage = new Page() 	
+			def newPage = new Page() 
+			def template = Template.find {
+				name ==  'Berlin'
+			}
+			newPage.template = template	
 		
 		when: 
 		
@@ -42,7 +50,8 @@ class PageSpec extends Specification {
 			def visibleToDate = new Date()
 			
 			def newPage = new Page(title: "saveMe", visibleTo: visibleToDate, visibleFrom : visibleFromDate)
-		
+			newPage.template = template
+			
 		when:
 		
 			newPage.save(flush: true, failOnError: true)
@@ -60,6 +69,8 @@ class PageSpec extends Specification {
 			def visibleToDate = new Date()
 			
 			def newPage = new Page(title: "saveMe", visibleTo: visibleToDate, visibleFrom : visibleFromDate)
+			newPage.template = template
+			
 			newPage.save(flush: true, failOnError: true)
 		
 		when:
@@ -83,6 +94,8 @@ class PageSpec extends Specification {
 			def visibleToDate = new Date()
 			
 			def newPage = new Page(title: "saveMe", visibleTo: visibleToDate, visibleFrom : visibleFromDate)
+			newPage.template = template
+			
 			newPage.save(flush: true, failOnError: true)
 			
 		when:
@@ -108,6 +121,8 @@ class PageSpec extends Specification {
 			def visibleToDate = new Date()
 			
 			def newPage = new Page(title: "saveMe", visibleTo: visibleToDate, visibleFrom : visibleFromDate)
+			newPage.template = template	
+
 			newPage.save(flush: true, failOnError: true)
 			
 		when:
@@ -138,7 +153,8 @@ class PageSpec extends Specification {
 			def boxesSet = []
 			boxesSet.add(box1)
 			boxesSet.add(box2)
-		
+			newPage.template = template
+			
 		when:
 	
 			newPage.boxes = boxesSet as Set
@@ -162,7 +178,8 @@ class PageSpec extends Specification {
 			def visibleToDate = new Date()
 			
 			def newPage = new Page(title: "saveMe", visibleTo: visibleToDate, visibleFrom : visibleFromDate)
-		
+			newPage.template = template
+			
 		
 		when:
 	

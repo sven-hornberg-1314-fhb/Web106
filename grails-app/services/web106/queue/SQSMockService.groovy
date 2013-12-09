@@ -1,10 +1,13 @@
 package web106.queue
 
-import com.amazonaws.services.sqs.model.Message
+import web106.mock.Message
 
 import grails.transaction.Transactional
 
 @Transactional
+/**
+ * Evaluation of SQS Mock with a much smaller and simple , less powerful api
+ */
 class SQSMockService {
 
 
@@ -22,17 +25,19 @@ class SQSMockService {
 	*/
 	def sendMessage(String queueUrl, String messageBody) {
 		
+		Message newMessage = new Message()
+		newMessage.messagebody = messageBody
+		
 		if(sqs.containsKey(queueUrl)) {
 	
-			Queue<String> urlqueue = new LinkedList<String>()
-			urlqueue.offer(messageBody)
-			
+			Queue<Message> urlqueue = new LinkedList<Message>()
+			urlqueue.offer(newMessage)
 			sqs[queueUrl]  = urlqueue
 				
 		} else {
 		
-			Queue<String> urlqueue = sqs[queueUrl]
-			urlqueue.offer(messageBody)
+			Queue<Message> urlqueue = sqs[queueUrl]
+			urlqueue.offer(newMessage)
 		}
 	}
 	
@@ -55,8 +60,20 @@ class SQSMockService {
 		System.out.println();
 	 * 
 	 */
-	
-	//peek()
+	def receiveMessage(String queueUrl) {
+		
+		Message returnMessage
+		
+		if(sqs.containsKey(queueUrl)) {
+			
+			returnMessage = null
+				
+		} else {
+		
+			Queue<Message> urlqueue = sqs[queueUrl]
+			returnMessage = urlqueue.peek()
+		}
+	}
 	
 	/*
 	 * // Delete a message
@@ -66,8 +83,15 @@ class SQSMockService {
     .withQueueUrl(myQueueUrl)
     .withReceiptHandle(messageReceiptHandle));
 	 */
-	
-	// remove()
 
+	
+	def deleteMessage(String queueUrl) {
+
+		if(!sqs.containsKey(queueUrl)) {
+	
+			Queue<Message> urlqueue = sqs[queueUrl]
+			returnMessage = urlqueue.remove()
+		}
+	}
 	
 }
