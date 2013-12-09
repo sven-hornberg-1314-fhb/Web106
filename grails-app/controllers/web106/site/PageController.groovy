@@ -109,7 +109,7 @@ class PageController {
 		newPage.save(failOnError: true)
 		
 		//redirect to edit
-		redirect uri: '/page/edit/' + newPage.id
+		redirect action: "edit", id: newPage.id 
  
 
 		
