@@ -2,6 +2,7 @@ package web106.site
 
 import grails.converters.JSON
 import web106.site.component.ContentComponent
+import web106.template.TemplateController;
 import web106.auth.WorkGroup
 import grails.gsp.PageRenderer 
 import groovy.util.slurpersupport.NodeChild;
@@ -39,12 +40,18 @@ class PageController {
 
     def create(){
 		
+		 
+    	TemplateController templateController = new TemplateController()
+			
+		
 		def model = [
-
+			modelberlin : templateController.defaultmodelBerlin(), 
+			modelkairo: templateController.defaultmodelKairo()
 		]
 	
 		
 		render view:'create' , model : model
+		
     }
 	
 	
@@ -71,7 +78,8 @@ class PageController {
 		
 		//TODO 
 		
-		
+		render params as JSON
+		/*
 		//create page
 		Page newPage = new Page()
 		newPage.boxes = []
@@ -90,7 +98,7 @@ class PageController {
 		
 		//redirect to edit
 		render newPage as JSON
-		
+		*/
 	}
 	
 	def edit() {

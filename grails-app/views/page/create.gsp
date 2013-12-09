@@ -58,7 +58,7 @@
         	<div class="pure-u-1-8"></div>
             <div class="pure-u-1-8">Titel der Seite:</div>
             <div class="pure-u-1-4">
-                <g:textField name="titel" placeholder="Titel"/>
+                <g:textField name="titel" placeholder="Titel" required="true"/>
             </div>
         </div>
 
@@ -118,7 +118,7 @@
         	<div class="pure-u-1-8"></div>
         
             <div class="pure-u-1-3">
-                <g:render template="/template/berlin/template" />
+                <g:render template="/template/berlin/template" model="${modelberlin}" />
                 
 
             </div>
@@ -126,7 +126,7 @@
             <div class="pure-u-1-8"></div>
              
             <div class="pure-u-1-3">
-                <g:render template="/template/kairo/template" />
+                <g:render template="/template/kairo/template" model="${modelkairo}" />
                 
     
             </div>

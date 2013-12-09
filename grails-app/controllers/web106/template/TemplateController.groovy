@@ -12,30 +12,40 @@ class TemplateController {
 	
 	def kairo() {
 		
+		def model = defaultmodelKairo()
+		
+		render(template:"kairo/template", model: model)
+	}
+	
+	def defaultmodelKairo() {
 		def model = [
-			centermessagebox:true, 
-			header: "header", 
+			centermessagebox:true,
+			header: "header",
 			content: "content",
 			side1: "side1",
 			side2: "side2",
 			side3: "side3",
 			footer: "footer"
 		]
-		
-		render(template:"kairo/template", model: model)
 	}
+	
+	
 	def berlin() {
 		
+		def model = defaultmodelBerlin()
+		render(template:"berlin/template", model:model)
+	}
+	
+	def defaultmodelBerlin() {
 		def model = [
 			centermessagebox:true,
-			header: "header", 
+			header: "header",
 			sidebar1: "sidebar1",
 			sidebar2: "sidebar2",
 			content : "content",
 			footer : "footer",
 			footer2 : "footer2"
 		]
-		render(template:"berlin/template", model:model)
 	}
 
     def list() {
