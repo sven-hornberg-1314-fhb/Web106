@@ -6,7 +6,10 @@ package web106.site.component
 class ContentComponent extends AbstractComponent{
 
 
-	
+	@Override
+	public String renderHTML() {
+		return '<div>' + text + '</div>'
+	}
 	
     String text;
 }

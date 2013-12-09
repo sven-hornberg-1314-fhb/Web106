@@ -109,8 +109,11 @@ class PageController {
 		newPage.save(failOnError: true)
 		
 		//redirect to edit
-		render newPage as JSON
-	
+		redirect uri: '/page/edit/' + newPage.id
+ 
+
+		
+ 
 	}
 	
 	def edit() {
