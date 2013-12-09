@@ -68,8 +68,9 @@
 </head>
 <body>
 
-		<g:render template="/shared/centermessagebox" />
-
+		<g:if test="${centermessagebox==true}">
+			<g:render template="/shared/centermessagebox" />
+		</g:if>
 
 		<div id="main" class="pure-u-1">
 			
@@ -77,27 +78,27 @@
 			
 			<div class="pure-g-r">
 				<div id="header" class="pure-u-1-3 grey dropbox">
-					<h3>Welcome to ${stadt}</h3>
+					${header}
 				</div>
-				<div class="pure-u-2-3 green">
-					Side
+				<div id="side1" class="pure-u-2-3 green">
+					${side1}
 				</div>
 			</div>
 			<div class="pure-g-r">
-				<div class="pure-u-1-3 blue">
-					Side
+				<div id="side2" class="pure-u-1-3 blue">
+					${side2}
 				</div>
-				<div class="pure-u-1-3 grey">
-					Content
+				<div id="content" class="pure-u-1-3 grey">
+					${content}
 				</div>
-				<div class="pure-u-1-3 red">
-					Side
+				<div id="side3" class="pure-u-1-3 red">
+					${side3}
 				</div>
 			</div>
 
 			<div class="pure-g-r">
-				<div class="pure-u-1 green">
-					<h3>Footer</h3>
+				<div id="footer" class="pure-u-1 green">
+					${footer}
 				</div>
 			</div>	
 		</div>

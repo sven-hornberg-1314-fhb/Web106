@@ -60,36 +60,35 @@
 </head>
 <body>
 
-		<g:render template="/shared/centermessagebox" />
-
+		<g:if test="${centermessagebox==true}">
+			<g:render template="/shared/centermessagebox" />
+		</g:if>
 
 		<div id="main" class="pure-u-1">
 			
-			
-			
 			<div class="pure-g-r">
 				<div id="header" class="pure-u-1 grey dropbox">
-					<h3>Welcome to ${stadt}</h3>
+					${header}
 				</div>
 			</div>
 			<div class="pure-g-r">
 				<div id="sidebar1" class="pure-u-1-3 blue dropbox">
-					Side
+					${sidebar1}
 				</div>
 				<div id="content" class="pure-u-1-3 grey dropbox">
-					Content
+					${content}
 				</div>
 				<div id="sidebar2" class="pure-u-1-3 red dropbox">
-					Side
+				 	${sidebar2}
 				</div>
 			</div>
 
 			<div class="pure-g-r">
 				<div id="footer" class="pure-u-1-2 green dropbox">
-					<h3>Footer</h3>
+				 	${footer}
 				</div>
 				<div id="footer2" class="pure-u-1-2 green dropbox">
-					<h3>Footer2</h3>
+				 	${footer2}
 				</div>
 			</div>	
 		</div>
