@@ -9,6 +9,8 @@ import web106.auth.WorkGroup
 class Page {
 
 	String title
+	
+	Template template
 
     static hasMany=[boxes:Box]
 
