@@ -6,6 +6,7 @@ import web106.template.TemplateController;
 import web106.auth.WorkGroup
 import grails.gsp.PageRenderer 
 import groovy.util.slurpersupport.NodeChild;
+import java.text.SimpleDateFormat
 
 
 
@@ -75,16 +76,27 @@ class PageController {
 				boxids.add(it.@id.text())
 			}
 		}
+
+		//TODO startdate -> visibleFrom, endDate -> visibleTo
 		
-		//TODO 
+		//parse dates
+		def startDate = new SimpleDateFormat("d/M/yyyy").parse(
+			"${params.startDate_day}/${params.startDate_month}/${params.startDate_year}")
+		print startDate
 		
-		render params as JSON
-		/*
+		def endDate = new SimpleDateFormat("d/M/yyyy").parse(
+			"${params.endDate_day}/${params.endDate_month}/${params.endDate_year}")
+		print endDate
+		
+		
+		
 		//create page
 		Page newPage = new Page()
 		newPage.boxes = []
 		newPage.title = params.titel
-		
+		newPage.visibleFrom = startDate
+		newPage.visibleTo = endDate
+		 
 		//create boxes and map to page
 		boxids.each {
 		
@@ -98,7 +110,7 @@ class PageController {
 		
 		//redirect to edit
 		render newPage as JSON
-		*/
+	
 	}
 	
 	def edit() {

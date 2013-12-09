@@ -85,7 +85,7 @@
             <div class="pure-u-1-8">Visable To:</div>
             <div class="pure-u-1-4">
                 <g:datePicker precision="day" relativeYears="[0..10]"
-                              name="startDate" />
+                              name="endDate" />
             </div>
         </div>
          <div class="pure-g-r">
