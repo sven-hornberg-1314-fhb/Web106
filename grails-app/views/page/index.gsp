@@ -12,8 +12,12 @@
     <!--
     -->
     </style>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/grids-min.css">
+    <link rel="stylesheet"
+          href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css" />
+    <link rel="stylesheet"
+          href="http://yui.yahooapis.com/pure/0.3.0/grids-min.css" />
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
     <r:layoutResources />
 </head>
 <body>
@@ -26,7 +30,9 @@
 	
 	</div>
 	<div id="main" class="pure-u-7-8">
-	
+        <h3>vorhandene Seiten</h3>
+        <g:include action="listown" />
+        <hr>
 	
 		<h3>Seitenfunktionen</h3>
 		<div class="container">

@@ -105,8 +105,6 @@ class ContentComponentController {
     }
 	
 	def delete() {
-		print "delte: " + params.id
-
         //find and delete component
         def current = ContentComponent.find{
              id == params.id

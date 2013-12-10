@@ -152,6 +152,18 @@ class PageController {
 		render view:'edit' , model : model
     }
 
+    def delete(){
+        //find and delete component
+        def current = Page.find{
+            id == params.id
+        }
+
+        current.delete(failOnError: true)
+
+        //back to index
+        redirect controller: params.controller
+    }
+
     def remote(){
         print params
     }
@@ -163,5 +175,23 @@ class PageController {
 		print params
 	
 	}
+
+
+    def listown(){
+        def aworkGroup = WorkGroup.find(){
+            id == activeWorkGroup
+        }
+
+        def pages = Page.findAll()
+
+        //Todo: Filter by Workgroup
+        def model =[
+                pages : pages
+        ]
+
+        render view: 'listown', model : model
+    }
+
+
 
 }
