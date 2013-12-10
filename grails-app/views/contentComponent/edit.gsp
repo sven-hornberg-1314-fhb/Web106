@@ -45,7 +45,7 @@
 
 		</div>
 		<div id="main" class="pure-u-7-8">
-		<g:form name="createComponentForm" action="createComponent" >
+		<g:form name="editForm" action="edit2" >
 	
 			<br>
 			<div id="menu" class="pure-g-r">
@@ -55,20 +55,22 @@
 			</div>
 			<div id="menu" class="pure-g-r">
 				<div class="pure-u-1-8">Name:</div>
-				<div class="pure-u-1-8"><g:textField name="name" required="true" /></div>
+				<div class="pure-u-1-8"><g:textField name="name" value="${name}" required="true" /></div>
 			</div>
 		
 			<br>
 			<div id="menu" class="pure-g-r">
 				<div class="pure-u-1-2">
-				<g:textArea name="text" rows="5" cols="40" required="true" />
+				<g:textArea name="text" rows="5" cols="40" value="${text}" required="true" />
 				</div>
 			</div>
 			<div id="menu" class="pure-g-r">
 				<div class="pure-u-1-2">
-				<g:actionSubmit value="Anlegen" action="createComponent" />
+				<g:actionSubmit value="Anlegen" action="edit2" />
 				</div>
 			</div>
+
+            <g:hiddenField name="hid" value="${id}" />
 			
 		</g:form>
 		</div>

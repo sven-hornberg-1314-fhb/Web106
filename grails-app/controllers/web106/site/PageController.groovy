@@ -96,6 +96,13 @@ class PageController {
 		newPage.title = params.titel
 		newPage.visibleFrom = startDate
 		newPage.visibleTo = endDate
+
+
+        Template template = Template.find {
+            name == 'Berlin'
+        }
+
+        newPage.template = template
 		 
 		//create boxes and map to page
 		boxids.each {

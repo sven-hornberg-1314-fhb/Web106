@@ -48,7 +48,7 @@ class ContentComponentController {
 		
 			redirect controller: params.controller
 	}
-	
+
 	def list() {
 		def contents = ContentComponent.findAll()
 		
@@ -74,15 +74,46 @@ class ContentComponentController {
 	}
 	
 	def edit() {
-		print "edit: " + params.id
-		
+        ContentComponent current = ContentComponent.find{
+            id == params.id
+        }
+
+
+        def model = [
+              id : current.id ,
+              name : current.name ,
+              text :  current.text
+
+        ]
+
 		//back to index
-		redirect controller: params.controller
+		render view:"edit", model:model
 	}
+
+    def edit2(){
+        def current = ContentComponent.find{
+            id == params.hid
+        }
+
+        current.name = params.name
+        current.text = params.text
+
+        current.save(failOnError: true)
+
+
+        redirect controller: params.controller
+    }
 	
 	def delete() {
 		print "delte: " + params.id
-		
+
+        //find and delete component
+        def current = ContentComponent.find{
+             id == params.id
+        }
+
+        current.delete(failOnError: true)
+
 		//back to index
 		redirect controller: params.controller
 	}
