@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat
 class PageController {
 	
 	def activeWorkGroup
+    def activeWebsite
 	PageRenderer groovyPageRenderer
 	
 	def boxService
@@ -28,8 +29,24 @@ class PageController {
 			
 		} else {
 			activeWorkGroup = activeWorkGroupSession
-			
+
+            def activeWebsiteSession = session.getAttribute('activeWebsite')
+            if(activeWebsiteSession == null && activeWebsiteSession <=0 ){
+
+                session.setAttribute("beforeUri", "${actionUri}")
+                redirect(controller: "Website", action: "listWebsites")
+
+            }   else{
+
+                activeWebsite = activeWebsiteSession
+
+            }
+
 		}
+
+
+
+
 	}
 
     def index() {

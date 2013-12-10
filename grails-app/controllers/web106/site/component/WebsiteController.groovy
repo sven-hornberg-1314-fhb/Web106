@@ -73,7 +73,7 @@ class WebsiteController {
             id == params.id
         }
 
-        session.setAttribute("activewebsite", website.id)
+        session.setAttribute("activeWebsite", website.id)
 
         redirect controller: params.controller
 
@@ -83,8 +83,8 @@ class WebsiteController {
 
         def model = [:]
 
-        if(session.getAttribute('activewebsite') != null) {
-            def websiteid = session.getAttribute('activewebsite')
+        if(session.getAttribute('activeWebsite') != null) {
+            def websiteid = session.getAttribute('activeWebsite')
 
             Website website = Website.find {
 
@@ -96,6 +96,52 @@ class WebsiteController {
 
         render view : 'activewebsite', model: model
     }
+
+    def listWebsites(){
+
+        def aworkGroup = WorkGroup.find(){
+            id == activeWorkGroup
+        }
+
+        def websites = Website.findAll() {
+            workGroup == aworkGroup
+        }
+
+        def model = [
+                websites:websites
+        ]
+
+        render view: 'listwebsites', model: model
+    }
+
+    def selectWebsites() {
+
+        def websiteId = params.id
+
+
+        session.setAttribute("activeWebsite",websiteId)
+
+
+
+        def selectedWebsite = Website.find{id == websiteId}
+
+
+        def title = selectedWebsite.title
+
+        //back to old page
+        if(session.getAttribute("beforeUri") != null && session.getAttribute("beforeUri") != "") {
+
+            String uriPath = session.getAttribute("beforeUri");
+            session.removeAttribute("beforeUri")
+            redirect(uri: uriPath)
+
+        } else {
+
+            render view: "SuccessWebsiteSelection", model:[title: title]
+        }
+
+    }
+
 
 
 }
