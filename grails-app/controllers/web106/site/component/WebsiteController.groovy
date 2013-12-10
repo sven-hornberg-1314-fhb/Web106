@@ -3,41 +3,98 @@ package web106.site.component
 import grails.converters.JSON
 import org.springframework.security.core.context.SecurityContextHolder
 import web106.auth.User
+import web106.auth.WorkGroup
+import web106.site.Page
+import web106.site.Website
 import web106.template.TemplateController
 import web106.UserUtils
 
 
 class WebsiteController {
 
+    def activeWorkGroup
+
+    def beforeInterceptor = {
+
+        def activeWorkGroupSession = session.getAttribute('activeWorkGroup')
+        if(activeWorkGroupSession == null && activeWorkGroupSession <= 0) {
+            session.setAttribute("beforeUri", "${actionUri}")
+            redirect(controller: "WorkGroup", action: "listWorkGroups")
+        } else {
+            activeWorkGroup = activeWorkGroupSession
+        }
+    }
+
 
     def index() {
+        render view: "index"
     }
 
     def create(){
+        render view: 'create'
+    }
 
-        String email = UserUtils.newInstance().emailFromCurrentUser
-
-        User user = User.findByEmail(email)
-
-
-
-        //check if user has chosen workgroup
-        if(!session.attribute('activeWorkGroup')){
-            //if yes redirect to existing one
-
-            //if not create one
+    def create2(){
+        def aworkGroup = WorkGroup.find(){
+            id == activeWorkGroup
         }
 
-        TemplateController  tmp = new TemplateController()
-        def templateList = tmp.list();
+        def website = Website.newInstance()
+        website.title = params.title
+        website.workGroup = aworkGroup
+        website.save(failOnError: true)
 
-        def model = [
-                list:templateList,
-                title:'neue Website',
-                workgroup:workgroup,
+        redirect controller: params.controller
+
+    }
+
+    def listown(){
+
+        def aworkGroup = WorkGroup.find(){
+            id == activeWorkGroup
+        }
+
+        def websites = Website.findAll() {
+            workGroup == aworkGroup
+        }
 
 
+        def model =[
+                websites : websites
         ]
+
+        render view: 'listown', model : model
+
+    }
+
+    def select() {
+        Website website = Website.find {
+
+            id == params.id
+        }
+
+        session.setAttribute("activewebsite", website.id)
+
+        redirect controller: params.controller
+
+    }
+
+    def activeWebsite() {
+
+        def model = [:]
+
+        if(session.getAttribute('activewebsite') != null) {
+            def websiteid = session.getAttribute('activewebsite')
+
+            Website website = Website.find {
+
+                id == websiteid
+            }
+
+            model['activewebsite'] = website.title
+        }
+
+        render view : 'activewebsite', model: model
     }
 
 

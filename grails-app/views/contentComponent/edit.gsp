@@ -66,7 +66,7 @@
 			</div>
 			<div id="menu" class="pure-g-r">
 				<div class="pure-u-1-2">
-				<g:actionSubmit value="Anlegen" action="edit2" />
+				<g:actionSubmit value="Bearbeiten" action="edit2" />
 				</div>
 			</div>
 

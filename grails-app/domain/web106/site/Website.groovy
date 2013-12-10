@@ -17,5 +17,7 @@ class Website {
 
     static constraints = {
         title blank:false
+        page nullable:true
+
     }
 }

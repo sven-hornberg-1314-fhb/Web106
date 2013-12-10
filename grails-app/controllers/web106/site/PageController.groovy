@@ -152,6 +152,7 @@ class PageController {
 		render view:'edit' , model : model
     }
 
+    //Todo Boxes löschen
     def delete(){
         //find and delete component
         def current = Page.find{
