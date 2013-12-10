@@ -46,6 +46,7 @@ class PageController {
 			
 		
 		def model = [
+            templateNameList : templateController.listNames(),
 			modelberlin : templateController.defaultmodelBerlin(), 
 			modelkairo: templateController.defaultmodelKairo()
 		]

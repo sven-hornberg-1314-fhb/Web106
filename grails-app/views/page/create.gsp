@@ -98,7 +98,7 @@
             </div>
             <div class="pure-u-1-8">Template</div>
             <div class="pure-u-1-8">
-                <g:select name="template" from="["Berlin","Kairo"]"/>
+                <g:select name="template" from="${templateNameList}"/>
             </div>
             </div>
         <br>

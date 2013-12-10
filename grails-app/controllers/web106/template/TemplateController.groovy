@@ -56,7 +56,17 @@ class TemplateController {
 		
         render Template.all as JSON;
     }
-	
+
+    def listNames() {
+
+         def templates = Template.findAll()
+
+         def tempList = []
+
+        tempList.addAll(templates.name)
+
+        return tempList
+    }
 
 
 }
