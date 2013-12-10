@@ -58,9 +58,11 @@ class PageController {
 	
 	
 	def create_step2() {
-		
 
-		String contents = groovyPageRenderer.render(template:"/template/berlin/template", model:[])	
+        String tempName = params.template
+        String tempNameLower = tempName.toLowerCase()
+
+		String contents = groovyPageRenderer.render(template:'/template/'+tempNameLower+'/template', model:[])
 		//get all div ids with class dropbox
 		
 		def rootNode = new XmlSlurper().parseText(contents)
@@ -100,7 +102,7 @@ class PageController {
 
 
         Template template = Template.find {
-            name == 'Berlin'
+            name == tempName
         }
 
         newPage.template = template
