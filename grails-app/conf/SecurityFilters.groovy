@@ -23,16 +23,28 @@ class SecurityFilters {
                 if(params?.id) { // if a parameter named 'id' is passed in.
                     // if id is not a number of 1-10 digits,
                     if(!(params?.id ==~ /\d{1,10}/)){
-			redirect(controller: 'errors', action: 'accessDenied', params:[message:'only numbers allowed'])
+			            redirect(controller: 'errors', action: 'accessDenied', params:[message:'only numbers allowed'])
                         return false
-		    }/*else if(//!exists in db){			
-		        //redirect(controller: 'errors', action: 'accessDenied', params:[message:'id dont exists'])	    
-		    }else if(//!accessable){
-			//redirect(controller: 'errors', action: 'accessDenied', params:[message:'no rights to do this action'])
-		    }*/
-	    
+		            }else if(!session.getAttribute('activeWorkGroup')){
+		                redirect(controller: 'WorkGroup', action: 'listWorkGroups')
+		            }else{
+                        def activeWorkGroupSession = session.getAttribute('activeWorkGroup')
+                        def activeWebsiteSession = session.getAttribute('activeWebsite')
+
+                        if(params.id != null){
+                            print params
+                            //2. test ob aktuelle anzueigene page die workgroup, die selbe ist ,
+                            // wie die aktuelle activworkgroup in der session -> falls nicht redirect auf not authorized
+                        }
+
+
+
+		            }
+
                 }
             }
+
+
         }
 
 
@@ -41,3 +53,4 @@ class SecurityFilters {
        // in the 'filters' block. Filters are matched from top to bottom.
    }
 }
+
