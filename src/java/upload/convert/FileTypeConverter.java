@@ -57,7 +57,7 @@ public class FileTypeConverter {
 			 String filename = file.getOriginalFilename();
 			 String tDir = System.getProperty("java.io.tmpdir");
 			 
-			 File tempfile = new File(tDir + filename);
+			 File tempfile = new File(tDir + "/" + filename);
 			 
 			 outputStream = new FileOutputStream(tempfile);
 	 
