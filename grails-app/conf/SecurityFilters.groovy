@@ -1,4 +1,5 @@
 import web106.site.Page
+import web106.site.Website
 
 /**
 * Our filter to sanitize URLs. Grails detects any Groovy class inside the
@@ -28,23 +29,46 @@ class SecurityFilters {
 		            }else if(!session.getAttribute('activeWorkGroup')){
 		                redirect(controller: 'WorkGroup', action: 'listWorkGroups')
 		            }else{
-                        def activeWorkGroupSession = session.getAttribute('activeWorkGroup')
-                        def activeWebsiteSession = session.getAttribute('activeWebsite')
+                        def activeWorkGroupId = session.getAttribute('activeWorkGroup')
+                        def activeWebsiteId = session.getAttribute('activeWebsite')
 
-                        if(params.id != null){
-                            print params
-                            //2. test ob aktuelle anzueigene page die workgroup, die selbe ist ,
-                            // wie die aktuelle activworkgroup in der session -> falls nicht redirect auf not authorized
+                        //get current page
+                        def currentpage = Page.find {
+                                              id == params.id
                         }
 
+                        if(currentpage == null){
+                            redirect(controller: 'errors', action: 'accessDenied', params:[message:'access denied'])
+                        }
 
+                        print "page exists "+currentpage
 
+                        //get current website
+                        def currentWebsite = Website.find{
+                                     id == activeWebsiteId
+                        }
+
+                        if(currentWebsite == null){
+                            redirect(controller: 'errors', action: 'accessDenied', params:[message:'access denied'])
+                        }
+
+                        //get pages of current website
+                        currentWebsite.page
+                        //check if website contain current page
+                        if(!currentpage in currentWebsite.page){
+                            redirect(controller: 'errors', action: 'accessDenied', params:[message:'access denied'])
+                        }else{
+                            print "currentpage is in current websites pages list"
+
+                            //compare workgroup of current and session page, redirect if not equal
+                            if(!currentWebsite.workGroupId ==  activeWebsiteId){
+                                redirect(controller: 'errors', action: 'accessDenied', params:[message:'access denied'])
+                            }
+
+                        }
 		            }
-
                 }
             }
-
-
         }
 
 
