@@ -82,7 +82,7 @@ class PageController {
 		String contents = groovyPageRenderer.render(template:'/template/'+tempNameLower+'/template', model:[])
 		//get all div ids with class dropbox
 		
-		def rootNode = new XmlSlurper().parseText(contents)
+		def rootNode = new XmlSlurper(true,true,true).parseText(contents)
 		List<NodeChild> divNodes = []
 		def boxids = []
 
