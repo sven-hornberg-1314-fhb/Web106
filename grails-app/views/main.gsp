@@ -38,34 +38,14 @@
 <sec:ifLoggedIn>
 	<div id="main" class="pure-u-7-8">
 
-    <sec:ifAnyGranted roles="ROLE_ADMIN, ROLE_USER">Hallo,</sec:ifAnyGranted>
+       <h1>Willkommen auf der Startseite</h1>
 
-    <sec:ifAllGranted roles="ROLE_ADMIN">
-        admin: <sec:username /> <br/>
-        <g:link controller="administration" action="index">Controller Overview</g:link><br/>
-        <g:link controller="administration" action="listUsers">Users</g:link><br/>
-        <g:link controller="administration" action="listRoles">Roles</g:link><br/>
-        <g:link controller="administration" action="listUserRoles">UserRoles</g:link><br/>
-    </sec:ifAllGranted>
-
-    <sec:ifAnyGranted roles="ROLE_USER, ROLE_SUPERUSER">
-        user: <sec:username />
-    </sec:ifAnyGranted>
-
-    <sec:ifAllGranted roles="ROLE_ADMIN, ROLE_USER">
-        ADMIN & USER
-    </sec:ifAllGranted>
+       ${session}  <br/>
 
 </div>
-</div>
+
 </sec:ifLoggedIn>
 <hr/>
-
-${session}  <br/>
-
-<hr/>
-
-<g:link controller="logout">sign out</g:link>
 
 </body>
 </html>

@@ -10,10 +10,6 @@ class UploadFileController {
         render(view:"create");
     }
 	
-	def create() {
-	
-    }
-	
 	def upload() {
 		def mail  = UserUtils.newInstance().emailFromCurrentUser
 		User currentUser = User.find {email== mail}
@@ -25,7 +21,7 @@ class UploadFileController {
 			FileTypeConverter.convert(file, mail)
 
 		}
-		
-		redirect (action:'create')
+
+		redirect (action:'index')
 	}
 }

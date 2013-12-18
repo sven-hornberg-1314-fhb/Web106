@@ -27,4 +27,8 @@ class AdministrationController {
     def listUserRoles(){
         render UserRole.all as JSON
     }
+
+    def clearSession(){
+       //clear set session attributes website page ...
+    }
 }
