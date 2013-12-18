@@ -8,6 +8,6 @@ import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.chrome.ChromeDriver
 
 System.setProperty("webdriver.chrome.driver", 
-                                "/home/marcman/Dev/apps/chromedriver/chromedriver"); 
+                                "/usr/local/bin/chromedriver");
 
 driver = { new ChromeDriver() }
