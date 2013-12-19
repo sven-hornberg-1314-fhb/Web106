@@ -153,7 +153,7 @@ oauth {
     }
 
     admins{
-        twitter=['fuubah']
+        twitter=['fuubah','web106a']
         google=['Marcel Hinderlich']
     }
 }
