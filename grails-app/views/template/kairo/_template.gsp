@@ -17,7 +17,11 @@
 	  .centermessagebox {
 	  		    margin: 0 auto;
 	  }
-	  <!--
+      .dropbox {
+          min-height: 10em;
+      }
+
+      <!--
 	  -->
 	 </style>
 <link rel="stylesheet"

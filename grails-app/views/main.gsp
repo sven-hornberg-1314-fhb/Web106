@@ -62,13 +62,19 @@
                 <div class="boxmain">Einführung <br> <br><i class="fa fa-rocket fa-3"></i></div>
             </div>
             <div class="pure-u-1-4">
-                <div class="boxmain">Arbeitsgruppe <br><br><i class="fa fa-users  fa-3"></i></div>
+                <div class="boxmain">Arbeitsgruppe <br><br>
+                   <g:link controller="workGroup"><i class="fa fa-users  fa-3"></i></g:link>
+                </div>
             </div>
             <div class="pure-u-1-4">
-                <div class="boxmain">Website<br> <br><i class="fa fa-file   fa-3"></i></div>
+                <div class="boxmain">Website<br> <br>
+                    <g:link controller="website"><i class="fa fa-file   fa-3"></i></g:link>
+                </div>
             </div>
             <div class="pure-u-1-4">
-                <div class="boxmain">Templates <br><br><i class="fa fa-columns  fa-3"></i></div>
+                <div class="boxmain">Templates <br><br>
+                    <g:link controller="template"><i class="fa fa-columns  fa-3"></i></g:link>
+                </div>
             </div>
 
         </div>

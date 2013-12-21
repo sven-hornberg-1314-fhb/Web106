@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>${title}</title>
+
 <style type="text/css">
 <!--
 
@@ -61,7 +63,7 @@
 <div class="pure-g-r">
 				<div class="pure-u-3-4">
 				
-						<g:render template="/template/berlin/template" />
+						<g:render template="/template/berlin/template"  />
 				</div>
 				<div class="pure-u-1-4">
 					<div><b>Bausteine</b></div><br>

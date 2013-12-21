@@ -126,9 +126,12 @@ class PageController {
 		//page id
 		//check rights
 		
-        print params 
-		
-		
+        print params
+
+        def current = Page.find{
+            id == params.id
+        }
+        def title = current.title
 		
 		//find ContentComponents
 		def selectedWorkgroup = WorkGroup.find{id == activeWorkGroup}
@@ -137,11 +140,10 @@ class PageController {
 		
 			workGroup == selectedWorkgroup;
 		}
-		
-		
-		def model = [
-				contents : contents
 
+		def model = [
+				contents : contents,
+                title: title
 		]
 		
 		render view:'edit' , model : model
