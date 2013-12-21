@@ -5,6 +5,14 @@ import grails.converters.JSON
 
 class TemplateController {
 
+    def activeWorkGroup
+
+    def beforeInterceptor = {
+
+        def activeWorkGroupSession = session.getAttribute('activeWorkGroup')
+        activeWorkGroup = activeWorkGroupSession
+
+    }
 	
     def index() { 
 		

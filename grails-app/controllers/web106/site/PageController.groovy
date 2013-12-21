@@ -19,6 +19,13 @@ class PageController {
 	def boxService
 	def pageService
 
+    def beforeInterceptor = {
+
+        def activeWorkGroupSession = session.getAttribute('activeWorkGroup')
+        activeWorkGroup = activeWorkGroupSession
+        def activeWebsiteSession = session.getAttribute('activeWebsite')
+        activeWebsite = activeWebsiteSession
+    }
 
     def index() {
 		

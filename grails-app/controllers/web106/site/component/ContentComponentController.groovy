@@ -7,9 +7,15 @@ import grails.converters.JSON
 class ContentComponentController {
 
 	static allowedMethods = [createComponent:'POST']
-	
+
 	def activeWorkGroup
 
+    def beforeInterceptor = {
+
+        def activeWorkGroupSession = session.getAttribute('activeWorkGroup')
+        activeWorkGroup = activeWorkGroupSession
+
+    }
 	
 	def index() {
 		render view:'index'
