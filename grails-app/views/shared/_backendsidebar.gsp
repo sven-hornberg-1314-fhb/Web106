@@ -17,7 +17,7 @@
         <li class="pure-menu-heading">Workgroup: ${session?.activeWorkGroupName}</li>
         <li class="pure-menu-heading">Site: ${session?.activeWebsiteName}</li>
 
-        <li><a><g:link controller="WorkGroup">WorkGroups</g:link></a></li>
+        <li><g:link controller="WorkGroup">WorkGroups</g:link></li>
 
         <sec:ifLoggedIn><li><g:link controller="logout">sign out</g:link></li>   </sec:ifLoggedIn>
 
