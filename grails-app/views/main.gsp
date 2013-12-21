@@ -16,19 +16,6 @@
 </head>
 <body>
 
-<sec:ifLoggedIn>
-<div id="menu" class="pure-g">
-
-
-    
-    <div id="nav" class="pure-u-1-8">
-    
-		<g:render template="/shared/backendsidebar" />
-	
-	</div>
-
-</sec:ifLoggedIn>
-
 <sec:ifNotLoggedIn>
     <g:link controller="oauth" action="login"><button>Login</button></g:link>
     <g:link controller="oauth" action="register"><button>Register</button></g:link>
@@ -36,7 +23,17 @@
 
 
 <sec:ifLoggedIn>
-	<div id="main" class="pure-u-7-8">
+<div id="menu" class="pure-g">
+
+
+    
+    <div id="nav" class="pure-u-1-6">
+    
+		<g:render template="/shared/backendsidebar" />
+	
+	</div>
+
+	<div id="main" class="pure-u-5-6">
 
        <h1>Willkommen auf der Startseite</h1>
 

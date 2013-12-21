@@ -22,12 +22,12 @@
 
 <div id="menu" class="pure-g">
 
-    <div id="nav" class="pure-u-1-8">
+    <div id="nav" class="pure-u-1-6">
 
         <g:render template="/shared/backendsidebar" />
 
     </div>
-    <div id="main" class="pure-u-7-8"><table>
+    <div id="main" class="pure-u-5-6"><table>
         <tr>
             <th>Name</th><th>Inhalt</th><th><!--Select --></th></th><th><!-- Edit --></th><th><!-- Delete --></th>
         </tr>
