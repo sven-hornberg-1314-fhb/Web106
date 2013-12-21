@@ -14,8 +14,8 @@
             <sec:username />
         </sec:ifAnyGranted></li>
 
-        <li class="pure-menu-heading">Workgroup: ${session?.activeWorkGroup}</li>
-        <li class="pure-menu-heading">Site: ${session?.activeWebsite}</li>
+        <li class="pure-menu-heading">Workgroup: ${session?.activeWorkGroupName}</li>
+        <li class="pure-menu-heading">Site: ${session?.activeWebsiteName}</li>
 
         <li><a><g:link controller="WorkGroup">WorkGroups</g:link></a></li>
 

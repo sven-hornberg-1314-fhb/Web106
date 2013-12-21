@@ -58,6 +58,8 @@ class WorkGroupController {
 
        def selectedWorkgroup = WorkGroup.find{id == workId}
        def name = selectedWorkgroup.name
+       session.setAttribute("activeWorkGroupName",selectedWorkgroup.name)
+
 
        //reset activeWebsite
        session.removeAttribute('activeWebsite')

@@ -71,6 +71,14 @@ class WebsiteController {
 
         session.setAttribute("activeWebsite", website.id)
 
+        def selectedWebsite = Website.find{id == website.id}
+
+
+        def title = selectedWebsite.title
+        session.setAttribute("activeWebsiteName",selectedWebsite.title)
+
+
+
         redirect controller: params.controller
 
     }
@@ -110,6 +118,7 @@ class WebsiteController {
         render view: 'listwebsites', model: model
     }
 
+    //todo test double usage ?
     def selectWebsites() {
 
         def websiteId = params.id
@@ -119,11 +128,12 @@ class WebsiteController {
 
 
 
+
         def selectedWebsite = Website.find{id == websiteId}
 
 
         def title = selectedWebsite.title
-
+        session.setAttribute("activeWebsiteName",selectedWebsite.title)
 
         render view: "SuccessWebsiteSelection", model:[title: title]
 
