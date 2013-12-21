@@ -71,6 +71,7 @@
                 <div class="pure-u-1">
                     <div class="pure-g-r">
                     <div class="pure-u-1-4">Menü Platzhalter</div>
+                        <div class="pure-u-1-12"><g:link uri="/">Start</g:link></div>
                     <div class="pure-u-1-12"><g:link controller="page" action="preview" id="${id}" target="_blank">Vorschau</g:link></div>
                     </div>
                 </div>
