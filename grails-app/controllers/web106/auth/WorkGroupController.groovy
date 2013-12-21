@@ -58,7 +58,9 @@ class WorkGroupController {
 
        def selectedWorkgroup = WorkGroup.find{id == workId}
        def name = selectedWorkgroup.name
-	   
+
+       //reset activeWebsite
+       session.removeAttribute('activeWebsite')
 
 	   
        render view: "SuccessWorkgroupSelection", model:[name: name]

@@ -14,7 +14,30 @@ import web106.site.Website
 */
 class SecurityFilters {
 
+
+
+
     def filters = {
+
+        //controllers for startpage and oauth
+        def positiveControllers = ['oauth','logout','login']
+
+
+        sessionFilter(controller: '*') {
+            before = {
+                if(params.controller == null || positiveControllers.contains(params.controller)) {
+                }
+                else {
+                    if(!session?.SPRING_SECURITY_CONTEXT?.authentication?.authenticated) {
+                        //redirect to root domain
+
+                        redirect(uri: '/')
+                        return false
+                    }
+                }
+
+            }
+        }
 
         urlSanitizeFilter(controller:'*',action:'*') {
 
@@ -23,7 +46,8 @@ class SecurityFilters {
 
                 //back to old controller
                 /*
-                if(session.getAttribute("beforeController") != null && session.getAttribute("beforeController") != "") {
+                if(session.getAttribute('activeWorkGroup')!= null && session.getAttribute('activeWebsite')!= null &&
+                session.getAttribute("beforeController") != null && session.getAttribute("beforeController") != "") {
 
                     String beforeController = session.getAttribute("beforeController");
                     session.removeAttribute("beforeController")
@@ -35,9 +59,6 @@ class SecurityFilters {
                 */
 
 
-
-                //controllers for startpage and oauth
-                def positiveControllers = ['oauth','logout','login']
                 if(params.controller == null || positiveControllers.contains(params.controller)) {
 
                      //allowed methods
@@ -49,6 +70,7 @@ class SecurityFilters {
                         if(!session.getAttribute('activeWorkGroup')){
                            //session.setAttribute("beforeController",params.controller)
                            redirect(controller: 'workGroup')
+                           return false
 
                         }
                     }
@@ -58,6 +80,7 @@ class SecurityFilters {
                         if(!session.getAttribute('activeWebsite')){
                             //session.setAttribute("beforeController",params.controller)
                             redirect(controller: 'website')
+                            return false
                         }
                     }
                 }
@@ -107,6 +130,9 @@ class SecurityFilters {
                  */
             }
         }
+
+
+
 
 
         // add other filters here. Filters are executed from top to bottom.
