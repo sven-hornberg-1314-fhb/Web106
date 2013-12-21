@@ -18,36 +18,7 @@ class PageController {
 	
 	def boxService
 	def pageService
-	
-	def beforeInterceptor = {
-		
-		def activeWorkGroupSession = session.getAttribute('activeWorkGroup')
-		if(activeWorkGroupSession == null && activeWorkGroupSession <= 0) {
-			
-			session.setAttribute("beforeUri", "${actionUri}")
-			redirect(controller: "WorkGroup", action: "listWorkGroups")
-			
-		} else {
-			activeWorkGroup = activeWorkGroupSession
 
-            def activeWebsiteSession = session.getAttribute('activeWebsite')
-            if(activeWebsiteSession == null && activeWebsiteSession <=0 ){
-
-                session.setAttribute("beforeUri", "${actionUri}")
-                redirect(controller: "Website", action: "listWebsites")
-
-            }   else{
-
-                activeWebsite = activeWebsiteSession
-
-            }
-
-		}
-
-
-
-
-	}
 
     def index() {
 		

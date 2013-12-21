@@ -1,3 +1,4 @@
+import grails.converters.JSON
 import web106.site.Page
 import web106.site.Website
 
@@ -15,16 +16,59 @@ class SecurityFilters {
 
     def filters = {
 
-        urlSanitizeFilter(controller:'page',action:'*') {
+        urlSanitizeFilter(controller:'*',action:'*') {
 
             before = {
-                if(params?.id) { // if a parameter named 'id' is passed in.
+
+
+                //back to old controller
+                /*
+                if(session.getAttribute("beforeController") != null && session.getAttribute("beforeController") != "") {
+
+                    String beforeController = session.getAttribute("beforeController");
+                    session.removeAttribute("beforeController")
+                    print "set redirect"
+
+                    redirect(controller: beforeController)
+
+                }
+                */
+
+
+
+                //controllers for startpage and oauth
+                def positiveControllers = ['oauth','logout','login']
+                if(params.controller == null || positiveControllers.contains(params.controller)) {
+
+                     //allowed methods
+
+                } else {
+                    //workgroup
+                    if(params.controller != 'workGroup') {
+                        //test for workgroup in session
+                        if(!session.getAttribute('activeWorkGroup')){
+                           //session.setAttribute("beforeController",params.controller)
+                           redirect(controller: 'workGroup')
+
+                        }
+                    }
+                    //website
+                    if(params.controller != 'workGroup' && params.controller != 'website') {
+
+                        if(!session.getAttribute('activeWebsite')){
+                            //session.setAttribute("beforeController",params.controller)
+                            redirect(controller: 'website')
+                        }
+                    }
+                }
+/*
+
+                //
+                else if(params?.id) { // if a parameter named 'id' is passed in.
                     // if id is not a number of 1-10 digits,
                     if(!(params?.id ==~ /\d{1,10}/)){
 			            redirect(controller: 'errors', action: 'accessDenied', params:[message:'only numbers allowed'])
                         return false
-		            }else if(!session.getAttribute('activeWorkGroup')){
-		                redirect(controller: 'WorkGroup', action: 'listWorkGroups')
 		            }else{
                         def activeWorkGroupId = session.getAttribute('activeWorkGroup')
                         def activeWebsiteId = session.getAttribute('activeWebsite')
@@ -58,7 +102,9 @@ class SecurityFilters {
 
                         }
 		            }
+
                 }
+                 */
             }
         }
 

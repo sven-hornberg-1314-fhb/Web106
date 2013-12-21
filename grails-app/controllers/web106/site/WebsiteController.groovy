@@ -1,4 +1,4 @@
-package web106.site.component
+package web106.site
 
 import grails.converters.JSON
 import org.springframework.security.core.context.SecurityContextHolder
@@ -17,12 +17,8 @@ class WebsiteController {
     def beforeInterceptor = {
 
         def activeWorkGroupSession = session.getAttribute('activeWorkGroup')
-        if(activeWorkGroupSession == null && activeWorkGroupSession <= 0) {
-            session.setAttribute("beforeUri", "${actionUri}")
-            redirect(controller: "WorkGroup", action: "listWorkGroups")
-        } else {
-            activeWorkGroup = activeWorkGroupSession
-        }
+        activeWorkGroup = activeWorkGroupSession
+
     }
 
 
@@ -128,17 +124,9 @@ class WebsiteController {
 
         def title = selectedWebsite.title
 
-        //back to old page
-        if(session.getAttribute("beforeUri") != null && session.getAttribute("beforeUri") != "") {
 
-            String uriPath = session.getAttribute("beforeUri");
-            session.removeAttribute("beforeUri")
-            redirect(uri: uriPath)
+        render view: "SuccessWebsiteSelection", model:[title: title]
 
-        } else {
-
-            render view: "SuccessWebsiteSelection", model:[title: title]
-        }
 
     }
 
