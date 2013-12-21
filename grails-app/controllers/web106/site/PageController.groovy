@@ -132,6 +132,9 @@ class PageController {
             id == params.id
         }
         def title = current.title
+
+
+        def templatenameLowercase = current.template.name.toLowerCase()
 		
 		//find ContentComponents
 		def selectedWorkgroup = WorkGroup.find{id == activeWorkGroup}
@@ -143,7 +146,9 @@ class PageController {
 
 		def model = [
 				contents : contents,
-                title: title
+                title: title,
+                template:templatenameLowercase,
+                id:params.id
 		]
 		
 		render view:'edit' , model : model
@@ -163,6 +168,7 @@ class PageController {
     }
 
     def remote(){
+        print "remotecall"
         print params
     }
 	

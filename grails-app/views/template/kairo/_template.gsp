@@ -84,24 +84,24 @@
 				<div id="header" class="pure-u-1-3 grey dropbox">
 					${header}
 				</div>
-				<div id="side1" class="pure-u-2-3 green">
+				<div id="side1" class="pure-u-2-3 green dropbox">
 					${side1}
 				</div>
 			</div>
 			<div class="pure-g-r">
-				<div id="side2" class="pure-u-1-3 blue">
+				<div id="side2" class="pure-u-1-3 blue dropbox">
 					${side2}
 				</div>
-				<div id="content" class="pure-u-1-3 grey">
+				<div id="content" class="pure-u-1-3 grey dropbox">
 					${content}
 				</div>
-				<div id="side3" class="pure-u-1-3 red">
+				<div id="side3" class="pure-u-1-3 red dropbox">
 					${side3}
 				</div>
 			</div>
 
 			<div class="pure-g-r">
-				<div id="footer" class="pure-u-1 green">
+				<div id="footer" class="pure-u-1 green dropbox">
 					${footer}
 				</div>
 			</div>	
