@@ -7,7 +7,7 @@
             <li style="background-color: grey;height: 100px; width: 100px; margin-left: 20px;margin-top: 30px; margin-bottom: 20px">
                 LOGO
             </li>
-		    <li><a href="${createLink(uri: '/')}">Start</a></li>
+		    <li style="background-color: #CCCCCC;"><a href="${createLink(uri: '/')}">Start</a></li>
 
 
 		<li class="pure-menu-heading"><!--Benutzer--> <sec:ifAnyGranted roles="ROLE_USER, ROLE_SUPERUSER">
@@ -22,19 +22,19 @@
         <sec:ifLoggedIn><li><g:link controller="logout">sign out</g:link></li>   </sec:ifLoggedIn>
 
 
-		<li class="pure-menu-heading">Webseite</li>
-		<li><g:link controller="Website" >Website</g:link></li>		
-		<li><g:link controller="Page" >Page</g:link></li>
-		<li><g:link controller="Template" >Template</g:link></li>
+		<li class="pure-menu-heading" style="background-color: #CCCCCC;">Webseite</li>
+		<li><g:link controller="Website" >Websiten</g:link></li>
+		<li><g:link controller="Page" >Seiten</g:link></li>
+		<li><g:link controller="Template" >Templates</g:link></li>
 
 
-		<li class="pure-menu-heading">Bausteine</li>
+		<li class="pure-menu-heading" style="background-color: #CCCCCC;">Bausteine</li>
 		<li><g:link controller="MenuComponent" >MenuComponent</g:link></li>
 		<li><g:link controller="ContentComponent" >ContentComponent</g:link></li>
 
 
 
-		<li class="pure-menu-heading">Module</li>
+		<li class="pure-menu-heading" style="background-color: #CCCCCC;">Module</li>
 		<li><g:link controller="uploadFile" >Dateiupload</g:link></li>
 		<li><a href="#">Bildergalerie</a></li>
 		<li><a href="#">Export</a></li>
@@ -43,7 +43,7 @@
 		<li class="pure-menu-heading">Einstellungen</li>
 
         <sec:ifAllGranted roles="ROLE_ADMIN">
-		<li class="pure-menu-heading">Admin</li>
+		<li class="pure-menu-heading" style="background-color: #CCCCCC;">Admin</li>
 
             <li>   <g:link controller="administration" action="index">Controllers</g:link>  </li>
             <li>    <g:link controller="administration" action="listUsers">Users</g:link>        </li>
