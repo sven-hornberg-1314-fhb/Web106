@@ -13,8 +13,13 @@
 		<li class="pure-menu-heading"><!--Benutzer--> <sec:ifAnyGranted roles="ROLE_USER, ROLE_SUPERUSER">
             <sec:username />
         </sec:ifAnyGranted></li>
-			<li><a><g:link controller="WorkGroup">WorkGroups</g:link></a></li>
-            <sec:ifLoggedIn><li><g:link controller="logout">sign out</g:link></li>   </sec:ifLoggedIn>
+
+        <li class="pure-menu-heading">Workgroup: ${session?.activeWorkGroup}</li>
+        <li class="pure-menu-heading">Site: ${session?.activeWebsite}</li>
+
+        <li><a><g:link controller="WorkGroup">WorkGroups</g:link></a></li>
+
+        <sec:ifLoggedIn><li><g:link controller="logout">sign out</g:link></li>   </sec:ifLoggedIn>
 
 
 		<li class="pure-menu-heading">Webseite</li>
