@@ -61,6 +61,10 @@ grails.project.dependency.resolution = {
         test "org.gebish:geb-spock:$gebVersion"
         test "org.gebish:geb-junit4:$gebVersion"
 
+        test( "com.github.detro.ghostdriver:phantomjsdriver:1.0.1" ) {
+            transitive = false
+        }
+
 
 	}
 
