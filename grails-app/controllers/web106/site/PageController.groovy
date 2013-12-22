@@ -243,7 +243,7 @@ class PageController {
 
         currentPage.boxes.each {
 
-            def html
+            def html = ''
 
             it.component.each {
                 html += it.renderHTML()
