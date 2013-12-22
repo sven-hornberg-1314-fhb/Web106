@@ -10,6 +10,8 @@
 
     <div id="main" class="pure-u-5-6">
 
+        <div class="contentPadding">
+
         <div class="pure-u-1">
             <div style="text-align: end; padding-right: 5px; padding-top: 5px;">
                 <i id="iconinfo" class="fa fa-info-circle"> Info</i>
@@ -60,14 +62,6 @@
             </div>
 
         </div>
-
-
-        <br><br><br><br>
-        <hr>
-        <div class="pure-g">
-            <div class="pure-u-1">
-                ${session}
-            </div>
         </div>
     </div>
 </div>

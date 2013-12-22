@@ -17,8 +17,9 @@
 	href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
 <link rel="stylesheet"
 	href="http://yui.yahooapis.com/pure/0.3.0/grids-min.css">
-	
-<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="${resource( absolute: true, dir: 'css', file: 'web106.css')}" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
+
 	
 <g:javascript library="jquery" />
 <r:require module="jquery-ui"/>
@@ -46,7 +47,8 @@
 		</div>
 		<div id="main" class="pure-u-5-6">
 		<g:form name="editForm" action="edit2" >
-	
+
+            <div class="contentPadding">
 			<br>
 			<div id="menu1" class="pure-g-r">
 				<div class="pure-u-1-8">
@@ -73,6 +75,7 @@
             <g:hiddenField name="hid" value="${id}" />
 			
 		</g:form>
+            </div>
 		</div>
 	</div>
 </body>

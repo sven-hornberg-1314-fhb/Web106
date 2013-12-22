@@ -17,9 +17,10 @@
 	href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css" />
 <link rel="stylesheet"
 	href="http://yui.yahooapis.com/pure/0.3.0/grids-min.css" />
-	
-<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
-	
+
+    <link rel="stylesheet" type="text/css" href="${resource( absolute: true, dir: 'css', file: 'web106.css')}" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
+
 <g:javascript library="jquery" />
 <r:require module="jquery-ui"/>
 <r:layoutResources />
@@ -46,12 +47,13 @@
 
 		</div>
 		<div id="main" class="pure-u-5-6">
-	
+	        <div class="contentPadding">
 			<g:include action="listown" />
 		<hr>
 		
 			<g:link action="create">neue Komponente</g:link>		
 		</div>
+            </div>
 	</div>
 	<r:layoutResources />
 </body>

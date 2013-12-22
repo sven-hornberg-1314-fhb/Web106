@@ -1,0 +1,21 @@
+.boxmain {
+    height: 200px;
+    padding: 1em;
+}
+.fa-3 {
+    font-size: 6em;
+}
+
+#userinfo {
+    z-index: 5;
+    position: absolute;
+    margin-left: 10%;
+    visibiility: collapse;
+    background-color: honeydew;
+    padding: 15px;
+    visibility: hidden;
+}
+
+.contentPadding{
+    padding: 10px;
+}

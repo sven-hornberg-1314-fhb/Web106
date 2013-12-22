@@ -18,6 +18,9 @@
           href="http://yui.yahooapis.com/pure/0.3.0/grids-min.css" />
 
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="${resource( absolute: true, dir: 'css', file: 'web106.css')}" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
+
     <r:layoutResources />
 </head>
 <body>
@@ -30,6 +33,7 @@
 	
 	</div>
 	<div id="main" class="pure-u-5-6">
+        <div class="contentPadding">
         <h3>vorhandene Seiten</h3>
         <g:include action="listown" />
         <hr>
@@ -39,6 +43,7 @@
 			<g:link action="create">neue Seite anlegen</g:link>
 		</div>
 		</div>
+        </div>
 </div>
 <r:layoutResources />
 </body>

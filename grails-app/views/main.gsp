@@ -8,26 +8,9 @@
   <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/grids-min.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
 
+   <link rel="stylesheet" type="text/css" href="${resource( absolute: true, dir: 'css', file: 'web106.css')}" />
+   <style type="text/css" media="screen">
 
-
-            <style type="text/css" media="screen">
-    .boxmain {
-        height: 200px;
-        padding: 1em;
-    }
-    .fa-3 {
-        font-size: 6em;
-    }
-
-    #userinfo {
-        z-index: 5;
-        position: absolute;
-        margin-left: 10%;
-        visibiility: collapse;
-        background-color: honeydew;
-        padding: 15px;
-        visibility: hidden;
-    }
 
     <sec:ifNotLoggedIn>
         body {

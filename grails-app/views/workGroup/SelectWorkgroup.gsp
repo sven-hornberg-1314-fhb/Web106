@@ -15,6 +15,9 @@
     </style>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/grids-min.css">
+    <link rel="stylesheet" type="text/css" href="${resource( absolute: true, dir: 'css', file: 'web106.css')}" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
+
     <r:layoutResources />
 </head>
 <body>
@@ -27,7 +30,7 @@
 	
 	</div>
 	<div id="main" class="pure-u-5-6">
-	
+	    <div class="contentPadding">
 		    <h3>Wähle eine Workgroup:</h3>
 		    <g:each in="${workgroup}">
 		    <g:form name="${it.name}" action="selectWorkGroup">
@@ -43,7 +46,7 @@
 				<g:textField name="name" required="true" />
 				<button type="submit" class="btn btn-default">Workgroup anlegen</button>
 			</g:form>
-	
+	    </div>
 	</div>
 	
 </div>
