@@ -8,5 +8,6 @@ import web106.site.component.AbstractComponent
 class Box {
 
     String idName
+    List component
     static hasMany = [component:AbstractComponent]
 }

@@ -144,6 +144,9 @@ class PageController {
 			workGroup == selectedWorkgroup;
 		}
 
+
+        session.setAttribute('editpageid',params.id)
+
 		def model = [
 				contents : contents,
                 title: title,
@@ -167,9 +170,52 @@ class PageController {
         redirect controller: params.controller
     }
 
-    def remote(){
-        print "remotecall"
+    def remoteDrop(){
+
         print params
+
+        //boxid
+        def dropId = params.dropId
+
+        //id of contentcomponent
+        def dragId = params.dragId
+
+        def currentPage = Page.find{
+            id == session.getAttribute ('editpageid')
+        }
+
+        def boxes = currentPage.boxes
+        Box box
+
+        boxes.each {
+            if(it.idName.equals(dropId)) {
+                box = it
+            }
+        }
+
+        def contentComponent = ContentComponent.find {
+            id == dragId
+        }
+        try {
+            box.component.add(contentComponent)
+        }catch (Exception ex) {
+            print ex.getMessage()
+        }
+
+        print "200"
+    }
+
+    def remoteSave() {
+
+
+        def currentPage = Page.find{
+            id == session.getAttribute ('editpageid')
+        }
+
+
+        currentPage.save(failOnError: true, flush: true)
+
+        render "200" // Statuscode besser setzen
     }
 	
 	def selecttemplate() {
@@ -177,9 +223,39 @@ class PageController {
 		
 		flash.template = params.template
 		print params
-	
+
 	}
 
+
+    def preview() {
+
+
+        def currentPage = Page.find{
+            id == session.getAttribute ('editpageid')
+        }
+
+        String tempName = currentPage.template.name
+        String tempNameLower = tempName.toLowerCase()
+
+        def model = [:]
+
+        //jede box durchlaufen, html der componenten erzeugen und ins model stecken
+
+        currentPage.boxes.each {
+
+            def html
+
+            it.component.each {
+                html += it.renderHTML()
+            }
+
+
+            model[it.idName] = html
+        }
+
+        String contents = groovyPageRenderer.render(template:'/template/'+tempNameLower+'/template', model:model)
+        render contents
+    }
 
     def listown(){
         def aworkGroup = WorkGroup.find(){
