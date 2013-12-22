@@ -48,10 +48,18 @@
 		</div>
 		<div id="main" class="pure-u-5-6">
 	        <div class="contentPadding">
+
+                <div class="pure-u-1-6">
+                    <g:link class="pure-button" action="create">neuer Text</g:link>
+                </div>
+                <div class="pure-u-1-2">
+                </div>
+
+                <hr>
+                <h3>Liste Ihrer Texte</h3>
 			<g:include action="listown" />
-		<hr>
+
 		
-			<g:link action="create">neue Komponente</g:link>		
 		</div>
             </div>
 	</div>

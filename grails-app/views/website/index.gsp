@@ -34,20 +34,24 @@
 	</div>
 	<div id="main" class="pure-u-5-6">
         <div class="contentPadding">
-        <h3>vorhandene Webseiten</h3>
-       <g:include action="listown" />
-        <hr>
 
-        <h3>Sie arbeiten aktuell unter folgener Website</h3>
-        <g:include action="activeWebsite" />
-        <hr>
-	
-		<h3>Seitenfunktionen</h3>
-		<div class="container">
-			<g:link action="create">neue Seite anlegen</g:link>
-		</div>
-		</div>
+            <div class="pure-u-1">
+                <div class="pure-u-1-6">
+                    <g:link class="pure-button" action="create">neue Webseite</g:link>
+                </div>
+                <div class="pure-u-1-2">
+                    <b>aktuelle Website: <g:include action="activeWebsite" /></b>
+                </div>
+
+            </div>
+
+            <hr>
+            <h3>Liste Ihrer Webseiten</h3>
+            <g:include action="listown" />
+
+
         </div>
+    </div>
 </div>
 <r:layoutResources />
 </body>

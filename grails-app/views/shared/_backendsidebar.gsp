@@ -31,8 +31,8 @@
 
 
 		<li class="pure-menu-heading" style="background-color: #CCCCCC;">Bausteine</li>
-		<li><g:link controller="MenuComponent" >MenuComponent</g:link></li>
-		<li><g:link controller="ContentComponent" >ContentComponent</g:link></li>
+		<li><g:link controller="MenuComponent" >Menü</g:link></li>
+		<li><g:link controller="ContentComponent" >Text</g:link></li>
 
 
 
