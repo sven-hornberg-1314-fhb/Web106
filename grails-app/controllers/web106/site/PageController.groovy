@@ -229,31 +229,8 @@ class PageController {
 
     def preview() {
 
-
-        def currentPage = Page.find{
-            id == session.getAttribute ('editpageid')
-        }
-
-        String tempName = currentPage.template.name
-        String tempNameLower = tempName.toLowerCase()
-
-        def model = [:]
-
-        //jede box durchlaufen, html der componenten erzeugen und ins model stecken
-
-        currentPage.boxes.each {
-
-            def html = ''
-
-            it.component.each {
-                html += it.renderHTML()
-            }
-
-
-            model[it.idName] = html
-        }
-
-        String contents = groovyPageRenderer.render(template:'/template/'+tempNameLower+'/template', model:model)
+        long id = session.getAttribute ('editpageid') as Long
+        def contents = pageService.PageAsHtmlString(id)
         render contents
     }
 
