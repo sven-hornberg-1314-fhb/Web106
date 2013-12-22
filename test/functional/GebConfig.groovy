@@ -9,16 +9,18 @@ import web106.test.GebConfigUtils
  */
 def osname = System.getProperty("os.name")
 
-if(osname.startsWith('Windows')){
-
-        //TODO
+if(osname.startsWith('Windows')){		
+        def chromeDriver = new File('test/drivers/chrome/chromedriver.exe')
+        GebConfigUtils.downloadDriver(chromeDriver, "http://chromedriver.storage.googleapis.com/2.8/chromedriver_win32.zip")
+       
 
 }else if (osname.startsWith('Linux')) {
         def chromeDriver = new File('test/drivers/chrome/chromedriver')
-        GebConfigUtils.downloadDriver(chromeDriver, "http://chromedriver.storage.googleapis.com/2.8/chromedriver_linux64.zip")
-        System.setProperty('webdriver.chrome.driver', chromeDriver.absolutePath)
-        driver = { new ChromeDriver() }
+        GebConfigUtils.downloadDriver(chromeDriver, "http://chromedriver.storage.googleapis.com/2.8/chromedriver_linux64.zip")        
 }
+
+ System.setProperty('webdriver.chrome.driver', chromeDriver.absolutePath)
+ driver = { new ChromeDriver() }
 
 
 /*Setting for environmental starting
