@@ -1,4 +1,5 @@
- <!DOCTYPE html>
+<%@page defaultCodec="none" %>
+<!DOCTYPE html>
 <html>
    <head>
 	  <style type="text/css">
@@ -42,23 +43,6 @@
             	$('.centermessagebox').hide();
             } 
 
-
-            $('#header').on(
-                    'drop', function(event, ui){
-                        var draggableId = ui.draggable.attr("id");
-                        var droppableId = $(this).attr("id");
-                        alert("draggableId: "+draggableId+" droppableId: "+droppableId)
-
-                        jQuery.ajax({
-                            url: "${createLink(controller: 'page', action: 'remote')}",
-                            data: {draggableId:draggableId, droppableId:droppableId},
-                            success: function (data) {
-                                alert(data);
-                            }
-                        });
-
-                    }
-            );
         });
 </script>
 </head>
