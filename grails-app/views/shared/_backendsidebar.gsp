@@ -4,22 +4,24 @@
 	
 	<div class="pure-menu pure-menu-open">
 		<ul>
-            <li style="background-color: grey;height: 100px; width: 100px; margin-left: 20px;margin-top: 30px; margin-bottom: 20px">
+            <li style="background-color: #aaaabb;height: 100px; width: 80%; margin-left: 20px;margin-top: 30px; margin-bottom: 20px">
                 LOGO
             </li>
-		    <li style="background-color: #CCCCCC;"><a href="${createLink(uri: '/')}">Start</a></li>
+        <li style="background-color: #CCCCCC;"><a href="${createLink(uri: '/')}">Start</a></li>
+
+        <li>
+        <g:link class="" controller="logout">
+            <i class="fa fa-sign-out "></i>
+            Abmelden
+        </g:link>
+        </li>
 
 
-		<li class="pure-menu-heading"><!--Benutzer--> <sec:ifAnyGranted roles="ROLE_USER, ROLE_SUPERUSER">
-            <sec:username />
-        </sec:ifAnyGranted></li>
 
-        <li class="pure-menu-heading">Workgroup: ${session?.activeWorkGroupName}</li>
-        <li class="pure-menu-heading">Site: ${session?.activeWebsiteName}</li>
+
 
         <li><g:link controller="WorkGroup">WorkGroups</g:link></li>
 
-        <sec:ifLoggedIn><li><g:link controller="logout">sign out</g:link></li>   </sec:ifLoggedIn>
 
 
 		<li class="pure-menu-heading" style="background-color: #CCCCCC;">Webseite</li>
