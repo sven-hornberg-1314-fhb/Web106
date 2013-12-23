@@ -9,7 +9,6 @@ class PageService {
 
     PageRenderer groovyPageRenderer
 
-
     Page create(final Page page) {
 	
 		return page.save();	
@@ -32,8 +31,7 @@ class PageService {
      * @param id Page id
      * @return HTML String
      */
-    String PageAsHtmlString(final long id) {
-
+    String PageAsHtmlString(final long id ) {
         String content = ""
         def currentPage = Page.find{
             id == id
@@ -43,24 +41,29 @@ class PageService {
             String tempName = currentPage.template.name
             String tempNameLower = tempName.toLowerCase()
 
-            def model = [:]
+            if(tempName != null) {
 
-            //iterate each box , render html of each component and add it to content
-            currentPage.boxes.each {
+                def model = [:]
 
-                def html = ''
+                //iterate each box , render html of each component and add it to content
+                currentPage.boxes.each {
 
-                it.component.each {
-                    if(null != it) {
-                        html += it.renderHTML()
-                        model[it.idName] = html
+                    def html = ''
+
+                    it.component.each {
+                        if(null != it) {
+                            html += it.renderHTML()
+
+                        }
                     }
+                    model[it.idName] = html
+
                 }
 
-
+                content = groovyPageRenderer.render(template:'/template/'+tempNameLower+'/template', model:model)
             }
-
-            content = groovyPageRenderer.render(template:'/template/'+tempNameLower+'/template', model:model)
         }
     }
+
+
 }
