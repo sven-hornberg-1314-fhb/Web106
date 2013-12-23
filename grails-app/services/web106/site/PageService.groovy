@@ -51,11 +51,13 @@ class PageService {
                 def html = ''
 
                 it.component.each {
-                    html += it.renderHTML()
+                    if(null != it) {
+                        html += it.renderHTML()
+                        model[it.idName] = html
+                    }
                 }
 
 
-                model[it.idName] = html
             }
 
             content = groovyPageRenderer.render(template:'/template/'+tempNameLower+'/template', model:model)
