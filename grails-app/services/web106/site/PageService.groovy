@@ -38,32 +38,46 @@ class PageService {
         }
         if(null != currentPage) {
 
-            String tempName = currentPage.template.name
-            String tempNameLower = tempName.toLowerCase()
+                def model = ModelforPageRendering(currentPage)
 
-            if(tempName != null) {
-
-                def model = [:]
-
-                //iterate each box , render html of each component and add it to content
-                currentPage.boxes.each {
-
-                    def html = ''
-
-                    it.component.each {
-                        if(null != it) {
-                            html += it.renderHTML()
-
-                        }
-                    }
-                    model[it.idName] = html
-
-                }
-
-                content = groovyPageRenderer.render(template:'/template/'+tempNameLower+'/template', model:model)
-            }
+                content = groovyPageRenderer.render(template:'/template/'+model.template +'/template', model:model)
         }
+
     }
 
+    /**
+     * Generates Model for placeholder boxes in template , and contains the name of the template
+     * (createt for testing rendering)
+     * @param page Page
+     * @return Model for rendering a template
+     */
+    def ModelforPageRendering(final Page page) {
 
+        String tempName = page.template.name
+        String tempNameLower = tempName.toLowerCase()
+        def model = [:]
+        model['template'] = tempNameLower
+
+        if(tempName != null) {
+
+            //iterate each box , render html of each component and add it to content
+            page.boxes.each {
+
+                def html = ''
+
+                it.component.each {
+                    if(null != it) {
+                        html += it.renderHTML()
+
+                    }
+                }
+                model[it.idName] = html
+
+            }
+
+
+        }
+
+        return model
+    }
 }

@@ -3,7 +3,8 @@ package web106.site
 import grails.gsp.PageRenderer
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
-import spock.lang.Ignore
+import grails.test.mixin.TestMixin
+import grails.test.mixin.web.GroovyPageUnitTestMixin
 import spock.lang.Specification
 
 import web106.auth.*
@@ -12,16 +13,14 @@ import web106.site.component.ContentComponent
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
-@Ignore
+
 @TestFor(PageService)
 @Mock([Page,Template,Box,ContentComponent,WorkGroup])
+@TestMixin(GroovyPageUnitTestMixin)
 class PageServiceSpec extends Specification {
 
     def PageService pageService
-    def grailsApplication
 
-    //FIXME inject somehow
-    def PageRenderer groovyPageRenderer
 
 
     def setup() {
@@ -70,14 +69,12 @@ class PageServiceSpec extends Specification {
 
         when:
 
-
-
-          String contents = service.PageAsHtmlString(newPage.id)
+            def model = service.ModelforPageRendering(newPage)
+            String contents = render(template:'/template/'+model.template +'/template', model:model)
 
         then:
 
-
-          contents.contains(ccHello.text)
+            contents.contains(ccHello.text)
 
 
     }
