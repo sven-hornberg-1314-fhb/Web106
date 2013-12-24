@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Textbaustein editieren</title>
 <style type="text/css">
 <!--
 

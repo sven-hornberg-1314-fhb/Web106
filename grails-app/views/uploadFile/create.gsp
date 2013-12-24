@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<title>Upload New Document</title>
+		<title>Datei hochladen</title>
 	</head>
 	<body>
 		<div class="nav" role="navigation">

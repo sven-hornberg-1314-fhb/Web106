@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Seite erstellen</title>
     <style type="text/css">
     <!--
 

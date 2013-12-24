@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>${title}</title>
+<title>Seite berabeiten: ${title}</title>
 
 <style type="text/css">
 <!--

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Webseiten Auswahl erfolgreich</title>
     <style type="text/css">
     .color{
         background-color: grey;

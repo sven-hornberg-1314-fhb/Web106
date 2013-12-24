@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Auswahl Arbeitsgruppe erfolgreich</title>
     <style type="text/css">
     .color{
         background-color: grey;

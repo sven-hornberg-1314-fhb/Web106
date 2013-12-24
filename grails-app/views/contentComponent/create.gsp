@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Textbaustein erstellen</title>
 <style type="text/css">
 <!--
 
