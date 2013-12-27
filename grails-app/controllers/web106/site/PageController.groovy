@@ -142,30 +142,35 @@ class PageController {
         def current = Page.find{
             id == params.id
         }
-        def title = current.title
+        if(current == null) {
+            index() //todo check redirect index not working
+        } else {
+
+            def title = current.title
 
 
-        def templatenameLowercase = current.template.name.toLowerCase()
-		
-		//find ContentComponents
-		def selectedWorkgroup = WorkGroup.find{id == activeWorkGroup}
-		
-		def contents = ContentComponent.findAll() {
-		
-			workGroup == selectedWorkgroup;
-		}
+            def templatenameLowercase = current.template.name.toLowerCase()
+
+            //find ContentComponents
+            def selectedWorkgroup = WorkGroup.find{id == activeWorkGroup}
+
+            def contents = ContentComponent.findAll() {
+
+                workGroup == selectedWorkgroup;
+            }
 
 
-        session.setAttribute('editpageid',params.id)
+            session.setAttribute('editpageid',params.id)
 
-		def model = [
-				contents : contents,
-                title: title,
-                template:templatenameLowercase,
-                id:params.id
-		]
-		
-		render view:'edit' , model : model
+            def model = [
+                    contents : contents,
+                    title: title,
+                    template:templatenameLowercase,
+                    id:params.id
+            ]
+
+            render view:'edit' , model : model
+        }
     }
 
     //Todo Boxes löschen
