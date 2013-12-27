@@ -7,7 +7,7 @@ import web106.auth.WorkGroup
 import grails.gsp.PageRenderer 
 import groovy.util.slurpersupport.NodeChild;
 import java.text.SimpleDateFormat
-
+import web106.ErrorsWeb106Controller
 
 
 class PageController {
@@ -25,6 +25,17 @@ class PageController {
         activeWorkGroup = activeWorkGroupSession
         def activeWebsiteSession = session.getAttribute('activeWebsite')
         activeWebsite = activeWebsiteSession
+
+        try {
+        if(params.id != null && !IsAllowed(params.id as long)) {
+            render status: 403, text: "Sie sind nicht erlaubt auf diesen Inhalt zuzugreifen."
+            return false
+        }
+        }
+        catch (NumberFormatException numEx) {
+            render status: 403, text: "Sie sind nicht erlaubt auf diesen Inhalt zuzugreifen."
+            return false
+        }
     }
 
     def index() {
@@ -250,5 +261,26 @@ class PageController {
     }
 
 
+    boolean IsAllowed(long idValue) {
+
+        boolean returnVal = false
+
+        WorkGroup wG = WorkGroup.find() {
+            id == activeWorkGroup
+        }
+
+        def sites = Website.findAll(){
+            workGroup == wG
+        }
+
+        sites.each {
+            if(it.id == idValue) {
+                returnVal = true
+            }
+        }
+
+        //activeWebsite ,activeWorkGroup
+        return returnVal
+    }
 
 }
