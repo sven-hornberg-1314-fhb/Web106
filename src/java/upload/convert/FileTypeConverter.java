@@ -2,6 +2,7 @@ package upload.convert;
 
 
 import java.io.ByteArrayInputStream;
+import javax.activation.MimetypesFileTypeMap;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -46,11 +47,12 @@ public class FileTypeConverter {
 		}
 	}
 	
-	public static void convert(MultipartFile file, String mail) throws Exception
+	public static boolean convert(MultipartFile file, String mail) throws Exception
 	    {
 			 byte [] byteArr= file.getBytes();
 			 int read = 0;
 			 byte[] bytes = new byte[1024];
+			 String extension = "";
 			 InputStream inputStream = new ByteArrayInputStream(byteArr);
 			 
 			 
@@ -60,6 +62,9 @@ public class FileTypeConverter {
 			 
 			 File tempfile = new File(tDir + "/" + filename);
 			 
+			 
+			 
+			 
 			 outputStream = new FileOutputStream(tempfile);
 	 
 			
@@ -67,8 +72,24 @@ public class FileTypeConverter {
 			while ((read = inputStream.read(bytes)) != -1) {
 				outputStream.write(bytes, 0, read);
 			}
-
-			uploadS3(tempfile, mail);
+			
+			int i = tempfile.getName().lastIndexOf('.');
+			if (i > 0) {
+			     extension = tempfile.getName().substring(i+1);
+			 }
+			
+	   
+			 
+			if(extension.equals("jpg") || extension.equals("png")){
+				System.out.println(extension);
+				uploadS3(tempfile, mail);
+				
+				return true;
+				
+			}
+			else{
+				return false;
+			}
 			
 	        
 	    }

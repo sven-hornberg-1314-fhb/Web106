@@ -10,6 +10,7 @@ class UploadFileController {
         render(view:"create");
     }
 	
+	
 	def upload() {
 		def mail  = UserUtils.newInstance().emailFromCurrentUser
 		User currentUser = User.find {email== mail}
@@ -18,7 +19,11 @@ class UploadFileController {
 		if(file.empty) {
 			flash.message = "File cannot be empty"
 		} else {
-			FileTypeConverter.convert(file, mail)
+			boolean returnmessage = FileTypeConverter.convert(file, mail)
+			if(returnmessage == false){
+				flash.message = "File must be .jpg or .png"
+			}
+			
 
 		}
 

@@ -4,8 +4,11 @@
 	<head>
 		<meta name="layout" content="main">
 		<title>Datei hochladen</title>
+   
 	</head>
 	<body>
+
+
 		<div class="nav" role="navigation">
 			<ul><li><g:link class="list" action="list">Document List</g:link></li></ul>
 		</div>
@@ -21,5 +24,5 @@
 				</fieldset>
 			</g:uploadForm>
 		</div>
-	</body>
+
 </html>
