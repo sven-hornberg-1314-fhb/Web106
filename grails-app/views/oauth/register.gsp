@@ -84,13 +84,13 @@
                     </div>
 
                     <div class="pure-control-group">
-                        <label for="tokens">Tokens</label>
+                        <label for="tokens">Login Anbieter</label>
                         <g:each  in="${user?.tokens}" name="tokens" var="entry">
 
-                            <g:if test="${entry.key} == 'twitter'">
+                            <g:if test="${entry.key == 'twitter'}">
                                 <img name="tokens" src="${resource(dir:'images/assets', file:'twitter.png')}"/>
                             </g:if>
-                            <g:if test="${entry.key} == 'google'">
+                            <g:if test="${entry.key == 'google'}">
                                 <img name="tokens" src="${resource(dir:'images/assets', file:'google.png')}"/>
                             </g:if>
 
