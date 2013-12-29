@@ -9,16 +9,6 @@
         text-align: center;
     }
 
-    #login .inner {
-        width: 540px;
-        padding-bottom: 6px;
-        margin: 60px auto;
-        text-align: left;
-        border: 1px solid #aab;
-        background-color: #f0f0fa;
-
-    }
-
     #login .inner .fheader {
         padding: 18px 26px 14px 26px;
         background-color: #f7f7ff;
@@ -28,11 +18,12 @@
         font-weight: bold;
     }
 
+    p{
+        margin-left: 10px;
+        margin-bottom: 20px
+    }
 
     </style>
-
-
-
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/grids-min.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
@@ -41,35 +32,22 @@
 <body>
 
 
+<g:if test='${flash.message}'>
+    <div class='login_message'>${flash.message}</div>
+</g:if>
 
+<g:if test='${!session.step}'>
+    ${session.setAttribute('step','Step1')}
+</g:if>
 
+<g:if test="${session.step=='Step1'}">
+    <g:render template="/shared/login" />
+</g:if>
 
-
+<g:if test="${session.step=='Step2'}">
 
 <div id='login'>
     <div class='inner'>
-
-
-        <g:if test='${flash.message}'>
-            <div class='login_message'>${flash.message}</div>
-        </g:if>
-
-        <g:if test='${!session.step}'>
-            ${session.setAttribute('step','Step1')}
-        </g:if>
-
-        <g:if test="${session.step=='Step1'}">
-            <div class='fheader'>Schritt 1 - Wähle deinen Login Anbieter</div>
-            <div class="pure-u-1 content">
-             <p>
-            <oauth:connect provider="google"><img src="${resource(dir:'images/assets', file:'google.png')}"/></oauth:connect>&nbsp;
-            <oauth:connect provider="twitter"><img src="${resource(dir:'images/assets', file:'twitter.png')}"/></oauth:connect>
-            </p>
-            </div>
-        </g:if>
-
-        <g:if test="${session.step=='Step2'}">
-
             <div class='fheader'>Schritt 2 - Ergänze zusätzliche Informationen</div>
 
             <g:form class="pure-form pure-form-aligned" url="[controller:'oauth',action:'register']">
@@ -106,21 +84,27 @@
                     </div>
 
                     <div class="pure-control-group">
-                        <label for="username">Token</label>
-                        <g:each in="${user?.tokens}" var="entry">
-                           ${entry.key} = ${entry.value}
+                        <label for="tokens">Tokens</label>
+                        <g:each  in="${user?.tokens}" name="tokens" var="entry">
+
+                            <g:if test="${entry.key} == 'twitter'">
+                                <img name="tokens" src="${resource(dir:'images/assets', file:'twitter.png')}"/>
+                            </g:if>
+                            <g:if test="${entry.key} == 'google'">
+                                <img name="tokens" src="${resource(dir:'images/assets', file:'google.png')}"/>
+                            </g:if>
+
                         </g:each>
+
                     </div>
 
                     <button type="submit" class="pure-button pure-button-primary">Account erstellen</button>
                 </fieldset>
             </g:form>
-
-        </g:if>
         <g:link controller="logout" action="index"><button class="pure-button pure-button-primary">Zurück</button></button></g:link>
-
     </div>
 </div>
+</g:if>
 <script type='text/javascript'>
     <!--
     (function() {
