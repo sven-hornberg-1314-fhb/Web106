@@ -143,7 +143,7 @@ class PageController {
             id == params.id
         }
         if(current == null) {
-            index() //todo check redirect index not working
+            redirect action:  'index'
         } else {
 
             def title = current.title
