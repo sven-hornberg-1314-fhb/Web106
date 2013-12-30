@@ -33,6 +33,9 @@ class PageServiceSpec extends Specification {
     void "Render Page to HTML for berlin template"() {
         setup:
 
+            def website = new Website(title : 'simpleWebsite')
+            website.page = []
+
             def visibleFromDate = new Date()
             def visibleToDate = new Date()
 
@@ -64,8 +67,14 @@ class PageServiceSpec extends Specification {
             boxesSet.add(header)
             newPage.boxes = boxesSet as Set
 
+            website = new Website(title : 'simpleWebsite')
+            website.page = []
 
-            newPage.save(failOnError: true, flush: true)
+            website.page.add(newPage)
+            newPage.website = website
+
+
+        newPage.save(failOnError: true, flush: true)
 
         when:
 

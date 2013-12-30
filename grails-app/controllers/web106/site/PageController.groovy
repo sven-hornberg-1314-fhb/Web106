@@ -65,7 +65,7 @@ class PageController {
 	
 	def create_step2() {
 
-        String tempName = params.template
+h        String tempName = params.template
         String tempNameLower = tempName.toLowerCase()
 
 		String contents = groovyPageRenderer.render(template:'/template/'+tempNameLower+'/template', model:[])
@@ -91,13 +91,15 @@ class PageController {
 		//parse dates
 		def startDate = new SimpleDateFormat("d/M/yyyy").parse(
 			"${params.startDate_day}/${params.startDate_month}/${params.startDate_year}")
-		print startDate
-		
+
 		def endDate = new SimpleDateFormat("d/M/yyyy").parse(
 			"${params.endDate_day}/${params.endDate_month}/${params.endDate_year}")
-		print endDate
-		
-		
+
+
+        Website website = Website.find {
+            id == activeWebsite
+        }
+
 		
 		//create page
 		Page newPage = new Page()
@@ -106,6 +108,10 @@ class PageController {
 		newPage.visibleFrom = startDate
 		newPage.visibleTo = endDate
 
+        website.page = []
+        website.page.add(newPage)
+
+        newPage.website = website
 
         Template template = Template.find {
             name == tempName
@@ -268,21 +274,9 @@ class PageController {
 
     boolean IsAllowed(long idValue) {
 
-        boolean returnVal = false
 
-        WorkGroup wG = WorkGroup.find() {
-            id == activeWorkGroup
-        }
-
-        def sites = Website.findAll(){
-            workGroup == wG
-        }
-
-        sites.each {
-            if(it.id == idValue) {
-                returnVal = true
-            }
-        }
+        //TODO
+        def returnVal = true
 
         //activeWebsite ,activeWorkGroup
         return returnVal

@@ -11,14 +11,18 @@ import web106.site.*
  * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
  */
 @TestMixin(GrailsUnitTestMixin)
-@Mock([Page, Box,Template])
+@Mock([Page, Box,Template, Website])
 @TestFor(Page)
 class PageSpec extends Specification {
 	
 	@Shared Template template
-    
+    @Shared Website website
+
 	def setup() {
 		template = new Template(name:'Berlin')
+
+        website = new Website(title : 'simpleWebsite')
+        website.page = []
     }
 
     def cleanup() {
@@ -45,7 +49,7 @@ class PageSpec extends Specification {
 	def "save new Page"() {
 	
 		setup:
-			
+
 			def visibleFromDate = new Date()
 			def visibleToDate = new Date()
 			
@@ -53,7 +57,11 @@ class PageSpec extends Specification {
 			newPage.template = template
 			
 		when:
-		
+
+		    website.page.add(newPage)
+            newPage.website = website
+
+
 			newPage.save(flush: true, failOnError: true)
 		
 		then:
@@ -70,11 +78,15 @@ class PageSpec extends Specification {
 			
 			def newPage = new Page(title: "saveMe", visibleTo: visibleToDate, visibleFrom : visibleFromDate)
 			newPage.template = template
-			
-			newPage.save(flush: true, failOnError: true)
-		
+
+            website.page.add(newPage)
+            newPage.website = website
+
+
+            newPage.save(flush: true, failOnError: true)
+
 		when:
-		
+
 			def searchPage = Page.find {
 				title == "saveMe"
 			}
@@ -95,11 +107,14 @@ class PageSpec extends Specification {
 			
 			def newPage = new Page(title: "saveMe", visibleTo: visibleToDate, visibleFrom : visibleFromDate)
 			newPage.template = template
-			
-			newPage.save(flush: true, failOnError: true)
+
+            website.page.add(newPage)
+            newPage.website = website
+
+        newPage.save(flush: true, failOnError: true)
 			
 		when:
-			
+
 			//update title
 			newPage.title = "saveMeNew"
 			newPage.save(flush: true, failOnError: true)
@@ -121,9 +136,13 @@ class PageSpec extends Specification {
 			def visibleToDate = new Date()
 			
 			def newPage = new Page(title: "saveMe", visibleTo: visibleToDate, visibleFrom : visibleFromDate)
-			newPage.template = template	
+			newPage.template = template
 
-			newPage.save(flush: true, failOnError: true)
+            website.page.add(newPage)
+            newPage.website = website
+
+
+        newPage.save(flush: true, failOnError: true)
 			
 		when:
 			
@@ -156,8 +175,11 @@ class PageSpec extends Specification {
 			newPage.template = template
 			
 		when:
-	
-			newPage.boxes = boxesSet as Set
+
+            website.page.add(newPage)
+            newPage.website = website
+
+            newPage.boxes = boxesSet as Set
 			newPage.save(flush: true, failOnError: true)
 	
 		then:
@@ -182,8 +204,12 @@ class PageSpec extends Specification {
 			
 		
 		when:
-	
-			newPage.save(flush: true, failOnError: true)
+
+            website.page.add(newPage)
+            newPage.website = website
+
+
+            newPage.save(flush: true, failOnError: true)
 	
 		then:
 		

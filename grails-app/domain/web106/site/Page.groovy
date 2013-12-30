@@ -12,6 +12,8 @@ class Page {
 	
 	Template template
 
+    static belongsTo = [website:Website]
+
     static hasMany=[boxes:Box]
 
     /**

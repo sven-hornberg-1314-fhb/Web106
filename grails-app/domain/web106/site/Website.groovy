@@ -11,6 +11,8 @@ class Website {
 
     String title
 
+    List page
+
     static hasMany = [page : Page]
     static belongsTo = [workGroup: WorkGroup]
 
