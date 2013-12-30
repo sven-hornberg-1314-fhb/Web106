@@ -28,12 +28,12 @@ class PageController {
 
         try {
         if(params.id != null && !IsAllowed(params.id as long)) {
-            render status: 403, text: "Sie sind nicht erlaubt auf diesen Inhalt zuzugreifen."
+            render status: 403, text: "Sie verfügen nicht über ausreichend Rechte um auf diesen Inhalt zuzugreifen."
             return false
         }
         }
         catch (NumberFormatException numEx) {
-            render status: 403, text: "Sie sind nicht erlaubt auf diesen Inhalt zuzugreifen."
+            render status: 403, text: "Sie verfügen nicht über ausreichend Rechte um auf diesen Inhalt zuzugreifen."
             return false
         }
     }

@@ -25,7 +25,7 @@
 
 
 		<li class="pure-menu-heading" style="background-color: #CCCCCC;">Webseite</li>
-		<li><g:link controller="Website" >Websiten</g:link></li>
+		<li><g:link controller="Website" >Webseiten</g:link></li>
 		<li><g:link controller="Page" >Seiten</g:link></li>
 		<li><g:link controller="Template" >Templates</g:link></li>
 

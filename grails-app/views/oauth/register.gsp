@@ -45,7 +45,7 @@
                     <div class="pure-control-group">
                         <label for="email">Emailadresse</label>
                         <g:textField name="email" value="${user?.email}"
-                                     class="${hasErrors(bean:user,field:'username','errors')}" placeholder="Email"/>
+                                     class="${hasErrors(bean:user,field:'email','errors')}" placeholder="Email"/>
                     </div>
 
                     <div class="pure-control-group">
