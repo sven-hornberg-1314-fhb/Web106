@@ -65,7 +65,7 @@ class PageController {
 	
 	def create_step2() {
 
-h        String tempName = params.template
+        String tempName = params.template
         String tempNameLower = tempName.toLowerCase()
 
 		String contents = groovyPageRenderer.render(template:'/template/'+tempNameLower+'/template', model:[])
