@@ -122,7 +122,7 @@ grails.plugins.springsecurity.authority.className = 'web106.auth.Role'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
         '/':               ['permitAll'],
         '/index':          ['permitAll'],
-        '/index.gsp':      ['permitAll'],
+        '/controllers.gsp':      ['permitAll'],
         '/**/js/**':       ['permitAll'],
         '/**/css/**':      ['permitAll'],
         '/**/images/**':   ['permitAll'],

@@ -9,7 +9,7 @@ import web106.auth.*
 class AdministrationController {  
   
   def index() {
-    render (view: "/index")
+    render (view: "/controllers")
   }
 
   def listUsers(){
