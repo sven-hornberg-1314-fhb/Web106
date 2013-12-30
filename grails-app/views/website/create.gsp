@@ -59,7 +59,7 @@
            	<div class="pure-u-1-8"></div>
          
             <div class="pure-u-1-8">
-            <g:submitButton value="Speichern" name="Speichern"/>
+            <g:submitButton class="pure-button" value="Speichern" name="Speichern"/>
         	</div>
         </div>
         
