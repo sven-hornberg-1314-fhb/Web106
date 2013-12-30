@@ -274,11 +274,15 @@ class PageController {
 
     boolean IsAllowed(long idValue) {
 
+        boolean returnVal = false
 
-        //TODO
-        def returnVal = true
+        def currentPage = Page.findById(idValue)
+        def websiteOfCurrentPage = currentPage?.website
 
-        //activeWebsite ,activeWorkGroup
+        if(websiteOfCurrentPage?.id == activeWebsite && websiteOfCurrentPage?.workGroupId == activeWorkGroup){
+            returnVal = true
+        }
+
         return returnVal
     }
 
