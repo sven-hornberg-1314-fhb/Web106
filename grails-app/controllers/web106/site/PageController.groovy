@@ -179,11 +179,14 @@ class PageController {
         }
     }
 
-    //Todo Boxes löschen
     def delete(){
         //find and delete component
         def current = Page.find{
             id == params.id
+        }
+
+        current?.boxes.each {
+            Box.deleteAll(it)
         }
 
         current.delete(failOnError: true)
