@@ -261,9 +261,10 @@ class PageController {
             id == activeWorkGroup
         }
 
-        def pages = Page.findAll()
+        def pages = Page.findAll{
+            website.id == activeWebsite
+        }
 
-        //Todo: Filter by Workgroup
         def model =[
                 pages : pages
         ]
