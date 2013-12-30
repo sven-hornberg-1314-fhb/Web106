@@ -38,7 +38,7 @@
 
 		<li class="pure-menu-heading" style="background-color: #CCCCCC;">Module</li>
 		<li><g:link controller="uploadFile" >Dateiupload</g:link></li>
-		<li><a href="#">Bildergalerie</a></li>
+		<li><g:link controller="image">Bildergalerie</g:link></li>
 		<li><a href="#">Export</a></li>
 
 
