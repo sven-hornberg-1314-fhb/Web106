@@ -56,7 +56,7 @@
 			</div>
 			<div id="m4" class="pure-g-r">
 				<div class="pure-u-1-2">
-				<g:actionSubmit value="Anlegen" action="createComponent" />
+				<g:actionSubmit class="pure-button" value="Anlegen" action="createComponent" />
 				</div>
 			</div>
 			

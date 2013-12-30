@@ -20,3 +20,10 @@
 .contentPadding{
     padding: 10px;
 }
+
+.component {
+        background-color: #c2c7c9;
+        height: 50px;
+        width: 95%;
+        margin: 0 auto;
+}
