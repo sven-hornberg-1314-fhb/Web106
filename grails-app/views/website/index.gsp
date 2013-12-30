@@ -10,7 +10,7 @@
 
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="${resource( absolute: true, dir: 'css', file: 'web106.css')}" />
-    <link rel="stylesheet" type="text/css" href="${resource( absolute: true, dir: 'css/website', file: 'main.css')}" />
+    <link rel="stylesheet" type="text/css" href="${resource( absolute: true, dir: 'css/shared', file: 'shared.css')}" />
 
     <r:layoutResources />
 </head>

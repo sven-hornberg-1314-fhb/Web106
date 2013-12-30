@@ -3,22 +3,11 @@
 <head>
     <title>Auswahl Arbeitsgruppe</title>
     <meta charset="utf-8">
-    <style type="text/css">
-	    
-	    .color {
-	        background-color: grey;
-	        border-style:solid;
-	        border-width:medium;
-	        border-color:white;
-	    }
-	    
-	    
-    </style>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/grids-min.css">
-    <link rel="stylesheet" type="text/css" href="${resource( absolute: true, dir: 'css', file: 'web106.css')}" />
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
 
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="${resource( absolute: true, dir: 'css', file: 'web106.css')}" />
+    <link rel="stylesheet" type="text/css" href="${resource( absolute: true, dir: 'css/shared', file: 'shared.css')}" />
     <r:layoutResources />
 </head>
 <body>
@@ -36,7 +25,7 @@
 		    <g:each in="${workgroup}">
 		    <g:form name="${it.name}" action="selectWorkGroup">
 		       <g:hiddenField name="workId" value= "${it.id}"/>
-		        <button type="submit" class="btn btn-default"> Workgroup: ${it.name}</button>
+		        <button type="submit" class="pure-button"> Workgroup: ${it.name}</button>
 		    </g:form>
 		    </g:each>
 	
@@ -45,7 +34,7 @@
 			
 				<label>Name der Workgroup</label>
 				<g:textField name="name" required="true" />
-				<button type="submit" class="btn btn-default">Workgroup anlegen</button>
+				<button type="submit" class="pure-button">Workgroup anlegen</button>
 			</g:form>
 	    </div>
 	</div>
