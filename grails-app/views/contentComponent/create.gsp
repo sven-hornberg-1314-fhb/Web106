@@ -2,23 +2,11 @@
 <html>
 <head>
     <title>Textbaustein erstellen</title>
-<style type="text/css">
-<!--
 
-	.component {
-		background-color: #c2c7c9;
-		height: 50px;
-		width: 95%;
-		margin: 0 auto;
-	}
-
--->
-</style>
 <link rel="stylesheet"
 	href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
 <link rel="stylesheet"
 	href="http://yui.yahooapis.com/pure/0.3.0/grids-min.css">
-
     <link rel="stylesheet" type="text/css" href="${resource( absolute: true, dir: 'css', file: 'web106.css')}" />
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
 

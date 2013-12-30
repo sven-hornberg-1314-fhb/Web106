@@ -2,18 +2,7 @@
 <html>
 <head>
     <title>Textbaustein editieren</title>
-<style type="text/css">
-<!--
 
-	.component {
-		background-color: #c2c7c9;
-		height: 50px;
-		width: 95%;
-		margin: 0 auto;
-	}
-
--->
-</style>
 <link rel="stylesheet"
 	href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
 <link rel="stylesheet"
