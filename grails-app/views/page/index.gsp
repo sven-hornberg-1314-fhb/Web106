@@ -2,17 +2,7 @@
 <html>
 <head>
     <title>Seite</title>
-    <style type="text/css">
-    .color{
-        background-color: grey;
-        border-style:solid;
-        border-width:medium;
-        border-color:white;
-    }
 
-    <!--
-    -->
-    </style>
     <link rel="stylesheet"
           href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css" />
     <link rel="stylesheet"
