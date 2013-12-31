@@ -51,7 +51,7 @@
             <li>    <g:link controller="administration" action="manageUsers">Users</g:link>        </li>
             <li>    <g:link controller="administration" action="manageRoles">Roles</g:link>       </li>
             <li>    <g:link controller="administration" action="manageUserRoles">UserRoles</g:link> </li>
-            <li>    <g:link controller="administration" action="clearSession">clearSession</g:link> </li>
+            <li>    <g:link controller="administration" action="clearSession">Session bereinigen</g:link> </li>
 
 		</ul>  </sec:ifAllGranted>
 	</div>
