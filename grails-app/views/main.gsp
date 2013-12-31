@@ -56,7 +56,5 @@
        <g:render template="/shared/mainLoggedIn" />
 </sec:ifLoggedIn>
 
-${session}
-
 </body>
 </html>
