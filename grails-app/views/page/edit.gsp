@@ -13,7 +13,7 @@
 <g:javascript library="jquery" />
 <r:require module="jquery-ui"/>
 <r:layoutResources />
-
+    <link rel="stylesheet" type="text/css" href="${resource( absolute: true, dir: 'css', file: 'web106.css')}" />
 <script type="text/javascript">
         $(function() {
 
@@ -66,10 +66,10 @@
                     <div class="pure-g-r">
                        <div class="pure-u-1-12"><g:link class="pure-button" uri="/">Start</g:link></div>
                        <div class="pure-u-1-6"><g:link class="pure-button" controller="page" action="preview" id="${id}" target="_blank">
-                           <i class="fa fa-eye fa-3 "></i> Vorschau</g:link>
+                           <i class="fa fa-eye "></i> Vorschau</g:link>
                        </div>
                        <div class="pure-u-1-12"><a class="pure-button" href="JavaScript:save(${id})" >
-                           <i class="fa fa-floppy-o  fa-3"></i> Speichern</a></div>
+                           <i class="fa fa-floppy-o "></i> Speichern</a></div>
                     </div>
                 </div>
 
