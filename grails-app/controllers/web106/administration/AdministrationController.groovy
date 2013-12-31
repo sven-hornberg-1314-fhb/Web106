@@ -12,23 +12,31 @@ class AdministrationController {
     render (view: "/controllers")
   }
 
-  def listUsers(){
-      render User.all as JSON
+  def manageUsers(){
+      redirect controller: 'adminUser'
   }
 
   def activate(User u){
       User.findById(u.getId()).enabled=true
   }
 
-    def listRoles(){
-       render Role.all as JSON
+    def manageRoles(){
+        redirect controller: 'adminRole'
     }
 
-    def listUserRoles(){
-        render UserRole.all as JSON
+    def manageUserRoles(){
+        redirect controller: 'adminUserRole'
     }
 
     def clearSession(){
-       //clear set session attributes website page ...
+
+        def attributes = ['activeWebsite','activeWebsiteName','activeWorkGroup','activeWorkGroupName']
+
+        attributes.each {
+            session.removeAttribute(it)
+        }
+
+        redirect(uri: '/')
+
     }
 }

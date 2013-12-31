@@ -42,15 +42,15 @@
 		<li><a href="#">Export</a></li>
 
 
-		<li class="pure-menu-heading">Einstellungen</li>
+		<li class="pure-menu-heading" style="background-color: #CCCCCC;">Einstellungen</li>
 
         <sec:ifAllGranted roles="ROLE_ADMIN">
 		<li class="pure-menu-heading" style="background-color: #CCCCCC;">Admin</li>
 
             <li>   <g:link controller="administration" action="index">Controllers</g:link>  </li>
-            <li>    <g:link controller="administration" action="listUsers">Users</g:link>        </li>
-            <li>    <g:link controller="administration" action="listRoles">Roles</g:link>       </li>
-            <li>    <g:link controller="administration" action="listUserRoles">UserRoles</g:link> </li>
+            <li>    <g:link controller="administration" action="manageUsers">Users</g:link>        </li>
+            <li>    <g:link controller="administration" action="manageRoles">Roles</g:link>       </li>
+            <li>    <g:link controller="administration" action="manageUserRoles">UserRoles</g:link> </li>
             <li>    <g:link controller="administration" action="clearSession">clearSession</g:link> </li>
 
 		</ul>  </sec:ifAllGranted>
