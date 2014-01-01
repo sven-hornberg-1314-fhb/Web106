@@ -5,6 +5,7 @@ package web106.auth
 import grails.test.mixin.*
 import spock.lang.*
 
+@Ignore
 @TestFor(AdminRoleController)
 @Mock(Role)
 class AdminRoleControllerSpec extends Specification {
