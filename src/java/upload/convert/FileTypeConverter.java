@@ -22,8 +22,12 @@ import upload.s3.UploadS3Service;
 public class FileTypeConverter {
 	
 	static OutputStream outputStream = null;
-	
-	
+
+    /**
+     * replaces at char in email with minus
+     * @param mail mailaddress
+     * @return mailaddress with replaced at char
+     */
 	public static String replaceAT(String mail){
 		try{
 			mail = mail.replaceAll("@", "-");
@@ -93,5 +97,4 @@ public class FileTypeConverter {
 			
 	        
 	    }
-
 }

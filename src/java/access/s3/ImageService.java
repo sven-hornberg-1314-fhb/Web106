@@ -41,13 +41,13 @@ public class ImageService {
 	
 
 
+    //TODO missing operations ?
     public ImageService(String mail) throws Exception {
     	s3.setRegion(region);
-
         bucketName = mail;
-
     }
-    
+
+    //todo bucketname as parameter
     public ArrayList<String> getFileList(){
     	//bucketName = "test-s3-sqs";
     	String namedurl = "https://s3-eu-west-1.amazonaws.com/" + bucketName + "/";
@@ -63,7 +63,7 @@ public class ImageService {
     	return imageurllist;
     }
 
-    
+    //TODO bucketname as parameter
     private boolean createAmazonS3Bucket() {
     	tx = new TransferManager(s3);
         try {
