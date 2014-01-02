@@ -8,6 +8,7 @@ import web106.site.Page
 import web106.site.Website
 import web106.template.TemplateController
 import web106.UserUtils
+import upload.s3.WebsiteBucketS3
 
 
 class WebsiteController {
@@ -36,9 +37,19 @@ class WebsiteController {
         }
 
         def website = Website.newInstance()
+		
         website.title = params.title
         website.workGroup = aworkGroup
-        website.save(failOnError: true)
+        
+		
+		WebsiteBucketS3 BucketCreation= new WebsiteBucketS3()
+		
+		def mail  = UserUtils.newInstance().emailFromCurrentUser
+		User currentUser = User.find {email== mail}
+		
+		website.websiteurl = BucketCreation.createWebsiteBucket(website.title, mail)
+		
+		website.save(failOnError: true)
 
         redirect controller: params.controller
 

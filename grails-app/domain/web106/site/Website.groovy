@@ -10,6 +10,7 @@ import web106.auth.WorkGroup
 class Website {
 
     String title
+	String websiteurl
 
     List page
 
@@ -20,6 +21,7 @@ class Website {
     static constraints = {
         title blank:false
         page nullable:true
+		websiteurl nullable:true
 
     }
 }

@@ -3,6 +3,7 @@ package web106.file.upload
 import upload.convert.FileTypeConverter
 import web106.UserUtils
 import web106.auth.User
+import web106.site.Website
 
 class UploadFileController {
 
@@ -12,6 +13,16 @@ class UploadFileController {
 	
 	
 	def upload() {
+		def activeWebsite
+		
+		def activeWebsiteSession = session.getAttribute('activeWebsite')
+		activeWebsite = activeWebsiteSession
+		Website website = Website.find {
+			id == activeWebsite
+		}
+		String websitename = website.title + "-Images"
+		print websitename
+		
 		def mail  = UserUtils.newInstance().emailFromCurrentUser
 		User currentUser = User.find {email== mail}
 
@@ -19,7 +30,7 @@ class UploadFileController {
 		if(file.empty) {
 			flash.message = "File cannot be empty"
 		} else {
-			boolean returnmessage = FileTypeConverter.convert(file, mail)
+			boolean returnmessage = FileTypeConverter.convert(file, mail, websitename)
 			if(returnmessage == false){
 				flash.message = "File must be .jpg or .png"
 			}
