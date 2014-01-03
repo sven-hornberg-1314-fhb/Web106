@@ -27,11 +27,9 @@
 	  <!--
 	  -->
 	 </style>
-<link rel="stylesheet"
-	href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css" />
-<link rel="stylesheet"
-	href="http://yui.yahooapis.com/pure/0.3.0/grids-min.css" />
-<g:javascript library="jquery" />
+       <g:render template="/shared/header" />
+
+   <g:javascript library="jquery" />
 <r:require module="jquery-ui"/>
 <r:layoutResources />
 
