@@ -44,10 +44,9 @@ class WebsiteController {
 		
 		WebsiteBucketS3 BucketCreation= new WebsiteBucketS3()
 		
-		def mail  = UserUtils.newInstance().emailFromCurrentUser
-		User currentUser = User.find {email== mail}
+		print website.workGroup.name
 		
-		website.websiteurl = BucketCreation.createWebsiteBucket(website.title, mail)
+		website.websiteurl = BucketCreation.createWebsiteBucket(website.title, website.workGroup.name)
 		
 		website.save(failOnError: true)
 

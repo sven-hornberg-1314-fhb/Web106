@@ -42,23 +42,23 @@ public class FileTypeConverter {
 	}
 	
 	
-	public static void uploadS3(File file, String mail, String websitename) throws Exception{
+	public static void uploadS3(File file, String websitename) throws Exception{
 	    String email;
 	    
-	    email = replaceAT(mail);
+	    //email = replaceAT(websitename);
 		
 		websitename = websitename.toLowerCase();
 	    System.out.println(websitename);
 		if (websitename != "")
 		{
-		UploadS3Service S3process = new UploadS3Service(file, email + "." + websitename);
+		UploadS3Service S3process = new UploadS3Service(file, websitename);
 		
 		
 		file.deleteOnExit();
 		}
 	}
 	
-	public static boolean convert(MultipartFile file, String mail, String website) throws Exception
+	public static boolean convert(MultipartFile file, String website) throws Exception
 	    {
 			 byte [] byteArr= file.getBytes();
 			 int read = 0;
@@ -93,7 +93,7 @@ public class FileTypeConverter {
 			 
 			if(extension.equals("jpg") || extension.equals("png")){
 				System.out.println(extension);
-				uploadS3(tempfile, mail, website);
+				uploadS3(tempfile, website);
 				
 				return true;
 				

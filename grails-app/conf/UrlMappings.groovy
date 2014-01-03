@@ -2,6 +2,8 @@ class UrlMappings {
 
 	static mappings = {
         "/"(view:"/main")
+		
+		"/workgroup/$wgid/$website"([controller: 'urlredirect', action: 'mapping'])
 
         "/$controller/$action?/$id?(.${format})?"{
             constraints {

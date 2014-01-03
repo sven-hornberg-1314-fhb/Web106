@@ -27,7 +27,7 @@ public class WebsiteBucketS3 {
 	
 	public String generateUrl(){
 		String url;
-		url = bucketName + ".s3-website-eu-west-1.amazonaws.com";
+		url = "http://" + bucketName + ".s3-website-eu-west-1.amazonaws.com";
 		return url;
 	}
 	
@@ -44,16 +44,16 @@ public class WebsiteBucketS3 {
 		    return mail;
 	}
 	
-	public String createWebsiteBucket(String bucket, String mail) throws Exception {
+	public String createWebsiteBucket(String bucket, String workgroup) throws Exception {
 		String url;
 		bucket = bucket.toLowerCase();
+		workgroup = workgroup.toLowerCase();
 		AmazonS3 s3Client = new AmazonS3Client(credentials = new ClasspathPropertiesFileCredentialsProvider().getCredentials());
     	Region usWest2 = Region.getRegion(Regions.EU_WEST_1);
     	s3Client.setRegion(usWest2);
     	tx = new TransferManager(s3Client);
-    	mail = replaceAT(mail);
     	
-    	bucketName = mail + "." +  bucket + ".de" ;
+    	bucketName = workgroup + "." +  bucket + ".de" ;
     	System.out.println("Bucket erstellen");
     	createAmazonS3Bucket();
 
