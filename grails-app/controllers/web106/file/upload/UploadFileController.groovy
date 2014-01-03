@@ -20,17 +20,13 @@ class UploadFileController {
 		Website website = Website.find {
 			id == activeWebsite
 		}
-		String websitename = website.title + "-Images"
-		print websitename
-		
-		def mail  = UserUtils.newInstance().emailFromCurrentUser
-		User currentUser = User.find {email== mail}
+		String websitename = website.workGroup.name + "." + website.title + "-Images"
 
 		def file = request.getFile('file')
 		if(file.empty) {
 			flash.message = "File cannot be empty"
 		} else {
-			boolean returnmessage = FileTypeConverter.convert(file, mail, websitename)
+			boolean returnmessage = FileTypeConverter.convert(file, websitename)
 			if(returnmessage == false){
 				flash.message = "File must be .jpg or .png"
 			}

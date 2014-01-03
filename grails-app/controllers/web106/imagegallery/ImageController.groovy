@@ -8,6 +8,7 @@ import web106.site.Website
 
 class ImageController {
 
+
     def index() { 
 		def activeWebsite
 		
@@ -16,13 +17,14 @@ class ImageController {
 		Website website = Website.find {
 			id == activeWebsite
 		}
-		String websitename = website.title + "-Images"
+		
+	
+		
+		String websitename = website.workGroup.name + "." + website.title + "-Images"
 		print websitename
 
-		def mail  = UserUtils.newInstance().emailFromCurrentUser
-		User currentUser = User.find {email== mail}
-		
-		String newmail = FileTypeConverter.replaceAT(mail+ "." + websitename)
+
+		String newmail = FileTypeConverter.replaceAT(websitename)
 		print newmail
 		
 		ImageService progress = new ImageService(newmail);
