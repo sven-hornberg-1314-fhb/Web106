@@ -49,7 +49,7 @@
 
         <div class="pure-g-r">
             <div class="pure-u-1-4">
-                <div class="boxmain">Export <br> <br><i class="fa fa-cloud-download   fa-3"></i></div>
+                <div class="boxmain">Export <br> <br><g:link controller="export"><i class="fa fa-cloud-download   fa-3"></i></g:link></div>
             </div>
             <div class="pure-u-1-4">
                 <div class="boxmain">Premium <br><br><i class="fa  fa-star  fa-3"></i></div>

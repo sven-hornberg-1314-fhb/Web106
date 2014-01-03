@@ -1,5 +1,6 @@
 <html>
 <head>
+    <title>Export Cloud S3</title>
     <g:render template="/shared/header" />
 </head>
 <body>
@@ -12,8 +13,10 @@
     </div>
     <div id="main" class="pure-u-5-6">
         <div class="contentPadding">
+            <g:include action="listown" />
 
-        <g:link action="cloudS3"><div class="pure-button">Export S3</div></g:link>
+
+
         </div>
     </div>
 </div>

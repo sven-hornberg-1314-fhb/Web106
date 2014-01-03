@@ -15,6 +15,14 @@ import web106.site.Website
 class SecurityFilters {
 
 
+    boolean sessionAttNotNullOrEmpty(String attribute) {
+
+        def returnval = false
+        if(session.getAttribute(attribute) != null && session.getAttribute(attribute) != "") {
+            returnval = true
+        }
+        return returnval
+    }
 
 
     def filters = {
@@ -43,6 +51,11 @@ class SecurityFilters {
 
             before = {
 
+
+                /*
+                if(sessionAttNotNullOrEmpty("beforeController")){
+
+                }*/
 
                 //back to old controller
                 /*
