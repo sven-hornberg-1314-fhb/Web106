@@ -2,21 +2,14 @@ package upload.convert;
 
 
 import java.io.ByteArrayInputStream;
-import javax.activation.MimetypesFileTypeMap;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.AmazonClientException;
-
-import upload.s3.UploadS3Service;
+import upload.s3.JUploadS3Service;
 
 
 public class FileTypeConverter {
@@ -51,7 +44,7 @@ public class FileTypeConverter {
 	    System.out.println(websitename);
 		if (websitename != "")
 		{
-		UploadS3Service S3process = new UploadS3Service(file, websitename);
+		JUploadS3Service S3process = new JUploadS3Service(file, websitename);
 		
 		
 		file.deleteOnExit();

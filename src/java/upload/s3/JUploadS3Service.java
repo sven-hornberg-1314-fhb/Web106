@@ -51,7 +51,7 @@ import com.amazonaws.services.s3.transfer.Upload;
  * <b>Important:</b> Be sure to fill in your AWS access credentials in the
  *                   AwsCredentials.properties file before you try to run this
  */
-public class UploadS3Service {
+public class JUploadS3Service {
 
     private static AWSCredentials credentials;
     private static TransferManager tx;
@@ -63,7 +63,7 @@ public class UploadS3Service {
     private JButton button;
 
 
-    public UploadS3Service(File file, String mail) throws Exception {
+    public JUploadS3Service(File file, String mail) throws Exception {
     	AmazonS3 s3 = new AmazonS3Client(credentials = new ClasspathPropertiesFileCredentialsProvider().getCredentials());
     	Region region = Region.getRegion(Regions.EU_WEST_1);
     	s3.setRegion(region);
