@@ -40,5 +40,9 @@ class UrlredirectController {
 		}
 		
 	}
+
+    def live() {
+
+    }
 	
 }
