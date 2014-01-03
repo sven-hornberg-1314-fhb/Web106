@@ -3,11 +3,8 @@
 <head>
     <title>Auswahl Arbeitsgruppe</title>
     <meta charset="utf-8">
+    <g:render template="/shared/header" />
 
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="${resource( absolute: true, dir: 'css', file: 'web106.css')}" />
-    <link rel="stylesheet" type="text/css" href="${resource( absolute: true, dir: 'css/shared', file: 'shared.css')}" />
     <r:layoutResources />
 </head>
 <body>
