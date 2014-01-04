@@ -2,6 +2,7 @@ package web106.file.upload
 
 import com.amazonaws.AmazonClientException
 import com.amazonaws.HttpMethod
+import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider
 import com.amazonaws.regions.Region
 import com.amazonaws.regions.Regions
@@ -23,6 +24,7 @@ class UploadS3Service {
      * @return default AmazonS3Client
      */
     AmazonS3Client DefaultAmazonS3Client() {
+        AWSCredentials credentials
         AmazonS3 s3 = new AmazonS3Client(credentials = new ClasspathPropertiesFileCredentialsProvider().getCredentials());
         Region region = Region.getRegion(Regions.EU_WEST_1);
         s3.setRegion(region);
@@ -37,7 +39,7 @@ class UploadS3Service {
      */
     boolean doesBucketExist(String bucketName) {
 
-        tx = new TransferManager(DefaultAmazonS3Client());
+        TransferManager tx = new TransferManager(DefaultAmazonS3Client());
         return tx.getAmazonS3Client().doesBucketExist(bucketName)
     }
 
@@ -55,7 +57,7 @@ class UploadS3Service {
     def createS3Bucket(String bucketName) {
 
         AmazonS3Client s3 = DefaultAmazonS3Client()
-        tx = new TransferManager(s3);
+        TransferManager tx = new TransferManager(s3);
 
         //check if file exists
         try {
@@ -75,7 +77,7 @@ class UploadS3Service {
     def uploadFileToS3Bucket(String bucketName, File file) {
 
         AmazonS3Client s3client = DefaultAmazonS3Client()
-        tx = new TransferManager(s3);
+        TransferManager tx = new TransferManager(s3);
 
         //check if file exists
         try {
