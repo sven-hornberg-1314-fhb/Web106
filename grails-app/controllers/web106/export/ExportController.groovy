@@ -44,15 +44,24 @@ class ExportController {
         }
 
         //upload Files into bucket
-        mapFiles.keySet().each {
+        for (it in mapFiles.keySet()) {
             File file = null
-            uploadServiceS3.uploadFileToS3Bucket(bucketName, file)
+
+            file = fileService.createTempFile(null, it, mapFiles.get(it))
+
+            if (file != null) {
+                uploadServiceS3.uploadFileToS3Bucket(bucketName, file)
+                fileService.deleteTempFile(null, it)
+            }
+
         }
 
         //make bucket to websitebucket
         uploadServiceS3.createWebsiteBucketS3Config(bucketName, 'index.html', 'error.html')
 
-        render "done export s3*dummy*"
+        URL url = uploadServiceS3.UrlForBucketObject(bucketName, 'index.html')
+
+        render "done export s3*dummy*<br>" + url.query
     }
 
     def listown() {
