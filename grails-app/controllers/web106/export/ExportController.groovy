@@ -1,9 +1,8 @@
 package web106.export
 
-import grails.converters.JSON
 import web106.auth.WorkGroup
 import web106.file.FileService
-import web106.file.upload.UploadServiceS3
+import web106.file.upload.UploadS3Service
 import web106.site.Website
 import web106.site.WebsiteService
 
@@ -12,7 +11,10 @@ class ExportController {
 
     def WebsiteService websiteService
 
-    def UploadServiceS3 uploadServiceS3
+
+    def UploadS3Service uploadS3Service
+
+
     def FileService fileService
 
     def index() {
@@ -33,33 +35,35 @@ class ExportController {
         }
         Map<String,String> mapFiles = websiteService.createPagesForWebsite(website)
 
-        def bucketName = website.workGroup.name-website.title
+        def bucketName = website.workGroup.name+ "-" + website.title
 
         //test if bucket exists
-        def bucketExist = uploadServiceS3.doesBucketExist(bucketName)
+        def bucketExist = uploadS3Service.doesBucketExist(bucketName)
 
         if(!bucketExist) {
             //create bucket workgroup-websitetitle
-            uploadServiceS3.createS3Bucket(bucketName)
+            uploadS3Service.createS3Bucket(bucketName)
         }
 
         //upload Files into bucket
         for (it in mapFiles.keySet()) {
             File file = null
 
-            file = fileService.createTempFile(null, it, mapFiles.get(it))
+            def filename = it + ".html"
+
+            file = fileService.createTempFile(null,filename , mapFiles.get(it))
 
             if (file != null) {
-                uploadServiceS3.uploadFileToS3Bucket(bucketName, file)
-                fileService.deleteTempFile(null, it)
+                uploadS3Service.uploadFileToS3Bucket(bucketName, file)
+                fileService.deleteTempFile(null, filename)
             }
 
         }
 
         //make bucket to websitebucket
-        uploadServiceS3.createWebsiteBucketS3Config(bucketName, 'index.html', 'error.html')
+        uploadS3Service.createWebsiteBucketS3Config(bucketName, 'index.html', 'error.html')
 
-        URL url = uploadServiceS3.UrlForBucketObject(bucketName, 'index.html')
+        URL url = uploadS3Service.UrlForBucketObject(bucketName, 'index.html')
 
         render "done export s3*dummy*<br>" + url.query
     }

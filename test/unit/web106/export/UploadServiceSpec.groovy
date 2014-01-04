@@ -2,12 +2,12 @@ package web106.export
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification
-import web106.file.upload.UploadServiceS3
+import web106.file.upload.UploadS3Service
 
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
-@TestFor(UploadServiceS3)
+@TestFor(UploadS3Service)
 class UploadServiceSpec extends Specification {
 
     def setup() {

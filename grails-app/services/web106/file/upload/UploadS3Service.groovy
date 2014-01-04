@@ -16,7 +16,7 @@ import upload.s3.JUploadS3Service
 import upload.s3.WebsiteBucketS3
 
 @Transactional
-class UploadServiceS3 {
+class UploadS3Service {
 
     /**
      * Generates a default AmazonS3Client for Eu_West_1 with given Credentials
@@ -26,13 +26,13 @@ class UploadServiceS3 {
         AmazonS3 s3 = new AmazonS3Client(credentials = new ClasspathPropertiesFileCredentialsProvider().getCredentials());
         Region region = Region.getRegion(Regions.EU_WEST_1);
         s3.setRegion(region);
-        s3
+        return s3
     }
 
     /**
      * checks if a bucket exist
      * @param s3client current S3Client
-     * @param bucketName bucketName
+      * @param bucketName bucketName
      * @return bucket exist == true
      */
     boolean doesBucketExist(String bucketName) {
@@ -59,7 +59,7 @@ class UploadServiceS3 {
 
         //check if file exists
         try {
-            if (!doesBucketExist(s3,bucketName)) {
+            if (!doesBucketExist(bucketName)) {
                 tx.getAmazonS3Client().createBucket(bucketName);
             }
         } catch (AmazonClientException ace) {
@@ -79,7 +79,7 @@ class UploadServiceS3 {
 
         //check if file exists
         try {
-            if (!doesBucketExist(s3,bucketName)) {
+            if (!doesBucketExist(bucketName)) {
                 createS3Bucket(bucketName)
             }
         } catch (AmazonClientException ace) {
