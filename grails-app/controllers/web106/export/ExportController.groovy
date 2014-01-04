@@ -26,7 +26,15 @@ class ExportController {
         Website website = Website.find() {
             id == params.id
         }
-        websiteService.createPagesForWebsite(website)
+        Map<String,String> mapFiles = websiteService.createPagesForWebsite(website)
+
+        //website.title
+        //website.workGroup.name
+
+        //test if bucket exists
+        //create bucket workgroup-websitetitle
+
+        //upload Files into bucket
 
         render "done export s3*dummy*"
     }

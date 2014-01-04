@@ -8,17 +8,16 @@ class WebsiteService {
 
     def PageService pageService
 
-    //pagename : html
-    def sites = [:]
 
-    def createPagesForWebsite(Website website) {
+    def Map<String, String> createPagesForWebsite(Website website) {
 
-        website.page.each {
+        //pagename : html
+        def sites = [:]
 
-            sites [it.title] = pageService.PageAsHtmlString(it.id)
-
+        for (it in website.page) {
+            sites[it.title] = pageService.PageAsHtmlString(it.id)
         }
 
-        print sites as JSON
+        return sites
     }
 }
