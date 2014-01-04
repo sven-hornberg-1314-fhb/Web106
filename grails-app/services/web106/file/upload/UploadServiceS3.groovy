@@ -1,12 +1,14 @@
 package web106.file.upload
 
 import com.amazonaws.AmazonClientException
+import com.amazonaws.HttpMethod
 import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider
 import com.amazonaws.regions.Region
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.BucketWebsiteConfiguration
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest
 import com.amazonaws.services.s3.model.PutObjectRequest
 import com.amazonaws.services.s3.transfer.TransferManager
 import grails.transaction.Transactional
@@ -103,8 +105,26 @@ class UploadServiceS3 {
                 new BucketWebsiteConfiguration(indexDocFileName, errorDocFileName));
     }
 
+    /**
+     * Creates a URL object for a given bucketName and objectKey
+     *
+     * @param bucketName name of the bucket
+     * @param objectKey name of the file
+     * @return URL Object
+     */
+    def UrlForBucketObject(String bucketName, String objectKey) {
 
+        AmazonS3Client s3Client = DefaultAmazonS3Client()
 
+        GeneratePresignedUrlRequest generatePresignedUrlRequest =
+                new GeneratePresignedUrlRequest(bucketName, objectKey);
+        generatePresignedUrlRequest.setMethod(HttpMethod.GET); // Default.
+
+        URL s = s3Client.generatePresignedUrl(generatePresignedUrlRequest);
+        return  s
+    }
+
+    /*
     private static BucketWebsiteConfiguration getWebsiteConfig(AmazonS3 s3Client, String bucketName) {
 
         // 1. Get website config.
@@ -123,4 +143,5 @@ class UploadServiceS3 {
         }
         return bucketWebsiteConfiguration;
     }
+    */
 }
