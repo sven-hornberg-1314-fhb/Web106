@@ -33,8 +33,9 @@ class UploadServiceS3 {
      * @param bucketName bucketName
      * @return bucket exist == true
      */
-    boolean doesBucketExist(AmazonS3 s3client, String bucketName) {
-        tx = new TransferManager(s3client);
+    boolean doesBucketExist(String bucketName) {
+
+        tx = new TransferManager(DefaultAmazonS3Client());
         return tx.getAmazonS3Client().doesBucketExist(bucketName)
     }
 

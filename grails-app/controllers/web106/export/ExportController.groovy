@@ -2,6 +2,8 @@ package web106.export
 
 import grails.converters.JSON
 import web106.auth.WorkGroup
+import web106.file.FileService
+import web106.file.upload.UploadServiceS3
 import web106.site.Website
 import web106.site.WebsiteService
 
@@ -9,6 +11,9 @@ import web106.site.WebsiteService
 class ExportController {
 
     def WebsiteService websiteService
+
+    def UploadServiceS3 uploadServiceS3
+    def FileService fileService
 
     def index() {
 
@@ -28,13 +33,24 @@ class ExportController {
         }
         Map<String,String> mapFiles = websiteService.createPagesForWebsite(website)
 
-        //website.title
-        //website.workGroup.name
+        def bucketName = website.workGroup.name-website.title
 
         //test if bucket exists
-        //create bucket workgroup-websitetitle
+        def bucketExist = uploadServiceS3.doesBucketExist(bucketName)
+
+        if(!bucketExist) {
+            //create bucket workgroup-websitetitle
+            uploadServiceS3.createS3Bucket(bucketName)
+        }
 
         //upload Files into bucket
+        mapFiles.keySet().each {
+            File file = null
+            uploadServiceS3.uploadFileToS3Bucket(bucketName, file)
+        }
+
+        //make bucket to websitebucket
+        uploadServiceS3.createWebsiteBucketS3Config(bucketName, 'index.html', 'error.html')
 
         render "done export s3*dummy*"
     }
