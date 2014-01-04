@@ -5,7 +5,7 @@ class UrlMappings {
 		
 		"/workgroup/$wgid/$website"([controller: 'urlredirect', action: 'mapping'])
 
-        "/live/$user/$website"([controller: "urlredirect", action: 'live'])
+        "/live/$workgroup/$website"([controller: "urlredirect", action: 'live'])
 
         "/$controller/$action?/$id?(.${format})?"{
             constraints {
