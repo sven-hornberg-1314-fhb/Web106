@@ -10,7 +10,7 @@ class FileService {
 
         String tDir = System.getProperty("java.io.tmpdir");
         File tempFile = null;
-        if(folder != null || folder != "") {
+        if(folder != null && folder != "") {
 
             tempFile = new File(tDir + "/" + folder + "/" + fileName);
 
@@ -26,9 +26,11 @@ class FileService {
             e.printStackTrace();
         }
 
+        return tempFile
+
     }
 
-    File deleteTempFile(String folder, String fileName) {
+    boolean deleteTempFile(String folder, String fileName) {
 
         def returnVal = false
 
@@ -36,7 +38,7 @@ class FileService {
         File tempFile = null;
         try{
 
-            if(folder != null || folder != "") {
+            if(folder != null && folder != "") {
 
                 tempFile = new File(tDir + "/" + folder + "/" + fileName);
 

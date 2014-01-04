@@ -77,7 +77,7 @@ class UploadS3Service {
     def uploadFileToS3Bucket(String bucketName, File file) {
 
         AmazonS3Client s3client = DefaultAmazonS3Client()
-        TransferManager tx = new TransferManager(s3);
+        TransferManager tx = new TransferManager(s3client);
 
         //check if file exists
         try {
@@ -89,7 +89,14 @@ class UploadS3Service {
         }
 
         def keyName = file.name
-        s3client.putObject(new PutObjectRequest(bucketName, keyName, file));
+
+        try {
+        s3client.putObject(new PutObjectRequest(bucketName, keyName, file))
+        }
+        catch (Exception ex) {
+            print ex
+        }
+
     }
 
     /**
