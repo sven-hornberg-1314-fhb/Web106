@@ -86,10 +86,17 @@ grails.hibernate.cache.queries = false
 environments {
     development {
         grails.logging.jul.usebridge = true
+	grails.serverURL = "http://localhost:8080/${appName}"
+    }
+
+    test {
+        grails.logging.jul.usebridge = true
+        grails.serverURL = "http://localhost:8080/${appName}"
     }
     production {
         grails.logging.jul.usebridge = false
-        // TODO: grails.serverURL = "http://www.changeme.com"
+	//TODO change www.changeme.com to specified server URL of amazon server
+        grails.serverURL = "http://www.changeme.com/${appName}"
     }
 }
 
@@ -136,7 +143,7 @@ oauth {
             api = org.scribe.builder.api.GoogleApi
             key = '114245312107-5ssmfnglsgofjaed0gtcerjro03of66c.apps.googleusercontent.com'
             secret = 'pw5wt1aYfQai4AcWJ7gkRWBa'
-            callback = 'http://localhost:8080/Web106/oauth/google/callback'
+            callback = '${grails.serverURL}/oauth/google/callback'
             scope = 'https://www.googleapis.com/auth/userinfo.profile'
             successUri = '/oauth/index'
             failureUri = '/oauth/error'
@@ -146,7 +153,7 @@ oauth {
             api =      org.scribe.builder.api.TwitterApi
             key =  'RbZjsZWh5oYnwD9Vo7Vq1Q'
             secret =   'gTbl8T6oDeWKkMeVH7MtbzyPLjeSn8OhZwvYvZdj8'
-            callback = 'http://localhost:8080/Web106/oauth/twitter/callback'
+            callback = '${grails.serverURL}/oauth/twitter/callback'
             failureUri = '/oauth/error'
 
         }
