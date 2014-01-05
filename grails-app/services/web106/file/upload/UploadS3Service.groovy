@@ -9,6 +9,7 @@ import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.BucketWebsiteConfiguration
+import com.amazonaws.services.s3.model.CannedAccessControlList
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest
 import com.amazonaws.services.s3.model.PutObjectRequest
 import com.amazonaws.services.s3.transfer.TransferManager
@@ -91,7 +92,7 @@ class UploadS3Service {
         def keyName = file.name
 
         try {
-        s3client.putObject(new PutObjectRequest(bucketName, keyName, file))
+        s3client.putObject(new PutObjectRequest(bucketName, keyName, file).withCannedAcl(CannedAccessControlList.PublicRead))
         }
         catch (Exception ex) {
             print ex
