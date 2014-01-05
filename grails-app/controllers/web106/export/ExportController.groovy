@@ -65,7 +65,8 @@ class ExportController {
 
         URL url = uploadS3Service.UrlForBucketObject(bucketName, 'index.html')
 
-        render "done export s3*dummy*<br>" + url.query
+        //render "done export s3*dummy*<br>" + url.query+"<br>"
+        redirect url: url
     }
 
     def listown() {
