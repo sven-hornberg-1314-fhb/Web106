@@ -18,20 +18,20 @@
 	</div>
 	<div id="main" class="pure-u-5-6">
 	    <div class="contentPadding">
-		    <h3>Wähle eine Workgroup:</h3>
+		    <h3>Wähle eine Arbeitsgruppe:</h3>
 		    <g:each in="${workgroup}">
 		    <g:form name="${it.name}" action="selectWorkGroup">
 		       <g:hiddenField name="workId" value= "${it.id}"/>
-		        <button type="submit" class="pure-button"> Workgroup: ${it.name}</button>
+		        <button type="submit" class="pure-button"> Arbeitsgruppe: ${it.name}</button>
 		    </g:form>
 		    </g:each>
 	
-			<h3>eine neue Workgroup anlegen:</h3>
+			<h3>eine neue Arbeitsgruppe anlegen:</h3>
 			<g:form name="newWorkgroup" action="create">
 			
-				<label>Name der Workgroup</label>
+				<label>Name der Arbeitsgruppe</label>
 				<g:textField name="name" required="true" />
-				<button type="submit" class="pure-button">Workgroup anlegen</button>
+				<button type="submit" class="pure-button">Arbeitsgruppe anlegen</button>
 			</g:form>
 	    </div>
 	</div>

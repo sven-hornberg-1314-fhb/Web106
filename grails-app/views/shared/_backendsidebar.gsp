@@ -20,7 +20,7 @@
 
 
 
-        <li><g:link controller="WorkGroup">WorkGroups</g:link></li>
+        <li><g:link controller="WorkGroup">Arbeitsgruppen</g:link></li>
 
 
 

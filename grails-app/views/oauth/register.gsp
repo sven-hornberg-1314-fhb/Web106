@@ -23,7 +23,7 @@
 
 <div id='login'>
     <div class='inner'>
-            <div class='fheader'>Schritt 2 - Ergänze zusätzliche Informationen</div>
+            <div class='fheader'>Schritt 2 - Ergänzen Sie zusätzliche Informationen</div>
 
             <g:form class="pure-form pure-form-aligned" url="[controller:'oauth',action:'register']">
                 <fieldset>
