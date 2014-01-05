@@ -92,7 +92,7 @@ class UploadS3Service {
         def keyName = file.name
 
         try {
-        s3client.putObject(new PutObjectRequest(bucketName, keyName, file).withCannedAcl(CannedAccessControlList.PublicRead))
+        s3client.putObject(new PutObjectRequest(bucketName, keyName, file).withCannedAcl(CannedAccessControlList.PublicRead).withCannedAcl(CannedAccessControlList.BucketOwnerFullControl))
         }
         catch (Exception ex) {
             print ex
