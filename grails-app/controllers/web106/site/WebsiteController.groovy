@@ -40,14 +40,8 @@ class WebsiteController {
 		
         website.title = params.title
         website.workGroup = aworkGroup
-        
-		
-		WebsiteBucketS3 BucketCreation= new WebsiteBucketS3()
-		
-		print website.workGroup.name
-		
-		website.websiteurl = BucketCreation.createWebsiteBucket(website.title, website.workGroup.name)
-		
+
+
 		website.save(failOnError: true)
 
         redirect controller: params.controller
