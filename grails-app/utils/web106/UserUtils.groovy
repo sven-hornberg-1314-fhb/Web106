@@ -3,11 +3,7 @@ package web106
 import org.springframework.security.core.context.SecurityContextHolder
 
 /**
- * Created with IntelliJ IDEA.
- * User: marcman
- * Date: 19.11.13
- * Time: 14:53
- * To change this template use File | Settings | File Templates.
+ *
  */
 class UserUtils {
 
