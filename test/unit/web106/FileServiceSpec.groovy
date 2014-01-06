@@ -36,4 +36,25 @@ class FileServiceSpec extends Specification {
             tempFile.exists() == true
 
     }
+
+    def "create Tempfile and delete"() {
+
+        setup:
+
+        String fileName = "tempfilegrails.tmp"
+        String content = "Ein kleiner Testinhalt"
+
+
+        when:
+
+        File tempFile =  fileService.createTempFile("",fileName, content)
+        fileService.deleteTempFile("",fileName)
+
+        then:
+
+        tempFile.exists() == false
+
+    }
+
+    def
 }
