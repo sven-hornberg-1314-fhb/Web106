@@ -8,7 +8,7 @@ package web106
 class MyJob {
     static triggers = {
         //simple name:'simpleTrigger', startDelay:10000, repeatInterval: 30000, repeatCount: 10
-        cron name:'cronTrigger', startDelay:10000, cronExpression: '* */30 *  * * ?' //wiederhole alle minute
+        cron name:'cronTrigger', startDelay:10000, cronExpression: '0 0/30 * * * ?' //wiederhole alle minute
         //custom name:'customTrigger', triggerClass:MyTriggerClass, myParam:myValue, myAnotherParam:myAnotherValue
     }
 
