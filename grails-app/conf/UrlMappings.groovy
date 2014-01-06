@@ -2,8 +2,6 @@ class UrlMappings {
 
 	static mappings = {
         "/"(view:"/main")
-		
-		"/workgroup/$wgid/$website"([controller: 'urlredirect', action: 'mapping'])
 
         "/live/$workgroup/$website"([controller: "urlredirect", action: 'live'])
 
