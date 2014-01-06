@@ -11,14 +11,24 @@ import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.BucketWebsiteConfiguration
 import com.amazonaws.services.s3.model.CannedAccessControlList
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest
+import com.amazonaws.services.s3.model.GetObjectRequest
 import com.amazonaws.services.s3.model.PutObjectRequest
+import com.amazonaws.services.s3.model.S3Object
+import com.amazonaws.services.s3.model.S3ObjectInputStream
 import com.amazonaws.services.s3.transfer.TransferManager
+import grails.converters.JSON
 import grails.transaction.Transactional
+import groovy.json.JsonSlurper
+import org.apache.commons.io.IOUtils
 import upload.s3.JUploadS3Service
 import upload.s3.WebsiteBucketS3
+import web106.ResourceHolder
+import web106.file.FileService
 
 @Transactional
 class UploadS3Service {
+
+    def FileService fileService
 
     /**
      * Generates a default AmazonS3Client for Eu_West_1 with given Credentials
@@ -71,6 +81,83 @@ class UploadS3Service {
     }
 
     /**
+     * reads a JSON File for version and date of last update
+     * @param bucketName
+     */
+    def getWebsiteBucketVersion(String bucketName) {
+
+        def name = ResourceHolder.bucketVersionFileName
+        AmazonS3Client s3client = DefaultAmazonS3Client()
+        TransferManager tx = new TransferManager(s3client);
+
+        GetObjectRequest request = new GetObjectRequest(bucketName, name);
+        S3Object object = s3client.getObject(request);
+        InputStream objectData = object.getObjectContent();
+        // Process the objectData stream.
+
+        String content = IOUtils.toString(objectData, "UTF-8");
+
+        def slurper = new JsonSlurper()
+        def result = slurper.parseText(content)
+        objectData.close();
+
+        //Date date =  new Date().parse("E MMM dd H:m:s z yyyy", result.date)
+        //print date
+        print result.version
+    }
+
+    /**
+     * Sets a JSON File with version and date
+     * @param bucketName
+     * @param version
+     */
+    def setWebsiteBucketVersion(String bucketName, int version) {
+        def date = new Date()
+
+        def fileContent = [:]
+
+        fileContent['date'] = date
+        fileContent['version']  = version
+
+        def jsonContent = fileContent as JSON
+        String jsonContentAsString = jsonContent.toString()
+        File tempFile = fileService.createTempFile("", ResourceHolder.bucketVersionFileName ,jsonContentAsString )
+
+        uploadFileToS3Bucket(bucketName, tempFile)
+
+        fileService.deleteTempFile("",ResourceHolder.bucketVersionFileName )
+    }
+
+    def File DownloadFileFromBucket(String bucketName, String fileName) {
+
+        /*
+        AmazonS3Client s3client = DefaultAmazonS3Client()
+        TransferManager tx = new TransferManager(s3client);
+
+        GetObjectRequest request = new GetObjectRequest(bucketName, fileName);
+        S3Object object = s3client.getObject(request);
+        InputStream objectData = object.getObjectContent();
+        // Process the objectData stream.
+        objectData.close();
+
+        InputStream inputStream = objectData;
+        OutputStream outputStream = null;
+
+        final File tempFile = File.createTempFile(PREFIX, SUFFIX);
+        tempFile.deleteOnExit();
+        try (FileOutputStream out = new FileOutputStream(tempFile)) {
+            IOUtils.copy(in, out);
+        }
+        return tempFile;
+            // write the inputStream to a FileOutputStream
+            outputStream =
+                    new FileOutputStream();
+
+
+        */
+    }
+
+    /**
      *
      * @param bucketName
      * @param file
@@ -102,9 +189,9 @@ class UploadS3Service {
 
     /**
      *
-     * @param bucketName
-     * @param indexDocFileName
-     * @param errorDocFileName
+     * @param bucketName bucketName
+     * @param indexDocFileName name of html file
+     * @param errorDocFileName name of html file
      */
     def createWebsiteBucketS3Config(String bucketName, String indexDocFileName, String errorDocFileName ) {
 

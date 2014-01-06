@@ -14,6 +14,7 @@
         <div class="contentPadding">
 
         <g:link action="cloudS3"><div class="pure-button">Export S3</div></g:link>
+        <g:link action="version"><div class="pure-button">Versiontest S3</div></g:link>
         </div>
     </div>
 </div>

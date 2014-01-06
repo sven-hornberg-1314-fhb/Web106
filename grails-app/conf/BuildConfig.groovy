@@ -49,8 +49,8 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         // runtime 'mysql:mysql-connector-java:5.1.24'
-	runtime 'mysql:mysql-connector-java:5.1.27'
-
+	    runtime 'mysql:mysql-connector-java:5.1.27'
+        build 'org.apache.commons:commons-io:1.3.2'
 
 	}
 

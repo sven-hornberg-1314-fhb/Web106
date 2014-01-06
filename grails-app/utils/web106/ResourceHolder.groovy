@@ -22,4 +22,9 @@ class ResourceHolder {
      * Prefix for s3 buckets, because all bucketNames across s3 are unique
      */
     def static bucketprefix = "de.64pixel.web106"
+
+    /**
+     * Name for the file in a bucket which holds information of version and date
+     */
+    def static bucketVersionFileName = "web106.version"
 }

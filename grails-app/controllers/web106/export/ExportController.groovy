@@ -74,6 +74,15 @@ class ExportController {
         redirect url: url
     }
 
+
+    def version() {
+        uploadS3Service.setWebsiteBucketVersion("bucccketversion",1)
+
+        uploadS3Service.getWebsiteBucketVersion("bucccketversion")
+
+        render "test"
+    }
+
     /**
      * Lists all websites for export
      * @return
