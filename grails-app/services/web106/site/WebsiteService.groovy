@@ -8,7 +8,11 @@ class WebsiteService {
 
     def PageService pageService
 
-
+    /**
+     * Creates pages dictionary 'titel: content as String'
+     * @param website Website for creation
+     * @return dictionary 'titel: content as String'
+     */
     def Map<String, String> createPagesForWebsite(Website website) {
 
         //pagename : html

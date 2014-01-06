@@ -18,4 +18,8 @@ class ResourceHolder {
          Live: '',
          Yahoo: '' ]
 
+    /**
+     * Prefix for s3 buckets, because all bucketNames across s3 are unique
+     */
+    def static bucketprefix = "de.64pixel.web106"
 }

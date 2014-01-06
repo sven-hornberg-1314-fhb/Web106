@@ -22,25 +22,29 @@
 
   <div class="pure-u-5-6">
 
+      <div class="contentPadding">
 
-      <div class="pure-menu pure-menu-open pure-menu-vertical">
-          <ul>
-              <li><g:link class="list" action="list">Dokumentenliste</g:link></li>
-          </ul>
-      </div>
+          <div class="pure-menu pure-menu-open pure-menu-vertical">
+              <ul>
+                  <li><g:link class="list" action="list">Dokumentenliste</g:link></li>
+              </ul>
+          </div>
 
 
-      <div class="content scaffold-create" role="main">
-            <h1 style="padding-left: 10px">Upload New Document</h1>
-            <g:if test="${flash.message}"><div class="message" role="status">${flash.message}</div></g:if>
-            <g:uploadForm action="upload">
-                <fieldset class="form">
-                     <input type="file" class="pure-button" name="file" />
-                </fieldset>
-                <fieldset class="buttons">
-                    <g:submitButton name="upload" class="save pure-button" value="Upload" />
-                </fieldset>
-            </g:uploadForm>
+          <div class="content scaffold-create" role="main">
+                <h3>Neues Bild hochladen</h3>
+                <div>Info: Zur Zeit werden nur png und jpg Dateien unterstützt</div><br>
+                <g:if test="${flash.message}"><div class="message" role="status">${flash.message}</div></g:if>
+                <g:uploadForm action="uploadImage">
+                    <fieldset class="form">
+                         <input type="file" class="pure-button" name="file" />
+                    </fieldset>
+                    <fieldset class="buttons">
+                        <g:submitButton name="upload" class="save pure-button" value="Upload" />
+                    </fieldset>
+                </g:uploadForm>
+          </div>
+
       </div>
   </div>
 </div>

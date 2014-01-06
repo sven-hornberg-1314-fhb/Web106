@@ -197,8 +197,6 @@ class PageController {
 
     def remoteDrop(){
 
-        print params
-
         //boxid
         def dropId = params.dropId
 

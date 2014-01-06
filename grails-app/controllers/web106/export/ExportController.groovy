@@ -1,19 +1,20 @@
 package web106.export
 
+import web106.ResourceHolder
 import web106.auth.WorkGroup
 import web106.file.FileService
 import web106.file.upload.UploadS3Service
 import web106.site.Website
 import web106.site.WebsiteService
 
-
+/**
+ * Controller for exports [first only aws s3, later ftp or other places]
+ */
 class ExportController {
 
     def WebsiteService websiteService
 
-
     def UploadS3Service uploadS3Service
-
 
     def FileService fileService
 
@@ -28,6 +29,10 @@ class ExportController {
         render view: "cloudS3", model: model
     }
 
+    /**
+     * Exports files to bucket wih prefix
+     * @return URL to websiteBucket
+     */
     def cloudS3export() {
 
         Website website = Website.find() {
@@ -35,7 +40,8 @@ class ExportController {
         }
         Map<String,String> mapFiles = websiteService.createPagesForWebsite(website)
 
-        def bucketName = website.workGroup.name+ "-" + website.title
+        def prefix = ResourceHolder.bucketprefix
+        def bucketName = prefix+ "-" + website.workGroup.name+ "-" + website.title
 
         //test if bucket exists
         def bucketExist = uploadS3Service.doesBucketExist(bucketName)
@@ -65,10 +71,13 @@ class ExportController {
 
         URL url = uploadS3Service.UrlForBucketObject(bucketName, 'index.html')
 
-        //render "done export s3*dummy*<br>" + url.query+"<br>"
         redirect url: url
     }
 
+    /**
+     * Lists all websites for export
+     * @return
+     */
     def listown() {
         def aWorkgroupId = session.getAttribute("activeWorkGroup")
 

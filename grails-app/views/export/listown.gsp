@@ -1,6 +1,6 @@
 <table class="pure-table pure-table-horizontal">
 <tr>
-	<th style="text-align: left">Name</th><th><!-- Edit --></th><th>Status></th>
+	<th style="text-align: left">Name</th><th><!-- Edit --></th><th>Status</th>
 </tr>
 <g:each var="site" in="${websites}">
     <tr>

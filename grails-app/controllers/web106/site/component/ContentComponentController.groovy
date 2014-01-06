@@ -3,7 +3,9 @@ package web106.site.component
 import web106.auth.WorkGroup;
 import grails.converters.JSON
 
-
+/**
+ * Controller for text component
+ */
 class ContentComponentController {
 
 	static allowedMethods = [createComponent:'POST']

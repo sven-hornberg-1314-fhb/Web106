@@ -19,7 +19,8 @@ class ImageController {
 		}
 		
 	
-		
+        //TODO refac
+
 		String websitename = website.workGroup.name + "." + website.title + "-Images"
 		print websitename
 

@@ -5,14 +5,16 @@ import web106.UserUtils
 import web106.auth.User
 import web106.site.Website
 
+/**
+ * Controller for uploading images
+ */
 class UploadFileController {
 
     def index() {
         render(view:"create");
     }
-	
-	
-	def upload() {
+
+	def uploadImage() {
 		def activeWebsite
 		
 		def activeWebsiteSession = session.getAttribute('activeWebsite')
@@ -20,13 +22,15 @@ class UploadFileController {
 		Website website = Website.find {
 			id == activeWebsite
 		}
-		String websitename = website.workGroup.name + "." + website.title + "-Images"
+
+        //TODO refac
+		String websiteName = website.workGroup.name + "." + website.title + "-Images"
 
 		def file = request.getFile('file')
 		if(file.empty) {
 			flash.message = "File cannot be empty"
 		} else {
-			boolean returnmessage = FileTypeConverter.convert(file, websitename)
+			boolean returnmessage = FileTypeConverter.convert(file, websiteName)
 			if(returnmessage == false){
 				flash.message = "File must be .jpg or .png"
 			}
