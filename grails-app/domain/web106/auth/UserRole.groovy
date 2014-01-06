@@ -2,6 +2,11 @@ package web106.auth
 
 import org.apache.commons.lang.builder.HashCodeBuilder
 
+/**
+ * UserRole domain object
+ * connects users and roles in database
+ * n-m relationship for user and role
+ */
 class UserRole implements Serializable {
 
 	User user

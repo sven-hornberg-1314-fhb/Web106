@@ -18,7 +18,7 @@
 	<div id="main" class="pure-u-5-6">
         <div class="contentPadding">
 
-    	<h3>Workgroup ${name} erfolgreich ausgewählt:</h3>
+    	<h3>Arbeitsgruppe &nbsp;  <i>${name}</i>  &nbsp;  erfolgreich ausgewählt:</h3>
         <g:link controller="workGroup">Zurück</g:link>
 	    </div>
     </div>

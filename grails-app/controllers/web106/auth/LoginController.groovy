@@ -14,6 +14,11 @@ import org.springframework.security.core.context.SecurityContextHolder as SCH
 import org.springframework.security.web.WebAttributes
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
+/**
+ * LoginController for loggin into SpringSecuritySession
+ * if already registered
+ * controller is not secured for admin access only, so ROLE_USER have access
+ */
 class LoginController {
 
 	/**

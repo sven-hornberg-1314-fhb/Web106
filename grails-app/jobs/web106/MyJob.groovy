@@ -1,11 +1,9 @@
 package web106
 
 /**
- * Created with IntelliJ IDEA.
- * User: marcman
- * Date: 20.11.13
- * Time: 20:46
- * To change this template use File | Settings | File Templates.
+ * Quartz Job
+ * including simple, cron and custom trigger,
+ * which run execute method in predefined time interval
  */
 class MyJob {
     static triggers = {

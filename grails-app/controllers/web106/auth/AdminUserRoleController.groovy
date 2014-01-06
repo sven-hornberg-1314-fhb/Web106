@@ -5,6 +5,11 @@ import grails.plugins.springsecurity.Secured
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+/**
+ * Controller for management of UserRoles which
+ * is secured for ROLE_ADMIN access only
+ * methods include CREATE - READ/LIST - UPDATE - DELETE
+ */
 @Secured(['ROLE_ADMIN'])
 @Transactional(readOnly = true)
 class AdminUserRoleController {

@@ -1,7 +1,9 @@
 package web106.auth
 
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
-
+/**
+ * redirection to SpringSecurityController for secure logout of sessions which
+ * is not secured for admin access only, so ROLE_USER have access
+ */
 class LogoutController {
 
 	/**
