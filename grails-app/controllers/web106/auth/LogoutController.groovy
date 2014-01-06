@@ -1,7 +1,8 @@
 package web106.auth
 
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
-
+/**
+ * redirection to SpringSecurityController for secure logout of sessions
+ */
 class LogoutController {
 
 	/**

@@ -7,7 +7,9 @@ import web106.UserUtils
 import web106.auth.WorkGroup
 
 /**
- * Controller with all functions for workgroups like listall or select
+ * Controller for managing Workgroups which
+ * is not secured, so ROLE_USER have access
+ * to CREATE - LIST - SELECT workgroups
  */
 class WorkGroupController {
 
@@ -17,8 +19,7 @@ class WorkGroupController {
     def index() { }
 
 	def create() {
-		
-		
+
 		def mail  = UserUtils.newInstance().emailFromCurrentUser
 		User currentUser = User.find {email== mail}
 		
@@ -31,8 +32,7 @@ class WorkGroupController {
 		newWorkGroup.user = usersList as Set
 		
 		newWorkGroup.save(FailonError: true)
-		
-		
+
 		redirect( action: "listWorkGroups")
 	}
 	
@@ -43,17 +43,14 @@ class WorkGroupController {
 
         def currentWorkgroups = WorkGroup.findAll {user.id == currentUser.id}
 
-	
         def model = [
                 workgroup : currentWorkgroups
-
         ]
+
         render view:"SelectWorkgroup", model: model
     }
 
     def selectWorkGroup() {
-
-
 
       long workId = Long.parseLong(params.workId)
 
@@ -63,10 +60,8 @@ class WorkGroupController {
        def name = selectedWorkgroup.name
        session.setAttribute("activeWorkGroupName",selectedWorkgroup.name)
 
-
        //reset activeWebsite
        session.removeAttribute('activeWebsite')
-
 	   
        render view: "SuccessWorkgroupSelection", model:[name: name]
 
