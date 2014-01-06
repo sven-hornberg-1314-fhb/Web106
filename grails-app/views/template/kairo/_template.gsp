@@ -3,21 +3,36 @@
 <html>
    <head>
 	  <style type="text/css">
-	  .grey{
-	  background-color: grey;
-	  }
-	  .blue{
-	  background-color: blue;
-	  }	
-	  .red{
-	  background-color: red;
-	  }  
-	  .green{
-	  background-color: green;
-	  } 
-	  .centermessagebox {
-	  		    margin: 0 auto;
-	  }
+      p{
+          text-align: center;
+          color:white;
+          font-size: 20pt;
+          padding-top:20pt;
+      }
+
+      .lightskyblue{
+          background-color: lightskyblue;
+      }
+      .purple{
+          background-color: purple;
+      }
+      .blue{
+          background-color: blue;
+      }
+      .red{
+          background-color: red;
+      }
+      .darkgreen{
+          background-color: darkgreen;
+      }
+      .darkorange{
+          background-color: darkorange;
+      }
+
+      .centermessagebox {
+          margin: 0 auto;
+      }
+
       .dropbox {
           min-height: 10em;
       }
@@ -66,28 +81,28 @@
 			
 			
 			<div class="pure-g-r">
-				<div id="header" class="pure-u-1-3 grey dropbox">
-					${header}
+				<div id="header" class="pure-u-1-3 lightskyblue dropbox">
+					<p>${header} </p>
 				</div>
-				<div id="side1" class="pure-u-2-3 green dropbox">
-					${side1}
+				<div id="side1" class="pure-u-2-3 blue dropbox">
+                    <p>${side1}  </p>
 				</div>
 			</div>
 			<div class="pure-g-r">
-				<div id="side2" class="pure-u-1-3 blue dropbox">
-					${side2}
+				<div id="side2" class="pure-u-1-3 red dropbox">
+                    <p>${side2}  </p>
 				</div>
-				<div id="content" class="pure-u-1-3 grey dropbox">
-					${content}
+				<div id="content" class="pure-u-1-3 purple dropbox">
+                    <p>${content} </p>
 				</div>
-				<div id="side3" class="pure-u-1-3 red dropbox">
-					${side3}
+				<div id="side3" class="pure-u-1-3 darkorange dropbox">
+                    <p>${side3}  </p>
 				</div>
 			</div>
 
 			<div class="pure-g-r">
-				<div id="footer" class="pure-u-1 green dropbox">
-					${footer}
+				<div id="footer" class="pure-u-1 darkgreen dropbox">
+                    <p>${footer} </p>
 				</div>
 			</div>	
 		</div>
