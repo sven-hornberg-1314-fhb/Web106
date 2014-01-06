@@ -67,6 +67,8 @@ grails.project.dependency.resolution = {
         compile ":quartz:1.0.1"
 		compile ":jquery-ui:1.10.3"
 
+        compile ":codenarc:0.20"
+
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.2" // or ":hibernate4:4.1.11.2"
         runtime ":database-migration:1.3.5"
