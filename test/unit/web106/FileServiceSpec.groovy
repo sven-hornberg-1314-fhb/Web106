@@ -10,8 +10,6 @@ import web106.file.FileService
 @TestFor(FileService)
 class FileServiceSpec extends Specification {
 
-    def FileService fileService
-
     def setup() {
     }
 
@@ -28,7 +26,7 @@ class FileServiceSpec extends Specification {
 
         when:
 
-            File tempFile =  fileService.createTempFile("",fileName, content)
+            File tempFile =  service.createTempFile("",fileName, content)
 
 
         then:
@@ -47,8 +45,8 @@ class FileServiceSpec extends Specification {
 
         when:
 
-        File tempFile =  fileService.createTempFile("",fileName, content)
-        fileService.deleteTempFile("",fileName)
+        File tempFile =  service.createTempFile("",fileName, content)
+        service.deleteTempFile("",fileName)
 
         then:
 
@@ -56,5 +54,5 @@ class FileServiceSpec extends Specification {
 
     }
 
-    def
+
 }
