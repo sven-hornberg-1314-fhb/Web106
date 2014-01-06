@@ -14,14 +14,29 @@ import uk.co.desirableobjects.oauth.scribe.exception.MissingRequestTokenExceptio
 import grails.converters.JSON
 import web106.ResourceHolder
 
-
+/**
+ * OauthController for managing login redirection,
+ * Oauth authentification with verifier exchange to provider
+ * including callback and registration
+ */
 class OauthController {
 
     private static final Token EMPTY_TOKEN = new Token('', '')
 
+    /**
+     * external service for managing session specific attributes
+     */
     OauthService oauthService
 
-
+    /**
+     * internal check for admin access when registering users
+     * which is defined in Config.groovy oauth.admins
+     * @param providername
+     *      name of provider used for registration
+     * @param username
+     *      name of user which is to be registered
+     * @return
+     */
     private boolean checkAdmin(String providername, String username) {
 
         boolean returnValue = false
@@ -109,17 +124,18 @@ class OauthController {
         return res
     }
 
+    /**
+     * manages stepwise registration of users,
+     * creates and specifies userroles depending on internal checkAdmin method,
+     * redirects to main page
+     * @return
+     */
    def register() {
         // new user posts his registration details
         if (request.method == 'POST') {
             // create domain object and assign parameters using data binding
             def u = new User(params)
-            //u.password = u.password.encodeAsSHA256()
             u.enabled=true
-
-            //def provider = session.getAttribute('providername')
-            //Token accessToken = session[oauthService.findSessionKeyForAccessToken(provider)]
-            //u.tokens.put(provider,accessToken)
 
             if (! u.save(flush: true)) {
                 // validation failed, render registration page again
@@ -132,7 +148,6 @@ class OauthController {
                     UserRole.create u, Role.findByAuthority('ROLE_ADMIN'), true
                 }
                 // is the session used anymore? ,comes from former example
-                //session.user = u
                 session.removeAttribute('step')
 
                 Authentication auth = new UsernamePasswordAuthenticationToken (u.username,null,u.getGrantedAuthorities());
@@ -148,6 +163,10 @@ class OauthController {
         }
     }
 
+    /**
+     * redirection to login controller if registred
+     * or else to main page
+     */
     def login = {
         if(!session.user){
             redirect(controller: "login")
@@ -158,20 +177,12 @@ class OauthController {
     }
 
     /**
-     * resets complete session
-     * @return
+     * TODO
      */
-    def logout(){
-        session.invalidate()
-        redirect(uri:'/')
-    }
-
     def callback = {
 
         String providerName = params.provider
         OauthProvider provider = oauthService.findProviderConfiguration(providerName)
-
-        //Verifier verifier = e xtractVerifier(provider, params)
 
         //get verifiert from QueryString
         String ver =  params.get('oauth_verifier') as String
@@ -200,26 +211,9 @@ class OauthController {
 
     }
 
-    private Verifier extractVerifier(OauthProvider provider, GrailsParameterMap params) {
-
-        String verifierKey = determineVerifierKey(provider)
-
-        if (!params[verifierKey]) {
-            log.error("Cannot authenticate with oauth: Could not find oauth verifier in ${params}.")
-            return null
-        }
-
-        String verification = params[verifierKey]
-        return new Verifier(verification)
-
-    }
-
-    private String determineVerifierKey(OauthProvider provider) {
-
-        return SupportedOauthVersion.TWO == provider.oauthVersion ? 'code' : 'oauth_verifier'
-
-    }
-
+    /**
+     * TODO
+     */
     def authenticate = {
 
         String providerName = params.provider

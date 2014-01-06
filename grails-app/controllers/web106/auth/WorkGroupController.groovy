@@ -8,7 +8,7 @@ import web106.auth.WorkGroup
 
 /**
  * Controller for managing Workgroups which
- * is not secured, so ROLE_USER have access
+ * is not secured for admin access only, so ROLE_USER have access
  * to CREATE - LIST - SELECT workgroups
  */
 class WorkGroupController {
