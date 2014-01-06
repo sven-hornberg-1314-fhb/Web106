@@ -10,12 +10,30 @@ import web106.file.FileService
 @TestFor(FileService)
 class FileServiceSpec extends Specification {
 
+    def FileService fileService
+
     def setup() {
     }
 
     def cleanup() {
     }
 
-    void "test something"() {
+    def "create Tempfile"() {
+
+        setup:
+
+            String fileName = "tempfilegrails.tmp"
+            String content = "Ein kleiner Testinhalt"
+
+
+        when:
+
+            File tempFile =  fileService.createTempFile("",fileName, content)
+
+
+        then:
+
+            tempFile.exists() == true
+
     }
 }
