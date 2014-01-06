@@ -79,13 +79,13 @@ class OauthController {
         def user_exists =  User.findByUsername(username)
 
         if(user_exists){
-            //session.user = User.findByUsername(username)
 
             Authentication auth = new UsernamePasswordAuthenticationToken (user_exists.username,null,user_exists.getGrantedAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
 
             session.removeAttribute('step')
             redirect(uri: "/")
+
         }else{
 
             def provider = session.getAttribute('providername')
@@ -158,7 +158,6 @@ class OauthController {
             }
         } else if (session.user) {
             // don't allow registration while user is logged in
-            //TODO not working
             redirect(uri:"/")
         }
     }
@@ -173,11 +172,12 @@ class OauthController {
         }else{
             redirect(uri:"/")
         }
-
     }
 
     /**
-     * TODO
+     * gets Verifier and accessToken from requestToken and params
+     * deletes requestToken
+     * redirects to Config.groovy defined successUri for specific provider
      */
     def callback = {
 
@@ -212,7 +212,9 @@ class OauthController {
     }
 
     /**
-     * TODO
+     * sends requestToken and credentials (Config.groovy - oauth.providers) to provider,
+     * requests accessToken and verifier from provider
+     * redirects to redirectURL of configured website application of provider
      */
     def authenticate = {
 
@@ -235,6 +237,10 @@ class OauthController {
 
     }
 
+    /**
+     * renders error page
+     * @return
+     */
     def error (){
         render(view: 'error')
     }
