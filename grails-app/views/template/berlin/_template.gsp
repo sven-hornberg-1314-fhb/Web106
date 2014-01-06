@@ -3,18 +3,32 @@
 <html>
    <head>
 	  <style type="text/css">
-	  .grey{
-	  background-color: grey;
+
+       p{
+           text-align: center;
+           color:white;
+           font-size: 20pt;
+           padding-top:20pt;
+       }
+
+	  .lightskyblue{
+	  background-color: lightskyblue;
 	  }
+      .purple{
+      background-color: purple;
+      }
 	  .blue{
 	  background-color: blue;
 	  }	
 	  .red{
 	  background-color: red;
 	  }  
-	  .green{
-	  background-color: green;
+	  .darkgreen{
+	  background-color: darkgreen;
 	  }
+      .darkorange{
+           background-color: darkorange;
+      }
 	  
 	  .centermessagebox {
 	  		    margin: 0 auto;
@@ -53,28 +67,28 @@
 		<div id="main" class="pure-u-1">
 			
 			<div class="pure-g-r">
-				<div id="header" class="pure-u-1 grey dropbox">
-					${header}
+				<div id="header" class="pure-u-1 lightskyblue dropbox">
+					<p>${header} </p>
 				</div>
 			</div>
 			<div class="pure-g-r">
 				<div id="sidebar1" class="pure-u-1-3 blue dropbox">
-					${sidebar1}
+                    <p>${sidebar1}  </p>
 				</div>
-				<div id="content" class="pure-u-1-3 grey dropbox">
-					${content}
+				<div id="content" class="pure-u-1-3 purple dropbox">
+                    <p>${content}   </p>
 				</div>
 				<div id="sidebar2" class="pure-u-1-3 red dropbox">
-				 	${sidebar2}
+                    <p>${sidebar2}  </p>
 				</div>
 			</div>
 
 			<div class="pure-g-r">
-				<div id="footer" class="pure-u-1-2 green dropbox">
-				 	${footer}
+				<div id="footer" class="pure-u-1-2 darkorange dropbox">
+                    <p>${footer}      </p>
 				</div>
-				<div id="footer2" class="pure-u-1-2 green dropbox">
-				 	${footer2}
+				<div id="footer2" class="pure-u-1-2 darkgreen dropbox">
+                    <p>${footer2}    </p>
 				</div>
 			</div>	
 		</div>
