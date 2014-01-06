@@ -6,6 +6,9 @@ import grails.converters.JSON
 import web106.UserUtils
 import web106.auth.WorkGroup
 
+/**
+ * Controller with all functions for workgroups like listall or select
+ */
 class WorkGroupController {
 
     static defaultAction = "listWorkGroups"
@@ -69,10 +72,5 @@ class WorkGroupController {
 
 
     }
-	
-	def selectedWorkGroupName() {
-		"Bla"
-	}
-	
 
 }

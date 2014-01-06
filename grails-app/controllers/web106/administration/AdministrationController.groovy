@@ -5,6 +5,9 @@ import grails.plugins.springsecurity.Secured
 
 import web106.auth.*
 
+/**
+ * Controller for all admin functions with roles and users
+ */
 @Secured(['ROLE_ADMIN'])
 class AdministrationController {  
   
