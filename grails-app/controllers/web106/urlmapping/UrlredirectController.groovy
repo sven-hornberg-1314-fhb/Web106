@@ -15,28 +15,25 @@ class UrlredirectController {
      */
     def live() {
 
-        def workgroupAndWebsite
         def workgroupName
         def websiteName
         def pageName = params.website
 
-        workgroupAndWebsite = params.workgroup
+        if(params?.workgroup && params?.websitename) {
+            workgroupName = params.workgroup
+            websiteName =  params.websitename
 
-        if(workgroupAndWebsite==null || workgroupAndWebsite==''){
-            //error no website for live view
+            def url = 'https://s3-eu-west-1.amazonaws.com/'+workgroupName+'-'+websiteName+'/'
+
+            if(pageName) {
+                url += pageName + "/"
+            }
+
+            print url
+            redirect(url: url)
+        } else {
+            render status: 404
         }
-
-        if(pageName == null || pageName == ''){
-            //error no page for live view
-        }
-
-        workgroupName = workgroupAndWebsite.substring(0, workgroupAndWebsite.indexOf('-'))
-
-        websiteName =  workgroupAndWebsite.substring(workgroupAndWebsite.indexOf('-')+1)
-
-        def url = 'https://s3-eu-west-1.amazonaws.com/'+workgroupName+'-'+websiteName+'/'+pageName
-
-        redirect(url: url)
 
     }
 	

@@ -3,7 +3,7 @@ class UrlMappings {
 	static mappings = {
         "/"(view:"/main")
 
-        "/live/$workgroup/$website"([controller: "urlredirect", action: 'live'])
+        "/live/$workgroup/$websitename"([controller: "urlredirect", action: 'live'])
 
         "/$controller/$action?/$id?(.${format})?"{
             constraints {

@@ -1,5 +1,6 @@
 package web106.export
 
+import grails.converters.JSON
 import web106.ResourceHolder
 import web106.auth.WorkGroup
 import web106.file.FileService
@@ -103,14 +104,23 @@ class ExportController {
         def websitesView = []
         websites.each {
 
+
+
+            def paramsModel = [:]
+            paramsModel['workgroupName'] = it.workGroup.name
+            paramsModel['websiteName'] = it.title
+
             def item = [:]
             item['id'] = it.id
             item['title'] = it.title
+            item['paramsModel'] = paramsModel
             websitesView.add(item)
 
         }
 
+
         model['websites'] = websitesView
+        print model as JSON
 
         render view : "listown", model: model
     }
