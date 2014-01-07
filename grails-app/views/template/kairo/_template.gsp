@@ -3,12 +3,6 @@
 <html>
    <head>
 	  <style type="text/css">
-      p{
-          text-align: center;
-          color:white;
-          font-size: 20pt;
-          padding-top:20pt;
-      }
 
       .lightskyblue{
           background-color: lightskyblue;
@@ -82,27 +76,27 @@
 			
 			<div class="pure-g-r">
 				<div id="header" class="pure-u-1-3 lightskyblue dropbox">
-					<p>${header} </p>
+					${header}
 				</div>
 				<div id="side1" class="pure-u-2-3 blue dropbox">
-                    <p>${side1}  </p>
+                    ${side1}
 				</div>
 			</div>
 			<div class="pure-g-r">
 				<div id="side2" class="pure-u-1-3 red dropbox">
-                    <p>${side2}  </p>
+                    ${side2}
 				</div>
 				<div id="content" class="pure-u-1-3 purple dropbox">
-                    <p>${content} </p>
+                    ${content}
 				</div>
 				<div id="side3" class="pure-u-1-3 darkorange dropbox">
-                    <p>${side3}  </p>
+                    ${side3}
 				</div>
 			</div>
 
 			<div class="pure-g-r">
 				<div id="footer" class="pure-u-1 darkgreen dropbox">
-                    <p>${footer} </p>
+                    ${footer}
 				</div>
 			</div>	
 		</div>

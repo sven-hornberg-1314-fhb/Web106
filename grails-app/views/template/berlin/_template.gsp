@@ -4,13 +4,6 @@
    <head>
 	  <style type="text/css">
 
-       p{
-           text-align: center;
-           color:white;
-           font-size: 20pt;
-           padding-top:20pt;
-       }
-
 	  .lightskyblue{
 	  background-color: lightskyblue;
 	  }
@@ -68,27 +61,27 @@
 			
 			<div class="pure-g-r">
 				<div id="header" class="pure-u-1 lightskyblue dropbox">
-					<p>${header} </p>
+					${header}
 				</div>
 			</div>
 			<div class="pure-g-r">
 				<div id="sidebar1" class="pure-u-1-3 blue dropbox">
-                    <p>${sidebar1}  </p>
+                    ${sidebar1}
 				</div>
 				<div id="content" class="pure-u-1-3 purple dropbox">
-                    <p>${content}   </p>
+                    ${content}
 				</div>
 				<div id="sidebar2" class="pure-u-1-3 red dropbox">
-                    <p>${sidebar2}  </p>
+                    ${sidebar2}
 				</div>
 			</div>
 
 			<div class="pure-g-r">
 				<div id="footer" class="pure-u-1-2 darkorange dropbox">
-                    <p>${footer}      </p>
+                    ${footer}
 				</div>
 				<div id="footer2" class="pure-u-1-2 darkgreen dropbox">
-                    <p>${footer2}    </p>
+                    ${footer2}
 				</div>
 			</div>	
 		</div>
