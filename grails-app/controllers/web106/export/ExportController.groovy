@@ -45,6 +45,8 @@ class ExportController {
 
         def prefix = ResourceHolder.bucketprefix
         def bucketName = prefix+ "-" + website.workGroup.name+ "-" + website.title
+        bucketName = bucketName.toLowerCase()
+
 
         //test if bucket exists
         def bucketExist = uploadS3Service.doesBucketExist(bucketName)
@@ -139,6 +141,7 @@ class ExportController {
 
             def prefix = ResourceHolder.bucketprefix
             def bucketName = prefix+ "-" + it.workGroup.name+ "-" + it.title
+            bucketName = bucketName.toLowerCase()
 
             if(uploadS3Service.doesBucketExist(bucketName)){
                 //set version of bucketexport

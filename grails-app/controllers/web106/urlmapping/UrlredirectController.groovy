@@ -27,6 +27,7 @@ class UrlredirectController {
             def prefix = ResourceHolder.bucketprefix
 
             def url = 'https://s3-eu-west-1.amazonaws.com/' + prefix+ "-" + workgroupName+'-'+websiteName+'/'
+            url = url.toLowerCase()
 
             if(pageName) {
                 url += pageName + "/"
