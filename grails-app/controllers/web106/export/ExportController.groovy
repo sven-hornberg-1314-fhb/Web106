@@ -5,6 +5,7 @@ import web106.ResourceHolder
 import web106.auth.WorkGroup
 import web106.file.FileService
 import web106.file.upload.UploadS3Service
+import web106.site.PageService
 import web106.site.Website
 import web106.site.WebsiteService
 
@@ -20,6 +21,8 @@ class ExportController {
     def UploadS3Service uploadS3Service
 
     def FileService fileService
+
+    def PageService pageService
 
     def index() {
 
@@ -71,7 +74,18 @@ class ExportController {
 
         }
 
-        print mapFiles.keySet() as JSON
+        //dummy index html
+        if(!mapFiles.keySet().contains('index')) {
+            String content = pageService.createDummyIndexPage(mapFiles.keySet())
+            def filename = "index.html"
+
+            File file = fileService.createTempFile(null,filename , mapFiles.get(it))
+            uploadS3Service.uploadFileToS3Bucket(bucketName, file)
+            fileService.deleteTempFile(null, filename)
+        }
+
+        //delete pages that a not existing anymore
+        uploadS3Service.deleteNonExistingPages(bucketName,mapFiles.keySet())
 
 
         int version = 1

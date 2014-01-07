@@ -11,6 +11,7 @@ import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.AccessControlList
 import com.amazonaws.services.s3.model.BucketWebsiteConfiguration
 import com.amazonaws.services.s3.model.CannedAccessControlList
+import com.amazonaws.services.s3.model.DeleteObjectRequest
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest
 import com.amazonaws.services.s3.model.GetObjectRequest
 import com.amazonaws.services.s3.model.GroupGrantee
@@ -193,9 +194,34 @@ class UploadS3Service {
     }
 
     /**
-     *
-     * @param bucketName
-     * @param file
+     * Deletes all non exsiting pages from a bucket
+     * @param bucketName BucketName
+     * @param pagesNames List of Pagesnames
+     */
+    def deleteNonExistingPages(String bucketName, List<String> pagesNames) {
+        //only html files
+
+        AmazonS3Client s3 = DefaultAmazonS3Client()
+        TransferManager tx = new TransferManager(s3);
+
+        ObjectListing objectListing = s3.listObjects(new ListObjectsRequest().withBucketName(bucketName))
+
+        for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+            if(objectSummary.getKey().endsWith('.html')) {
+
+                def withoutHtml = objectSummary.getKey().replace('.html','')
+                if(!pagesNames.contains(withoutHtml)) {
+                    //delete
+                    s3.deleteObject(new DeleteObjectRequest(bucketName, objectSummary.getKey()));
+                }
+            }
+        }
+    }
+
+    /**
+     * Uploads a file to a bucketa and sets public read
+     * @param bucketName BucketName
+     * @param file File
      */
     def uploadFileToS3Bucket(String bucketName, File file) {
 

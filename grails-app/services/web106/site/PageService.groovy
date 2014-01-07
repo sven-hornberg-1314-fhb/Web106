@@ -46,6 +46,25 @@ class PageService {
     }
 
     /**
+     * Creates the content for a dummy index page
+     * @param pagesNames List of pageNames
+     * @return html content
+     */
+    String createDummyIndexPage(List<String> pagesNames) {
+        String returnVal = ""
+
+        returnVal += '<!DOCTYPE HTML><html><body>'
+
+        pagesNames.each {
+            returnVal += '<a href="'+ it.toLowerCase() + '.html" >'+ it +'</a>'
+        }
+
+        returnVal += '</body></html>'
+
+        return returnVal
+    }
+
+    /**
      * Generates Model for placeholder boxes in template , and contains the name of the template
      * (createt for testing rendering)
      * @param page Page

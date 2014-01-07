@@ -23,7 +23,7 @@ class WebsiteService {
         }
 
         pages.each {
-            sites.put(it.title,pageService.PageAsHtmlString(it.id))
+            sites.put(it.title.toLowerCase(),pageService.PageAsHtmlString(it.id))
         }
 
         return sites
