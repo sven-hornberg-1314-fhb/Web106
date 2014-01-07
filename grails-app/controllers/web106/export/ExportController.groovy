@@ -73,19 +73,19 @@ class ExportController {
             }
 
         }
+        //delete pages that a not existing anymore
+        uploadS3Service.deleteNonExistingPages(bucketName,mapFiles.keySet().toList())
 
         //dummy index html
         if(!mapFiles.keySet().contains('index')) {
-            String content = pageService.createDummyIndexPage(mapFiles.keySet())
+            String content = pageService.createDummyIndexPage(mapFiles.keySet().toList())
             def filename = "index.html"
 
-            File file = fileService.createTempFile(null,filename , mapFiles.get(it))
+            File file = fileService.createTempFile(null,filename ,content)
             uploadS3Service.uploadFileToS3Bucket(bucketName, file)
             fileService.deleteTempFile(null, filename)
         }
 
-        //delete pages that a not existing anymore
-        uploadS3Service.deleteNonExistingPages(bucketName,mapFiles.keySet())
 
 
         int version = 1

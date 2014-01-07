@@ -56,7 +56,7 @@ class PageService {
         returnVal += '<!DOCTYPE HTML><html><body>'
 
         pagesNames.each {
-            returnVal += '<a href="'+ it.toLowerCase() + '.html" >'+ it +'</a>'
+            returnVal += '<a href="'+ it.toLowerCase() + '.html" >'+ it +'</a><br>'
         }
 
         returnVal += '</body></html>'
