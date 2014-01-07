@@ -67,6 +67,16 @@ class ExportController {
 
         }
 
+        //set version of bucketexport
+        if(uploadS3Service.fileExistsInBucket(bucketName, ResourceHolder.bucketVersionFileName)) {
+            def bucketVersion = uploadS3Service.getWebsiteBucketVersion(bucketName)
+            int version = bucketVersion.version + 1
+            uploadS3Service.setWebsiteBucketVersion(bucketName,version)
+
+        } else {
+            uploadS3Service.setWebsiteBucketVersion(bucketName,1)
+        }
+
         //make bucket to websitebucket
         uploadS3Service.createWebsiteBucketS3Config(bucketName, 'index.html', 'error.html')
 
@@ -77,11 +87,29 @@ class ExportController {
 
 
     def version() {
-        uploadS3Service.setWebsiteBucketVersion("bucccketversion",1)
+        int version = 1
+        def bucketName = "versionteeeesstbucket"
 
-        uploadS3Service.getWebsiteBucketVersion("bucccketversion")
+        //test if bucket exists
+        def bucketExist = uploadS3Service.doesBucketExist(bucketName)
 
-        render "test"
+        if(!bucketExist) {
+            //create bucket workgroup-websitetitle
+            uploadS3Service.createS3Bucket(bucketName)
+        }
+
+        //set version of bucketexport
+        if(uploadS3Service.fileExistsInBucket(bucketName, ResourceHolder.bucketVersionFileName)) {
+            def bucketVersion = uploadS3Service.getWebsiteBucketVersion(bucketName)
+            version = bucketVersion.version + 1
+            uploadS3Service.setWebsiteBucketVersion(bucketName,version)
+
+        } else {
+             uploadS3Service.setWebsiteBucketVersion(bucketName,1)
+        }
+
+        def text = "Version: " + version
+        render text
     }
 
     /**
@@ -120,6 +148,7 @@ class ExportController {
 
 
         model['websites'] = websitesView
+        model['project'] = grails.util.Metadata.current.'app.name'
         print model as JSON
 
         render view : "listown", model: model

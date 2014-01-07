@@ -12,9 +12,12 @@ import com.amazonaws.services.s3.model.BucketWebsiteConfiguration
 import com.amazonaws.services.s3.model.CannedAccessControlList
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest
 import com.amazonaws.services.s3.model.GetObjectRequest
+import com.amazonaws.services.s3.model.ListObjectsRequest
+import com.amazonaws.services.s3.model.ObjectListing
 import com.amazonaws.services.s3.model.PutObjectRequest
 import com.amazonaws.services.s3.model.S3Object
 import com.amazonaws.services.s3.model.S3ObjectInputStream
+import com.amazonaws.services.s3.model.S3ObjectSummary
 import com.amazonaws.services.s3.transfer.TransferManager
 import grails.converters.JSON
 import grails.transaction.Transactional
@@ -90,6 +93,8 @@ class UploadS3Service {
         AmazonS3Client s3client = DefaultAmazonS3Client()
         TransferManager tx = new TransferManager(s3client);
 
+        def returnVal = [:]
+
         GetObjectRequest request = new GetObjectRequest(bucketName, name);
         S3Object object = s3client.getObject(request);
         InputStream objectData = object.getObjectContent();
@@ -101,9 +106,35 @@ class UploadS3Service {
         def result = slurper.parseText(content)
         objectData.close();
 
-        //Date date =  new Date().parse("E MMM dd H:m:s z yyyy", result.date)
-        //print date
-        print result.version
+        returnVal['date'] = result.date
+        returnVal['version']  = result.version
+
+        return returnVal
+    }
+
+    /**
+     * tests if a given fileaName exits in bucket
+     * @param bucketName BucketName
+     * @param fileName FileName
+     * @return true : file exits
+     */
+    def fileExistsInBucket(String bucketName ,String fileName) {
+
+        boolean returnVal = false
+
+        AmazonS3Client s3 = DefaultAmazonS3Client()
+        TransferManager tx = new TransferManager(s3);
+
+        ObjectListing objectListing = s3.listObjects(new ListObjectsRequest().withBucketName(bucketName))
+
+        for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+            if(objectSummary.getKey()) {
+                returnVal = true
+                break
+            }
+        }
+
+        return returnVal
     }
 
     /**
@@ -112,11 +143,12 @@ class UploadS3Service {
      * @param version
      */
     def setWebsiteBucketVersion(String bucketName, int version) {
+
         def date = new Date()
 
         def fileContent = [:]
 
-        fileContent['date'] = date
+        fileContent['date'] = date.time
         fileContent['version']  = version
 
         def jsonContent = fileContent as JSON

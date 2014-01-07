@@ -7,7 +7,7 @@
         <td style="width: 70%;text-align: left">${site.title}</td>
         <td>
             <g:link target="_blank" class="pure-button"
-             url="/Web106/live/${site.paramsModel.workgroupName}/${site.paramsModel.websiteName}">
+             url="/${project}/live/${site.paramsModel.workgroupName}/${site.paramsModel.websiteName}">
             Live</g:link></td>
         <td><g:link class="pure-button" action="cloudS3export" id="${site.id}"><i class="fa fa-cloud-upload"></i></g:link></td>
         <td>*Status* Letztes Datum</td>
