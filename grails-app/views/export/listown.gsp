@@ -1,6 +1,6 @@
 <table class="pure-table pure-table-horizontal">
 <tr>
-	<th style="text-align: left">Name</th><th>Url</th><th>Upload</th><th>Status</th>
+	<th style="text-align: left">Name</th><th>Url</th><th>Upload</th><th>Letzter Upload</th>
 </tr>
 <g:each var="site" in="${websites}">
     <tr>
@@ -10,7 +10,7 @@
              url="/${project}/live/${site.paramsModel.workgroupName}/${site.paramsModel.websiteName}">
             Live</g:link></td>
         <td><g:link class="pure-button" action="cloudS3export" id="${site.id}"><i class="fa fa-cloud-upload"></i></g:link></td>
-        <td>*Status* Letztes Datum</td>
+        <td>${site.date}</td>
     </tr>
 
 

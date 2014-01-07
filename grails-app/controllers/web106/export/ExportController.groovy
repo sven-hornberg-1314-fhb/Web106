@@ -8,6 +8,8 @@ import web106.file.upload.UploadS3Service
 import web106.site.Website
 import web106.site.WebsiteService
 
+import static java.lang.Long.parseLong
+
 /**
  * Controller for exports [first only aws s3, later ftp or other places]
  */
@@ -132,13 +134,27 @@ class ExportController {
         def websitesView = []
         websites.each {
 
-
-
+            def item = [:]
             def paramsModel = [:]
+
+            def prefix = ResourceHolder.bucketprefix
+            def bucketName = prefix+ "-" + it.workGroup.name+ "-" + it.title
+
+            //set version of bucketexport
+            if(uploadS3Service.fileExistsInBucket(bucketName, ResourceHolder.bucketVersionFileName)) {
+                def bucketVersion = uploadS3Service.getWebsiteBucketVersion(bucketName)
+
+                String dateS = bucketVersion.date
+                Long dateLong = parseLong(dateS)
+
+                def date = new Date(dateLong)
+                def formattedDate = date.format('yyyy-MM-dd')
+                item['date'] = formattedDate
+            }
+
             paramsModel['workgroupName'] = it.workGroup.name
             paramsModel['websiteName'] = it.title
 
-            def item = [:]
             item['id'] = it.id
             item['title'] = it.title
             item['paramsModel'] = paramsModel
@@ -149,7 +165,6 @@ class ExportController {
 
         model['websites'] = websitesView
         model['project'] = grails.util.Metadata.current.'app.name'
-        print model as JSON
 
         render view : "listown", model: model
     }
