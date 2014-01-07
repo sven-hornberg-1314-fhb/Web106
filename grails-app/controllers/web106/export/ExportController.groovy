@@ -140,16 +140,18 @@ class ExportController {
             def prefix = ResourceHolder.bucketprefix
             def bucketName = prefix+ "-" + it.workGroup.name+ "-" + it.title
 
-            //set version of bucketexport
-            if(uploadS3Service.fileExistsInBucket(bucketName, ResourceHolder.bucketVersionFileName)) {
-                def bucketVersion = uploadS3Service.getWebsiteBucketVersion(bucketName)
+            if(uploadS3Service.doesBucketExist(bucketName)){
+                //set version of bucketexport
+                if(uploadS3Service.fileExistsInBucket(bucketName, ResourceHolder.bucketVersionFileName)) {
+                    def bucketVersion = uploadS3Service.getWebsiteBucketVersion(bucketName)
 
-                String dateS = bucketVersion.date
-                Long dateLong = parseLong(dateS)
+                    String dateS = bucketVersion.date
+                    Long dateLong = parseLong(dateS)
 
-                def date = new Date(dateLong)
-                def formattedDate = date.format('yyyy-MM-dd')
-                item['date'] = formattedDate
+                    def date = new Date(dateLong)
+                    def formattedDate = date.format('yyyy-MM-dd')
+                    item['date'] = formattedDate
+                }
             }
 
             paramsModel['workgroupName'] = it.workGroup.name

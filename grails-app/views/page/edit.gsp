@@ -29,6 +29,11 @@
                             box.dragId = draggableId;
                             box.dropId = droppableId;
                             contentToBox(box);
+
+
+
+                            $(this).appendTo($('#'+draggableId).html())
+
                         }
 
 
@@ -73,17 +78,20 @@
 				</div>
 				<div class="pure-u-1-4">
 
+                    <div class="contentPadding">
 
-					<div><b>Bausteine</b></div><br>
-			
-					<g:each var="con" in="${contents}">	
-					
-						<div id="${con.id}" class="component">
-							${con.name}<br>
-							<g:link controller="ContentComponent">
-							<i class="fa fa-cogs"></i>Komponente bearbeiten</g:link>
-						</div>
-					</g:each>
+                        <div><b>Bausteine</b></div><br>
+
+                        <g:each var="con" in="${contents}">
+
+                            <div id="${con.id}" class="component">
+                                ${con.name}<br>
+                                <g:link controller="ContentComponent">
+                                <i class="fa fa-cogs"></i>Komponente bearbeiten</g:link>
+                            </div>
+                        </g:each>
+
+                    </div>
 				</div>
 			</div>
 						
