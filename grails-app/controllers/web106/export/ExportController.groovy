@@ -67,15 +67,15 @@ class ExportController {
 
         }
 
+        int version = 1
+
         //set version of bucketexport
         if(uploadS3Service.fileExistsInBucket(bucketName, ResourceHolder.bucketVersionFileName)) {
             def bucketVersion = uploadS3Service.getWebsiteBucketVersion(bucketName)
-            int version = bucketVersion.version + 1
-            uploadS3Service.setWebsiteBucketVersion(bucketName,version)
-
-        } else {
-            uploadS3Service.setWebsiteBucketVersion(bucketName,1)
+            version = bucketVersion.version + 1
         }
+        uploadS3Service.setWebsiteBucketVersion(bucketName,version)
+
 
         //make bucket to websitebucket
         uploadS3Service.createWebsiteBucketS3Config(bucketName, 'index.html', 'error.html')
@@ -102,11 +102,8 @@ class ExportController {
         if(uploadS3Service.fileExistsInBucket(bucketName, ResourceHolder.bucketVersionFileName)) {
             def bucketVersion = uploadS3Service.getWebsiteBucketVersion(bucketName)
             version = bucketVersion.version + 1
-            uploadS3Service.setWebsiteBucketVersion(bucketName,version)
-
-        } else {
-             uploadS3Service.setWebsiteBucketVersion(bucketName,1)
         }
+        uploadS3Service.setWebsiteBucketVersion(bucketName,version)
 
         def text = "Version: " + version
         render text
