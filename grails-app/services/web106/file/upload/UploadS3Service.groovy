@@ -8,12 +8,15 @@ import com.amazonaws.regions.Region
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3Client
+import com.amazonaws.services.s3.model.AccessControlList
 import com.amazonaws.services.s3.model.BucketWebsiteConfiguration
 import com.amazonaws.services.s3.model.CannedAccessControlList
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest
 import com.amazonaws.services.s3.model.GetObjectRequest
+import com.amazonaws.services.s3.model.GroupGrantee
 import com.amazonaws.services.s3.model.ListObjectsRequest
 import com.amazonaws.services.s3.model.ObjectListing
+import com.amazonaws.services.s3.model.Permission
 import com.amazonaws.services.s3.model.PutObjectRequest
 import com.amazonaws.services.s3.model.S3Object
 import com.amazonaws.services.s3.model.S3ObjectInputStream
@@ -128,7 +131,7 @@ class UploadS3Service {
         ObjectListing objectListing = s3.listObjects(new ListObjectsRequest().withBucketName(bucketName))
 
         for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
-            if(objectSummary.getKey()) {
+            if(objectSummary.getKey() == fileName) {
                 returnVal = true
                 break
             }
@@ -211,7 +214,13 @@ class UploadS3Service {
         def keyName = file.name
 
         try {
-        s3client.putObject(new PutObjectRequest(bucketName, keyName, file).withCannedAcl(CannedAccessControlList.PublicRead).withCannedAcl(CannedAccessControlList.BucketOwnerFullControl))
+
+            PutObjectRequest por = new PutObjectRequest(bucketName, keyName, file)
+            por.setCannedAcl(CannedAccessControlList.BucketOwnerFullControl)
+            por.setCannedAcl(CannedAccessControlList.PublicRead)
+            s3client.putObject(por)
+
+
         }
         catch (Exception ex) {
             print ex
@@ -228,6 +237,14 @@ class UploadS3Service {
     def createWebsiteBucketS3Config(String bucketName, String indexDocFileName, String errorDocFileName ) {
 
         AmazonS3Client s3Client = DefaultAmazonS3Client()
+
+        /*
+        AccessControlList acl = s3Client.getBucketAcl(bucketName);
+        acl.grantPermission(GroupGrantee.AllUsers, Permission.Read);
+
+        s3Client.setBucketAcl(bucketName, acl);
+        AccessControlList updatedAcl = s3Client.getBucketAcl(bucketName);
+        */
 
         // Set new website configuration.
         s3Client.setBucketWebsiteConfiguration(bucketName,

@@ -67,6 +67,9 @@ class ExportController {
 
         }
 
+        print mapFiles.keySet() as JSON
+
+
         int version = 1
 
         //set version of bucketexport
