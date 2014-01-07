@@ -1,5 +1,6 @@
 package web106.urlmapping
 
+import web106.ResourceHolder
 import web106.auth.WorkGroup
 import web106.site.Website
 
@@ -23,13 +24,13 @@ class UrlredirectController {
             workgroupName = params.workgroup
             websiteName =  params.websitename
 
-            def url = 'https://s3-eu-west-1.amazonaws.com/'+workgroupName+'-'+websiteName+'/'
+            def prefix = ResourceHolder.bucketprefix
+
+            def url = 'https://s3-eu-west-1.amazonaws.com/' + prefix+ "-" + workgroupName+'-'+websiteName+'/'
 
             if(pageName) {
                 url += pageName + "/"
             }
-
-            print url
             redirect(url: url)
         } else {
             render status: 404
