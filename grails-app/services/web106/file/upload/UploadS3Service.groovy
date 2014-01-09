@@ -27,8 +27,7 @@ import grails.converters.JSON
 import grails.transaction.Transactional
 import groovy.json.JsonSlurper
 import org.apache.commons.io.IOUtils
-import upload.s3.JUploadS3Service
-import upload.s3.WebsiteBucketS3
+
 import web106.ResourceHolder
 import web106.file.FileService
 

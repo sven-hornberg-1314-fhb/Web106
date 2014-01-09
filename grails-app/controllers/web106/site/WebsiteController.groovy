@@ -8,7 +8,6 @@ import web106.site.Page
 import web106.site.Website
 import web106.template.TemplateController
 import web106.UserUtils
-import upload.s3.WebsiteBucketS3
 
 
 class WebsiteController {

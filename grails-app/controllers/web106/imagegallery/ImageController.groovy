@@ -6,7 +6,8 @@ import web106.site.Website
 class ImageController {
 
 
-    def index() { 
+    def index() {
+        /*
 		def activeWebsite
 		
 		def activeWebsiteSession = session.getAttribute('activeWebsite')
@@ -25,13 +26,13 @@ class ImageController {
 		String newmail = FileTypeConverter.replaceAT(websitename)
 		print newmail
 		
-		ImageService progress = new ImageService(newmail);
+		//ImageService progress = new ImageService(newmail);
 		List<String> imagelist = progress.getFileList();
 		print imagelist;
-		
+		*/
 		def model = [
-			list:imagelist
-		]
+		//	list:imagelist
+        ]
 		
 		render view:"indexView", model : model
 	}
