@@ -1,9 +1,6 @@
 package web106.imagegallery
 
-import access.s3.ImageService
-import upload.convert.FileTypeConverter
-import web106.UserUtils
-import web106.auth.User
+
 import web106.site.Website
 
 class ImageController {

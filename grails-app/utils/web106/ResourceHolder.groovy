@@ -27,4 +27,9 @@ class ResourceHolder {
      * Name for the file in a bucket which holds information of version and date
      */
     def static bucketVersionFileName = "web106.version"
+
+    /**
+     * Prefix for uploaded images e.g. gallery
+     */
+    def static bucketprefixForImages = "images"
 }

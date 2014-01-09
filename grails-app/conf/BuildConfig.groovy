@@ -68,6 +68,7 @@ grails.project.dependency.resolution = {
 		compile ":jquery-ui:1.10.3"
 
         compile ":codenarc:0.20"
+        //lcompile ":clover:3.2.0"
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.2" // or ":hibernate4:4.1.11.2"

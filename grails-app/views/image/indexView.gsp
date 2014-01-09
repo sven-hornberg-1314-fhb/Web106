@@ -19,17 +19,24 @@
 		<g:render template="/shared/backendsidebar" />
 	
 	</div>
-	<h1>Images</h1>
+
+    <div id="main" class="pure-u-5-6">
+        <div class="contentPadding">
+
+
+    <h3>Images</h3>
 
 		<g:each in="${list}" var="item">
 		
-		<div class="container">
-		<p> 
-		<a href="${item}" data-lightbox="roadtrip"><g:img uri="${item}" /></a>
-		</p>
-		</div>
+            <div class="container">
+                <p>
+                <a href="${item}" data-lightbox="roadtrip"><g:img uri="${item}" /></a>
+                </p>
+            </div>
 		
 		</g:each>
+            </div>
+        </div>
 </div>
 <r:layoutResources />
 	</body>
