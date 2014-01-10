@@ -50,6 +50,8 @@
 
         });
 </script>
+
+${web106.header}
 </head>
 <body>
 

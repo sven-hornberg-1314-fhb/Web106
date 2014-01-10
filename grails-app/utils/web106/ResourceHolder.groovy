@@ -32,4 +32,9 @@ class ResourceHolder {
      * Prefix for uploaded images e.g. gallery
      */
     def static bucketprefixForImages = "images"
+
+    /**
+     * Bucket for storing css and js and other needed files
+     */
+    def static bucketCDNName = 'cdnweb106'
 }
