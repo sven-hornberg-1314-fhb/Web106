@@ -23,7 +23,7 @@ class BootStrapWeb106Service {
 
     void init() {
 
-        print 'hello from BootStrapWeb106Service init '
+        print 'BootStrapWeb106Service init '
 
         //1. check if cdn bucket exists
         if(!uploadS3Service.doesBucketExist(ResourceHolder.bucketCDNName)) {
@@ -32,29 +32,37 @@ class BootStrapWeb106Service {
         }
 
         //test && upload CSS
-        uploadCSS()
+        uploadCSS(ResourceHolder.bucketCDNName)
 
         //test && upload JS
-        uploadJS()
+        uploadJS(ResourceHolder.bucketCDNName)
     }
 
-    void uploadJS() {
-
-    }
-
-    void uploadCSS() {
-
-        css.each {
-
-            final Resource css = grailsResourceLocator.findResourceForURI(it)
-            if(css.exists() && css.isReadable()) {
-
-                File cssFile = css.getFile()
-                String fileName = css.getFilename()
-
-            }
+    void uploadJS(String bucketName) {
+        js.each {
+            uploadResourceByURI(bucketName,it)
         }
+    }
 
+    void uploadCSS(String bucketName) {
+        css.each {
+            uploadResourceByURI(bucketName,it)
+        }
+    }
+
+    void uploadResourceByURI(String bucketName, String uriValue) {
+        final Resource uriResource = grailsResourceLocator.findResourceForURI(uriValue)
+        if(uriResource.exists() && uriResource.isReadable()) {
+
+            File cssFile = uriResource.getFile()
+            String fileName = uriResource.getFilename()
+
+            //later check for version
+            if(!uploadS3Service.fileExistsInBucket(bucketName, fileName)) {
+                uploadS3Service.uploadFileToS3Bucket(bucketName, cssFile)
+            }
+
+        }
     }
 
 }

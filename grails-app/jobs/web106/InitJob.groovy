@@ -8,7 +8,7 @@ class InitJob {
     def BootStrapWeb106Service bootStrapWeb106Service
 
     static triggers = {
-        simple name:'initTrigger', startDelay:5000
+        simple name:'initTrigger', startDelay:5000, repeatCount: 0
     }
 
     def execute() {
