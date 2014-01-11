@@ -31,6 +31,14 @@ grails.mime.types = [
     xml:           ['text/xml', 'application/xml']
 ]
 
+grails.cache.config = {
+    cache {
+        name 'StaticContent'
+        timeToIdleSeconds 86400
+        timeToLiveSeconds 86400
+    }
+}
+
 // URL Mapping Cache Max Size, defaults to 5000
 //grails.urlmapping.cache.maxsize = 1000
 

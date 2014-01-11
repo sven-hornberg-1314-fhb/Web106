@@ -61,6 +61,7 @@ grails.project.dependency.resolution = {
         // plugins for the compile step
         compile ":scaffolding:2.0.1"
         compile ':cache:1.1.1'
+        compile ":cache-ehcache:1.0.0"
 	    compile ":spring-security-core:1.2.7.3"
         compile ':oauth:2.3'
         compile ":aws-sdk:1.6.4"

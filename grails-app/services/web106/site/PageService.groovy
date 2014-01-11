@@ -1,5 +1,6 @@
 package web106.site
 
+import grails.plugin.cache.Cacheable
 import grails.transaction.Transactional
 import grails.gsp.PageRenderer
 import web106.ResourceHolder
@@ -97,18 +98,30 @@ class PageService {
 
 
         }
+        model['web106header'] = ''
+        String header = UriHeaderModel()
+        if(header) {
+            model['web106header'] = UriHeaderModel()
+        }
+        return model
+    }
 
-        //later in method and caching
+    @Cacheable('StaticContent')
+    def String UriHeaderModel() {
         //css, js into model
-        def uriPrefix = 'https://s3-eu-west-1.amazonaws.com/'+ ResourceHolder.bucketStaticContent +'/'
+        def uriPrefix = 'https://s3-eu-west-1.amazonaws.com/' + ResourceHolder.bucketStaticContent + '/'
         def header = ''
 
         ResourceHolder.css.each {
-            header += '<link rel="stylesheet" type="'+ uriPrefix + it +'" />' + '\n'
+            def item = it.tokenize('/').last()
+            header += '<link rel="stylesheet" type="text/css" href="' + uriPrefix + item + '" />' + '\n'
         }
 
-        model['header'] = header
+        ResourceHolder.js.each {
+            def item = it.tokenize('/').last()
+            header += '<script type="text/javascript" src="' + uriPrefix + item + '" />' + '\n'
+        }
 
-        return model
+        header
     }
 }

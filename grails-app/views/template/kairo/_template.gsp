@@ -2,68 +2,36 @@
 <!DOCTYPE html>
 <html>
    <head>
-	  <style type="text/css">
 
-      .lightskyblue{
-          background-color: lightskyblue;
-      }
-      .purple{
-          background-color: purple;
-      }
-      .blue{
-          background-color: blue;
-      }
-      .red{
-          background-color: red;
-      }
-      .darkgreen{
-          background-color: darkgreen;
-      }
-      .darkorange{
-          background-color: darkorange;
-      }
-
-      .centermessagebox {
-          margin: 0 auto;
-      }
-
-      .dropbox {
-          min-height: 10em;
-      }
-
-      <!--
-	  -->
-	 </style>
        <g:render template="/shared/header" />
+       <g:if test="${request.requestURL.contains('localhost') == false}">
+               ${web106header}
+       </g:if>
+       <g:if test="${request.requestURL.contains('localhost')}">
+           <style type="text/css">
+           <!--
+           -->
+           </style>
 
-<g:javascript library="jquery" />
-<r:require module="jquery-ui"/>
-<r:layoutResources />
-
-<script type="text/javascript">
-        $(function() {
-
-        	
-        	if(document.URL.indexOf("template") == -1) {
-            	$('.centermessagebox').hide();
-            } 
-
-		
-
-            /*$('#header').on(
-                   'drop', function(event, ui){
-                        var draggableId = ui.draggable.attr("id");
-                        var droppableId = $(this).attr("id");
-                        alert("draggableId: "+draggableId+" droppableId: "+droppableId)
-                                <g:remoteFunction controller="page" action="remote" params="[id:'1', draggableId:'test']"/>
-                            }
-                    );  */
+           <g:javascript library="jquery" />
+           <r:require module="jquery-ui"/>
 
 
+           <r:layoutResources />
 
-        });
-</script>
-${web106.header}
+           <script type="text/javascript">
+               $(function() {
+
+
+                   if(document.URL.indexOf("template") == -1) {
+                       $('.centermessagebox').hide();
+                   }
+
+               });
+           </script>
+       </g:if>
+
+
 </head>
 <body>
 

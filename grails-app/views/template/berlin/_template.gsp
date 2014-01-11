@@ -2,42 +2,22 @@
 <!DOCTYPE html>
 <html>
    <head>
+
+   <g:render template="/shared/header" />
+   <g:if test="${request.requestURL.contains('localhost') == false}">
+       ${web106header}
+   </g:if>
+
+   <g:if test="${request.requestURL.contains('localhost')}">
 	  <style type="text/css">
-
-	  .lightskyblue{
-	  background-color: lightskyblue;
-	  }
-      .purple{
-      background-color: purple;
-      }
-	  .blue{
-	  background-color: blue;
-	  }	
-	  .red{
-	  background-color: red;
-	  }  
-	  .darkgreen{
-	  background-color: darkgreen;
-	  }
-      .darkorange{
-           background-color: darkorange;
-      }
-	  
-	  .centermessagebox {
-	  		    margin: 0 auto;
-	  }
-
-      .dropbox {
-          min-height: 10em;
-      }
-	  
 	  <!--
 	  -->
 	 </style>
-       <g:render template="/shared/header" />
 
    <g:javascript library="jquery" />
-<r:require module="jquery-ui"/>
+   <r:require module="jquery-ui"/>
+
+
 <r:layoutResources />
 
 <script type="text/javascript">
@@ -50,8 +30,9 @@
 
         });
 </script>
+</g:if>
 
-${web106.header}
+
 </head>
 <body>
 

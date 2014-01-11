@@ -28,3 +28,30 @@
         margin: 0 auto;
         box-shadow: 10px 10px 5px #888;
 }
+
+.lightskyblue{
+    background-color: lightskyblue;
+}
+.purple{
+    background-color: purple;
+}
+.blue{
+    background-color: blue;
+}
+.red{
+    background-color: red;
+}
+.darkgreen{
+    background-color: darkgreen;
+}
+.darkorange{
+    background-color: darkorange;
+}
+
+.centermessagebox {
+    margin: 0 auto;
+}
+
+.dropbox {
+    min-height: 10em;
+}
