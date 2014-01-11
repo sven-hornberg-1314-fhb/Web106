@@ -9,6 +9,7 @@ import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.AccessControlList
+import com.amazonaws.services.s3.model.Bucket
 import com.amazonaws.services.s3.model.BucketWebsiteConfiguration
 import com.amazonaws.services.s3.model.CannedAccessControlList
 import com.amazonaws.services.s3.model.DeleteObjectRequest
@@ -294,6 +295,15 @@ class UploadS3Service {
         URL s = s3Client.generatePresignedUrl(generatePresignedUrlRequest);
         return  s
     }
+
+
+    String MD5OfFileInBucket(String bucketName, String fileName) {
+
+        AmazonS3Client s3Client = DefaultAmazonS3Client()
+
+        //String MD5 = objectSummary.getETag();
+    }
+
 
     /*
     private static BucketWebsiteConfiguration getWebsiteConfig(AmazonS3 s3Client, String bucketName) {

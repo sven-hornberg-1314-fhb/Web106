@@ -2,6 +2,9 @@ package web106.file
 
 import grails.transaction.Transactional
 
+import java.security.DigestInputStream
+import java.security.MessageDigest
+
 @Transactional
 class FileService {
 
@@ -58,5 +61,11 @@ class FileService {
         }
 
         return returnVal
+    }
+
+    String MD5ofFile(File file) {
+        FileInputStream fis = new FileInputStream(file)
+        String md5 = org.apache.commons.codec.digest.DigestUtils.md5Hex(fis)
+        return md5
     }
 }
