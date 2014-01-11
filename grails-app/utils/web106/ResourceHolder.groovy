@@ -5,6 +5,14 @@ package web106
  */
 class ResourceHolder {
 
+    def static css = [
+            '/css/web106.css',
+            '/css/shared/shared.css'
+    ]
+    def static js = [
+            '/plugins/jquery-1.10.2.2/js/jquery/jquery-1.10.2.min.js'
+    ]
+
 
     def static greeting = [
             Twitter: 'screen_name',
@@ -36,5 +44,5 @@ class ResourceHolder {
     /**
      * Bucket for storing css and js and other needed files
      */
-    def static bucketCDNName = 'cdnweb106'
+    def static bucketStaticContent = 'web106static'
 }

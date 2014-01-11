@@ -2,6 +2,7 @@ package web106.site
 
 import grails.transaction.Transactional
 import grails.gsp.PageRenderer
+import web106.ResourceHolder
 
 
 @Transactional
@@ -96,6 +97,17 @@ class PageService {
 
 
         }
+
+        //later in method and caching
+        //css, js into model
+        def uriPrefix = 'https://s3-eu-west-1.amazonaws.com/'+ ResourceHolder.bucketStaticContent +'/'
+        def header = ''
+
+        ResourceHolder.css.each {
+            header += '<link rel="stylesheet" type="'+ uriPrefix + it +'" />' + '\n'
+        }
+
+        model['header'] = header
 
         return model
     }
