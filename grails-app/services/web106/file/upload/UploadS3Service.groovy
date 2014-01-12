@@ -32,6 +32,10 @@ import org.apache.commons.io.IOUtils
 import web106.ResourceHolder
 import web106.file.FileService
 
+/**
+ *
+ * Later maybe migration to 'net.java.dev.jets3t:jets3t:0.9.0'
+ */
 @Transactional
 class UploadS3Service {
 
@@ -64,7 +68,7 @@ class UploadS3Service {
 
     public String generateUrl(String bucketName){
         String url;
-        url = "http://" + bucketName + ".s3-website-eu-west-1.amazonaws.com";
+        url = "https://s3-eu-west-1.amazonaws.com/" + bucketName + '/';
         return url;
     }
 
@@ -299,9 +303,21 @@ class UploadS3Service {
 
     String MD5OfFileInBucket(String bucketName, String fileName) {
 
-        AmazonS3Client s3Client = DefaultAmazonS3Client()
+        AmazonS3Client s3 = DefaultAmazonS3Client()
+        TransferManager tx = new TransferManager(s3);
+        String MD5 = null
 
-        //String MD5 = objectSummary.getETag();
+        ObjectListing objectListing = s3.listObjects(new ListObjectsRequest().withBucketName(bucketName))
+
+        for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+
+            def keyName = objectSummary.getKey()
+            if(keyName == fileName) {
+
+                MD5 = objectSummary.getETag();
+            }
+        }
+        return MD5
     }
 
 

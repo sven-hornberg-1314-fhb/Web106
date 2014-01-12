@@ -3,12 +3,15 @@ package web106
 import grails.transaction.Transactional
 import org.codehaus.groovy.grails.core.io.ResourceLocator
 import org.springframework.core.io.Resource
+import web106.file.FileService
 import web106.file.upload.UploadS3Service
 
 @Transactional
 class BootStrapWeb106Service {
 
     def UploadS3Service uploadS3Service
+    def FileService fileService
+
     ResourceLocator grailsResourceLocator
 
     def js = ResourceHolder.js
@@ -47,12 +50,19 @@ class BootStrapWeb106Service {
         final Resource uriResource = grailsResourceLocator.findResourceForURI(uriValue)
         if(uriResource.exists() && uriResource.isReadable()) {
 
-            File cssFile = uriResource.getFile()
+            File resourceFile = uriResource.getFile()
             String fileName = uriResource.getFilename()
 
-            //later check for version
             if(!uploadS3Service.fileExistsInBucket(bucketName, fileName)) {
-                uploadS3Service.uploadFileToS3Bucket(bucketName, cssFile)
+                uploadS3Service.uploadFileToS3Bucket(bucketName, resourceFile)
+            } else {
+                //MD5 check
+                String MD5LocalFile = fileService.MD5ofFile(resourceFile)
+                String MD5BucketFile = uploadS3Service.MD5OfFileInBucket(bucketName,fileName)
+
+                if(!MD5BucketFile.equals(MD5LocalFile)) {
+                    uploadS3Service.uploadFileToS3Bucket(bucketName, resourceFile)
+                }
             }
 
         }
