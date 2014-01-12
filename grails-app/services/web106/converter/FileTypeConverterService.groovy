@@ -10,8 +10,15 @@ class FileTypeConverterService {
 
     def UploadS3Service uploadS3Service
 
-    boolean convert(MultipartFile file, String bucketName) throws Exception
+    /**
+     * Converts a MultipartFile to Java File
+     * @param file MultipartFile
+     * @return Null if convert does not work, else File
+     * @throws Exception
+     */
+    File convert(MultipartFile file) throws Exception
     {
+        File returnFile = null
         OutputStream outputStream
 
         byte [] byteArr= file.getBytes();
@@ -20,18 +27,12 @@ class FileTypeConverterService {
         String extension = "";
         InputStream inputStream = new ByteArrayInputStream(byteArr);
 
-
         String filename = file.getOriginalFilename();
         String tDir = System.getProperty("java.io.tmpdir");
 
         File tempfile = new File(tDir + "/" + filename);
 
-
-
-
         outputStream = new FileOutputStream(tempfile);
-
-
 
         while ((read = inputStream.read(bytes)) != -1) {
             outputStream.write(bytes, 0, read);
@@ -42,25 +43,9 @@ class FileTypeConverterService {
             extension = tempfile.getName().substring(i+1);
         }
 
-
         if(extension.equals("jpg") || extension.equals("png")){
-            System.out.println(extension);
-            //uploadS3(tempfile, website);
-
-            def path = bucketName + '/' + ResourceHolder.bucketprefixForImages
-
-            uploadS3Service.uploadFileToS3Bucket(path , tempfile)
-
-            tempfile.delete()
-
-
-            return true;
-
+            returnFile = tempfile
         }
-        else{
-            return false;
-        }
-
-
+        return returnFile
     }
 }
