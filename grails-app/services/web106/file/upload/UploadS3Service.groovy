@@ -124,16 +124,18 @@ class UploadS3Service {
      * tests if a given fileaName exits in bucket
      * @param bucketName BucketName
      * @param fileName FileName
+     * @param prefix Prefix for Bucket
      * @return true : file exits
      */
-    def fileExistsInBucket(String bucketName ,String fileName) {
+    def fileExistsInBucket(String bucketName ,String fileName, String prefix) {
 
         boolean returnVal = false
 
         AmazonS3Client s3 = DefaultAmazonS3Client()
         TransferManager tx = new TransferManager(s3);
 
-        ObjectListing objectListing = s3.listObjects(new ListObjectsRequest().withBucketName(bucketName))
+        ObjectListing objectListing = s3.listObjects(
+                new ListObjectsRequest().withBucketName(bucketName).withPrefix(prefix))
 
         for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
             if(objectSummary.getKey() == fileName) {
@@ -141,6 +143,21 @@ class UploadS3Service {
                 break
             }
         }
+
+        return returnVal
+    }
+
+
+    /**
+     * tests if a given fileaName exits in bucket
+     * @param bucketName BucketName
+     * @param fileName FileName
+     * @return true : file exits
+     */
+    def fileExistsInBucket(String bucketName ,String fileName) {
+
+        boolean returnVal = false
+        returnVal = fileExistsInBucket(bucketName,fileName, "")
 
         return returnVal
     }
@@ -222,13 +239,18 @@ class UploadS3Service {
         }
     }
 
+    def uploadFileToS3Bucket(String bucketName, File file) {
+        uploadFileToS3Bucket(bucketName,file, "")
+    }
+
     /**
      * Uploads a file to a bucketa and sets public read
      * @param bucketName BucketName
      * @param file File
      */
-    def uploadFileToS3Bucket(String bucketName, File file) {
+    def uploadFileToS3Bucket(String bucketName, File file , String prefix) {
 
+        print prefix
         AmazonS3Client s3client = DefaultAmazonS3Client()
         TransferManager tx = new TransferManager(s3client);
 
@@ -245,7 +267,7 @@ class UploadS3Service {
 
         try {
 
-            PutObjectRequest por = new PutObjectRequest(bucketName, keyName, file)
+            PutObjectRequest por = new PutObjectRequest(bucketName, prefix + keyName, file)
             por.setCannedAcl(CannedAccessControlList.BucketOwnerFullControl)
             por.setCannedAcl(CannedAccessControlList.PublicRead)
             s3client.putObject(por)

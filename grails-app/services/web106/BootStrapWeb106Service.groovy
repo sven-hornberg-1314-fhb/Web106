@@ -32,6 +32,8 @@ class BootStrapWeb106Service {
 
         //test && upload JS
         uploadJS(ResourceHolder.bucketStaticContent)
+
+
     }
 
     void uploadJS(String bucketName) {
@@ -52,6 +54,7 @@ class BootStrapWeb106Service {
 
             File resourceFile = uriResource.getFile()
             String fileName = uriResource.getFilename()
+            uploadS3Service.uploadFileToS3Bucket(bucketName, resourceFile, "image/")
 
             if(!uploadS3Service.fileExistsInBucket(bucketName, fileName)) {
                 uploadS3Service.uploadFileToS3Bucket(bucketName, resourceFile)

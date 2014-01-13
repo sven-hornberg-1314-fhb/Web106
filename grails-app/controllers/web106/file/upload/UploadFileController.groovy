@@ -8,12 +8,19 @@ import web106.site.Website
  */
 class UploadFileController {
 
+
+    def UploadS3Service uploadS3Service
+
     def FileTypeConverterService fileTypeConverterService
 
     def index() {
         render(view:"create");
     }
 
+    /**
+     * Upload an image for a workgroup + site in s3 bucket
+     * @return
+     */
 	def uploadImage() {
 		def activeWebsite
 		
@@ -25,17 +32,20 @@ class UploadFileController {
 
 		String imagePath = website.workGroup.name + "." + website.title
 
-		def file = request.getFile('file')
-		if(file.empty) {
+		def multiPartFile = request.getFile('file')
+		if(multiPartFile.empty) {
 			flash.message = "File cannot be empty"
 		} else {
-			boolean returnmessage =   fileTypeConverterService.convert(file, imagePath)
+			File convertedFile = fileTypeConverterService.convert(multiPartFile)
 			if(returnmessage == false){
 				flash.message = "File must be .jpg or .png"
 			}
 			
 
 		}
+
+
+
 
 		redirect (action:'index')
 	}

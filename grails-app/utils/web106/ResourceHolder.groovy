@@ -26,6 +26,7 @@ class ResourceHolder {
          Live: '',
          Yahoo: '' ]
 
+    //Later Bucketprefix -> Bucket for project
     /**
      * Prefix for s3 buckets, because all bucketNames across s3 are unique
      */
