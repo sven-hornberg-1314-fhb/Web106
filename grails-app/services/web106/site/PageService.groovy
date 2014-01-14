@@ -43,6 +43,11 @@ class PageService {
                 def model = ModelforPageRendering(currentPage)
 
                 content = groovyPageRenderer.render(template:'/template/'+model.template +'/template', model:model)
+
+                //remove frist newline caused by template encoding
+                if(content.startsWith('\n')) {
+                    content = content.substring(1)
+                }
         }
 
     }
@@ -99,6 +104,7 @@ class PageService {
 
         }
         model['web106header'] = ''
+        model['web106title'] = page.title
         String header = UriHeaderModel()
         if(header) {
             model['web106header'] = UriHeaderModel()
@@ -109,17 +115,17 @@ class PageService {
     @Cacheable('StaticContent')
     def String UriHeaderModel() {
         //css, js into model
-        def uriPrefix = 'https://s3-eu-west-1.amazonaws.com/' + ResourceHolder.bucketStaticContent + '/'
+        def uriPrefix = 'http://s3-eu-west-1.amazonaws.com/' + ResourceHolder.bucketStaticContent + '/'
         def header = ''
 
         ResourceHolder.css.each {
             def item = it.tokenize('/').last()
-            header += '<link rel="stylesheet" type="text/css" href="' + uriPrefix + item + '" />' + '\n'
+            header += '<link rel="stylesheet" type="text/css" href="' + uriPrefix + item + '" >' + '\n'
         }
 
         ResourceHolder.js.each {
             def item = it.tokenize('/').last()
-            header += '<script type="text/javascript" src="' + uriPrefix + item + '" />' + '\n'
+            header += '<script type="text/javascript" src="' + uriPrefix + item + '" ></script>' + '\n'
         }
 
         header

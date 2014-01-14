@@ -24,7 +24,7 @@ class UrlredirectController {
 
             def global = ResourceHolder.bucketGlobal
 
-            def url = 'https://s3-eu-west-1.amazonaws.com/' + global+ "/" + workgroupName+'/'+websiteName+'/index.html'
+            def url = 'http://s3-eu-west-1.amazonaws.com/' + global+ "/" + workgroupName+'/'+websiteName+'/index.html'
             url = url.toLowerCase()
 
             redirect(url: url)
