@@ -29,7 +29,7 @@ class ResourceHolder {
     /**
      * Bucket for all Data
      */
-    static String bucketGlobal = "de.64pixel.web106"
+    static String bucketGlobal = "de-64pixel-web106"
 
     /**
      * Name for the file in a bucket which holds information of version and date
