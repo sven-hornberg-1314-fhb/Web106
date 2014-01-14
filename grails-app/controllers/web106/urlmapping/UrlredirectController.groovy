@@ -1,8 +1,13 @@
 package web106.urlmapping
 
+import grails.converters.JSON
 import web106.ResourceHolder
+import web106.file.upload.UploadS3Service
 
 class UrlredirectController {
+
+    def UploadS3Service uploadS3Service
+
 
     def index() {
         render(status: 404, text: 'nicht gefunden')
@@ -33,5 +38,55 @@ class UrlredirectController {
         }
 
     }
-	
+
+    /**
+     * POC Solution for errorpages and index for "subbuckets" NOT FOR LIVE MODE OR BENCHMARK ready!
+     * Later after project with caching , ETags, maybe own ec2 balancer
+     * @return pagecontent or errorcode
+     */
+    def stream() {
+            def workgroupName
+            def websiteName
+            def pageName
+
+            if(params?.workgroup && params?.websitename) {
+                workgroupName = params.workgroup
+                websiteName =  params.websitename
+                pageName = params.page
+
+                def content= ""
+                def global = ResourceHolder.bucketGlobal
+                def prefix =  workgroupName + "/" + websiteName + "/"
+
+                //check for indexSite : means Website is online
+                boolean indexPage = uploadS3Service.fileExistsInBucket(global, "index.html", prefix)
+                if(indexPage) {
+
+                    //check page
+                    boolean requestedPage = uploadS3Service.fileExistsInBucket(global, pageName , prefix)
+                    if(requestedPage) {
+
+                        //stream requestedPage
+                        content = uploadS3Service.ContentFromFileInBucket(global,prefix + pageName)
+
+                    } else {
+                        //stream indexfile
+                        content = uploadS3Service.ContentFromFileInBucket(global,prefix + 'index.html')
+
+                    }
+
+                } else {
+
+                    //website not online
+                    render(status: 404)
+                }
+
+                render(text: content, contentType: "text/html", encoding: "UTF-8")
+            } else {
+
+                //website not online
+                render(status: 404)
+            }
+
+    }
 }

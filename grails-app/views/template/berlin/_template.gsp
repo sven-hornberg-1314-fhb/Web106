@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-   <meta charset="UTF-8">
+   <meta charset="UTF-8" />
    <title>${web106title}</title>
    <g:render template="/shared/header" />
    <g:if test="${request.requestURL.contains('localhost') == false}">

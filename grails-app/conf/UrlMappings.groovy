@@ -4,8 +4,9 @@ class UrlMappings {
         "/"(view:"/main")
 
         //view without auth
-        "/live/$workgroup/$websitename"([controller: "urlredirect", action: 'live'])
+        "/live/$workgroup?/$websitename?"([controller: "urlredirect", action: 'live'])
 
+        "/stream/$workgroup?/$websitename?/$page?"([controller: "urlredirect", action: 'stream'])
 
 
         "/$controller/$action?/$id?(.${format})?"{

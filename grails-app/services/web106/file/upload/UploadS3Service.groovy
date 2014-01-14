@@ -226,6 +226,27 @@ class UploadS3Service {
         */
     }
 
+
+    def ContentFromFileInBucket(String bucketName, String fileName) {
+
+        AmazonS3Client s3Client = DefaultAmazonS3Client()
+        TransferManager tx = new TransferManager(s3Client);
+
+        GetObjectRequest rangeObjectRequest = new GetObjectRequest(
+                bucketName, fileName);
+        S3Object objectPortion = s3Client.getObject(rangeObjectRequest);
+
+        InputStream objectData = objectPortion.getObjectContent();
+        // Process the objectData stream.
+
+        String content = IOUtils.toString(objectData, "UTF-8");
+
+        objectData.close();
+
+        return content
+    }
+
+
     /**
      * Deletes all non exsiting pages from a bucket
      * @param bucketName BucketName
