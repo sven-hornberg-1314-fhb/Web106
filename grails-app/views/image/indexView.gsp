@@ -9,8 +9,17 @@
 
         <g:render template="/shared/header" />
         <r:layoutResources />
-	
-	</head>
+
+    <style type="text/css">
+        <!--
+        .shrinkimg {
+        width: inherit;  /* This makes the next two lines work in IE8. */
+        max-width: 100%; /* Add !important if needed. */
+        height: auto;    /* Add !important if needed. */
+        }
+        -->
+    </style>
+    </head>
 	<body>
 <div id="menu" class="pure-g">
     
@@ -24,17 +33,14 @@
         <div class="contentPadding">
 
 
-    <h3>Images</h3>
+        <h3>Bildergalerie</h3>
 
-		<g:each in="${list}" var="item">
-		
-            <div class="container">
-                <p>
-                <a href="${item}" data-lightbox="roadtrip"><g:img uri="${item}" /></a>
-                </p>
-            </div>
-		
-		</g:each>
+            <div class="pure-u-1" >
+		        <g:each in="${list}" var="item">
+                    <div class="pure-u-1-4" >
+                    <a href="${item}" data-lightbox="roadtrip"><g:img class="shrinkimg" uri="${item}" /></a>
+                    </div>
+        		</g:each>
             </div>
         </div>
 </div>
