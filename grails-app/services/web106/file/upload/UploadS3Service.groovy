@@ -284,6 +284,19 @@ class UploadS3Service {
         }
     }
 
+    /**
+     * Deletes a file from bucket with prefix
+     * @param bucketName bucketName
+     * @param prefix prefix
+     * @param key key
+     */
+    def deleteFile(String bucketName, String prefix, String key) {
+        AmazonS3Client s3 = DefaultAmazonS3Client()
+        TransferManager tx = new TransferManager(s3);
+        s3.deleteObject(new DeleteObjectRequest(bucketName, prefix + key))
+
+    }
+
 
     def uploadFileToS3Bucket(String bucketName, File file) {
         uploadFileToS3Bucket(bucketName,file, "")
@@ -387,6 +400,25 @@ class UploadS3Service {
             }
         }
         return MD5
+    }
+
+    List<String> FileNamesInBucket(String bucketName, String prefix) {
+        def files = []
+
+        AmazonS3Client s3 = DefaultAmazonS3Client()
+        TransferManager tx = new TransferManager(s3);
+        String MD5 = null
+
+        ObjectListing objectListing = s3.listObjects(
+                new ListObjectsRequest().withBucketName(bucketName).withPrefix(prefix))
+
+        for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+
+            def keyName = objectSummary.getKey().replace(prefix,"")
+            files.add(keyName)
+        }
+
+        return files
     }
 
     String MD5OfFileInBucket(String bucketName, String fileName) {

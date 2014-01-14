@@ -25,9 +25,8 @@
       <div class="contentPadding">
 
           <div class="pure-menu pure-menu-open pure-menu-vertical">
-              <ul>
-                  <li><g:link class="list" action="list">Dokumentenliste</g:link></li>
-              </ul>
+             <g:link class="pure-button" action="list">Dokumentenliste</g:link></li>
+
           </div>
 
 
