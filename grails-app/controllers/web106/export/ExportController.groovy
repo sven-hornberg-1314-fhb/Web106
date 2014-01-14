@@ -47,7 +47,7 @@ class ExportController {
         //pageName : content
         Map<String,String> mapFiles = websiteService.createPagesForWebsite(website)
 
-        def prefix =  website.workGroup.name+ "/" + website.title
+        def prefix =  website.workGroup.name+ "/" + website.title + "/"
 
         def bucketName = ResourceHolder.bucketGlobal
 
@@ -126,7 +126,7 @@ class ExportController {
             def item = [:]
             def paramsModel = [:]
 
-            def prefix =  it.workGroup.name+ "/" + it.title
+            def prefix =  it.workGroup.name+ "/" + it.title + "/"
 
             def bucketName = ResourceHolder.bucketGlobal
 

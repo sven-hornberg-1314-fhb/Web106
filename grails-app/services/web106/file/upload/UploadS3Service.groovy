@@ -112,7 +112,7 @@ class UploadS3Service {
 
         def returnVal = [:]
 
-        GetObjectRequest request = new GetObjectRequest(bucketName, name);
+        GetObjectRequest request = new GetObjectRequest(bucketName, prefix + name);
         S3Object object = s3client.getObject(request);
         InputStream objectData = object.getObjectContent();
         // Process the objectData stream.
@@ -147,7 +147,10 @@ class UploadS3Service {
                 new ListObjectsRequest().withBucketName(bucketName).withPrefix(prefix))
 
         for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
-            if(objectSummary.getKey() == fileName) {
+
+            def keyString = objectSummary.getKey().replace(prefix,"")
+
+            if(keyString.equals(fileName)) {
                 returnVal = true
                 break
             }
@@ -251,7 +254,7 @@ class UploadS3Service {
         for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
             if(objectSummary.getKey().endsWith('.html')) {
 
-                def withoutHtml = objectSummary.getKey().replace('.html','')
+                def withoutHtml = objectSummary.getKey().replace('.html','').replace(prefix,"")
                 if(!pagesNames.contains(withoutHtml)) {
                     //delete
                     s3.deleteObject(new DeleteObjectRequest(bucketName, objectSummary.getKey()));
