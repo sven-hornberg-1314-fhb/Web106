@@ -1,8 +1,8 @@
 package web106.auth
 
-import grails.plugins.springsecurity.Secured
-
 import static org.springframework.http.HttpStatus.*
+
+import grails.plugins.springsecurity.Secured
 import grails.transaction.Transactional
 
 /**

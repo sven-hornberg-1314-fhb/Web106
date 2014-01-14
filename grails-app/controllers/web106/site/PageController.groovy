@@ -1,23 +1,21 @@
 package web106.site
 
-import grails.converters.JSON
 import web106.site.component.ContentComponent
 import web106.template.TemplateController;
 import web106.auth.WorkGroup
 import grails.gsp.PageRenderer 
 import groovy.util.slurpersupport.NodeChild;
 import java.text.SimpleDateFormat
-import web106.ErrorsWeb106Controller
 
 
 class PageController {
 	
 	def activeWorkGroup
     def activeWebsite
-	PageRenderer groovyPageRenderer
-	
-	def boxService
 	def pageService
+
+	PageRenderer groovyPageRenderer
+
 
     def beforeInterceptor = {
 
@@ -32,25 +30,21 @@ class PageController {
             return false
         }
         }
-        catch (NumberFormatException numEx) {
+        catch (NumberFormatException) {
             render status: 403, text: "Sie verfügen nicht über ausreichend Rechte um auf diesen Inhalt zuzugreifen."
             return false
         }
     }
 
     def index() {
-		
-	
+
 		render view:'index'
-		
 	}
 
     def create(){
-		
-		 
+
     	TemplateController templateController = new TemplateController()
-			
-		
+
 		def model = [
             templateNameList : templateController.listNames(),
 			modelberlin : templateController.defaultmodelBerlin(), 
@@ -185,8 +179,10 @@ class PageController {
             id == params.id
         }
 
-        current?.boxes.each {
-            Box.deleteAll(it)
+        if(current) {
+            current?.boxes.each {
+                Box.deleteAll(it)
+            }
         }
 
         current.delete(failOnError: true)
@@ -219,13 +215,11 @@ class PageController {
         def contentComponent = ContentComponent.find {
             id == dragId
         }
-        try {
-            box.component.add(contentComponent)
-        }catch (Exception ex) {
-            print ex.getMessage()
-        }
 
-        print "200"
+        box?.component?.add(contentComponent)
+
+
+        render status: 200
     }
 
     def remoteSave() {
@@ -258,9 +252,6 @@ class PageController {
     }
 
     def listown(){
-        def aworkGroup = WorkGroup.find(){
-            id == activeWorkGroup
-        }
 
         def pages = Page.findAll{
             website.id == activeWebsite

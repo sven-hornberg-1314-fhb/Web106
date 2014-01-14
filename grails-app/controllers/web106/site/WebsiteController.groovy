@@ -1,13 +1,6 @@
 package web106.site
 
-import grails.converters.JSON
-import org.springframework.security.core.context.SecurityContextHolder
-import web106.auth.User
 import web106.auth.WorkGroup
-import web106.site.Page
-import web106.site.Website
-import web106.template.TemplateController
-import web106.UserUtils
 
 
 class WebsiteController {
@@ -75,13 +68,6 @@ class WebsiteController {
         def current = Website.find{
             id == params.id
         }
-
-        //delete using services
-        /*current?.page.each{
-            pageService.delete(it)
-        }
-
-        websiteService.delete(current)*/
 
         //delete without services
         current?.page.each{
@@ -173,20 +159,14 @@ class WebsiteController {
 
         def websiteId = params.id
 
-
         session.setAttribute("activeWebsite",websiteId)
 
-
-
-
         def selectedWebsite = Website.find{id == websiteId}
-
 
         def title = selectedWebsite.title
         session.setAttribute("activeWebsiteName",selectedWebsite.title)
 
         render view: "SuccessWebsiteSelection", model:[title: title]
-
 
     }
 
@@ -204,8 +184,4 @@ class WebsiteController {
 
         redirect view: index()
     }
-
-
-
-
 }

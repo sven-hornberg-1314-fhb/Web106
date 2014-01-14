@@ -1,6 +1,5 @@
 package web106.file.upload
 
-import grails.converters.JSON
 import web106.ResourceHolder
 import web106.converter.FileTypeConverterService
 import web106.site.Website
@@ -88,7 +87,7 @@ class UploadFileController {
     }
 
     def delete() {
-        def test = params as JSON
+
         if(params.id) {
 
 

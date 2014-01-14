@@ -9,7 +9,6 @@ import uk.co.desirableobjects.oauth.scribe.OauthProvider
 import uk.co.desirableobjects.oauth.scribe.OauthService
 import uk.co.desirableobjects.oauth.scribe.SupportedOauthVersion
 import uk.co.desirableobjects.oauth.scribe.holder.RedirectHolder
-import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import uk.co.desirableobjects.oauth.scribe.exception.MissingRequestTokenException
 import grails.converters.JSON
 import web106.ResourceHolder

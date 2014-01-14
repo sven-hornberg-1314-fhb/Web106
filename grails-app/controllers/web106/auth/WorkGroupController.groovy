@@ -1,10 +1,6 @@
 package web106.auth
 
-import org.apache.jasper.compiler.Node.ParamsAction;
-
-import grails.converters.JSON
 import web106.UserUtils
-import web106.auth.WorkGroup
 
 /**
  * Controller for managing Workgroups which
@@ -15,8 +11,6 @@ class WorkGroupController {
 
     static defaultAction = "listWorkGroups"
     static allowedMethods = [selectWorkGroup:'POST']
-	
-    def index() { }
 
 	def create() {
 

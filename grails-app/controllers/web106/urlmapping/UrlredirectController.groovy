@@ -1,6 +1,5 @@
 package web106.urlmapping
 
-import grails.converters.JSON
 import web106.ResourceHolder
 import web106.file.upload.UploadS3Service
 
@@ -21,7 +20,6 @@ class UrlredirectController {
 
         def workgroupName
         def websiteName
-        def pageName = params.website
 
         if(params?.workgroup && params?.websitename) {
             workgroupName = params.workgroup

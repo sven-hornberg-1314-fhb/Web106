@@ -39,6 +39,7 @@ class TemplateController {
 			side3: "side3",
 			footer: "footer"
 		]
+        return model
 	}
 	
 	
@@ -58,6 +59,7 @@ class TemplateController {
 			footer : "footer",
 			footer2 : "footer2"
 		]
+        return model
 	}
 
     def list() {
