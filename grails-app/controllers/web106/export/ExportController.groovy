@@ -1,6 +1,5 @@
 package web106.export
 
-import grails.converters.JSON
 import web106.ResourceHolder
 import web106.auth.WorkGroup
 import web106.file.FileService
@@ -44,22 +43,17 @@ class ExportController {
         Website website = Website.find() {
             id == params.id
         }
+
+        //pageName : content
         Map<String,String> mapFiles = websiteService.createPagesForWebsite(website)
 
-        def prefix = ResourceHolder.bucketprefix
-        def bucketName = prefix+ "-" + website.workGroup.name+ "-" + website.title
-        bucketName = bucketName.toLowerCase()
+        def prefix =  website.workGroup.name+ "/" + website.title
+
+        def bucketName = ResourceHolder.bucketGlobal
 
 
-        //test if bucket exists
-        def bucketExist = uploadS3Service.doesBucketExist(bucketName)
 
-        if(!bucketExist) {
-            //create bucket workgroup-websitetitle
-            uploadS3Service.createS3Bucket(bucketName)
-        }
-
-        //upload Files into bucket
+        //upload Files into bucket subdir
         for (it in mapFiles.keySet()) {
             File file = null
 
@@ -68,13 +62,21 @@ class ExportController {
             file = fileService.createTempFile(null,filename , mapFiles.get(it))
 
             if (file != null) {
-                uploadS3Service.uploadFileToS3Bucket(bucketName, file)
+
+                //check MD5
+                String MD5Local = fileService.MD5ofFile(file)
+                String MD5bucket = uploadS3Service.MD5OfFileInBucket(bucketName,filename, prefix)
+
+                if(!MD5bucket.equals(MD5Local)) {
+                    uploadS3Service.uploadFileToS3Bucket(bucketName, file, prefix)
+                }
+
                 fileService.deleteTempFile(null, filename)
             }
 
         }
         //delete pages that a not existing anymore
-        uploadS3Service.deleteNonExistingPages(bucketName,mapFiles.keySet().toList())
+        uploadS3Service.deleteNonExistingPages(bucketName,mapFiles.keySet().toList(), prefix)
 
         //dummy index html
         if(!mapFiles.keySet().contains('index')) {
@@ -82,52 +84,23 @@ class ExportController {
             def filename = "index.html"
 
             File file = fileService.createTempFile(null,filename ,content)
-            uploadS3Service.uploadFileToS3Bucket(bucketName, file)
+            uploadS3Service.uploadFileToS3Bucket(bucketName, file, prefix)
             fileService.deleteTempFile(null, filename)
         }
 
-
-
         int version = 1
 
         //set version of bucketexport
-        if(uploadS3Service.fileExistsInBucket(bucketName, ResourceHolder.bucketVersionFileName)) {
-            def bucketVersion = uploadS3Service.getWebsiteBucketVersion(bucketName)
+        if(uploadS3Service.fileExistsInBucket(bucketName, ResourceHolder.bucketVersionFileName, prefix)) {
+            def bucketVersion = uploadS3Service.getWebsiteBucketVersion(bucketName, prefix)
             version = bucketVersion.version + 1
         }
-        uploadS3Service.setWebsiteBucketVersion(bucketName,version)
+        uploadS3Service.setWebsiteBucketVersion(bucketName, prefix,version)
 
 
-        //make bucket to websitebucket
-        uploadS3Service.createWebsiteBucketS3Config(bucketName, 'index.html', 'error.html')
-
-        URL url = uploadS3Service.UrlForBucketObject(bucketName, 'index.html')
+        URL url = uploadS3Service.UrlForBucketObject(bucketName, prefix + 'index.html')
 
         redirect url: url
-    }
-
-
-    def version() {
-        int version = 1
-        def bucketName = "versionteeeesstbucket"
-
-        //test if bucket exists
-        def bucketExist = uploadS3Service.doesBucketExist(bucketName)
-
-        if(!bucketExist) {
-            //create bucket workgroup-websitetitle
-            uploadS3Service.createS3Bucket(bucketName)
-        }
-
-        //set version of bucketexport
-        if(uploadS3Service.fileExistsInBucket(bucketName, ResourceHolder.bucketVersionFileName)) {
-            def bucketVersion = uploadS3Service.getWebsiteBucketVersion(bucketName)
-            version = bucketVersion.version + 1
-        }
-        uploadS3Service.setWebsiteBucketVersion(bucketName,version)
-
-        def text = "Version: " + version
-        render text
     }
 
     /**
@@ -153,23 +126,21 @@ class ExportController {
             def item = [:]
             def paramsModel = [:]
 
-            def prefix = ResourceHolder.bucketprefix
-            def bucketName = prefix+ "-" + it.workGroup.name+ "-" + it.title
-            bucketName = bucketName.toLowerCase()
+            def prefix =  it.workGroup.name+ "/" + it.title
 
-            if(uploadS3Service.doesBucketExist(bucketName)){
-                //set version of bucketexport
-                if(uploadS3Service.fileExistsInBucket(bucketName, ResourceHolder.bucketVersionFileName)) {
-                    def bucketVersion = uploadS3Service.getWebsiteBucketVersion(bucketName)
+            def bucketName = ResourceHolder.bucketGlobal
 
-                    String dateS = bucketVersion.date
-                    Long dateLong = parseLong(dateS)
+            if(uploadS3Service.fileExistsInBucket(bucketName, ResourceHolder.bucketVersionFileName, prefix)) {
+                def bucketVersion = uploadS3Service.getWebsiteBucketVersion(bucketName, prefix)
 
-                    def date = new Date(dateLong)
-                    def formattedDate = date.format('yyyy-MM-dd')
-                    item['date'] = formattedDate
-                }
+                String dateS = bucketVersion.date
+                Long dateLong = parseLong(dateS)
+
+                def date = new Date(dateLong)
+                def formattedDate = date.format('yyyy-MM-dd')
+                item['date'] = formattedDate
             }
+
 
             paramsModel['workgroupName'] = it.workGroup.name
             paramsModel['websiteName'] = it.title

@@ -41,16 +41,25 @@ class UploadS3Service {
 
     def FileService fileService
 
+    AmazonS3Client s3client = null
+
     /**
      * Generates a default AmazonS3Client for Eu_West_1 with given Credentials
      * @return default AmazonS3Client
      */
     AmazonS3Client DefaultAmazonS3Client() {
-        AWSCredentials credentials
-        AmazonS3 s3 = new AmazonS3Client(credentials = new ClasspathPropertiesFileCredentialsProvider().getCredentials());
-        Region region = Region.getRegion(Regions.EU_WEST_1);
-        s3.setRegion(region);
-        return s3
+
+        if(s3client == null) {
+
+            AWSCredentials credentials
+            AmazonS3 s3 = new AmazonS3Client(credentials = new ClasspathPropertiesFileCredentialsProvider().getCredentials());
+            Region region = Region.getRegion(Regions.EU_WEST_1);
+            s3.setRegion(region);
+            s3client = s3
+
+        }
+
+        return s3client
     }
 
     /**
@@ -95,7 +104,7 @@ class UploadS3Service {
      * reads a JSON File for version and date of last update
      * @param bucketName
      */
-    def getWebsiteBucketVersion(String bucketName) {
+    def getWebsiteBucketVersion(String bucketName, String prefix) {
 
         def name = ResourceHolder.bucketVersionFileName
         AmazonS3Client s3client = DefaultAmazonS3Client()
@@ -167,7 +176,7 @@ class UploadS3Service {
      * @param bucketName
      * @param version
      */
-    def setWebsiteBucketVersion(String bucketName, int version) {
+    def setWebsiteBucketVersion(String bucketName,String prefix, int version) {
 
         def date = new Date()
 
@@ -180,7 +189,7 @@ class UploadS3Service {
         String jsonContentAsString = jsonContent.toString()
         File tempFile = fileService.createTempFile("", ResourceHolder.bucketVersionFileName ,jsonContentAsString )
 
-        uploadFileToS3Bucket(bucketName, tempFile)
+        uploadFileToS3Bucket(bucketName, tempFile, prefix)
 
         fileService.deleteTempFile("",ResourceHolder.bucketVersionFileName )
     }
@@ -220,12 +229,24 @@ class UploadS3Service {
      * @param pagesNames List of Pagesnames
      */
     def deleteNonExistingPages(String bucketName, List<String> pagesNames) {
+
+        deleteNonExistingPages(bucketName, pagesNames, "")
+    }
+
+    /**
+     * Deletes all non exsiting pages from a bucket
+     * @param bucketName BucketName
+     * @param pagesNames List of Pagesnames
+     * @param prefix Prefix for bucket
+     */
+    def deleteNonExistingPages(String bucketName, List<String> pagesNames, String prefix) {
         //only html files
 
         AmazonS3Client s3 = DefaultAmazonS3Client()
         TransferManager tx = new TransferManager(s3);
 
-        ObjectListing objectListing = s3.listObjects(new ListObjectsRequest().withBucketName(bucketName))
+        ObjectListing objectListing = s3.listObjects(
+                new ListObjectsRequest().withBucketName(bucketName).withPrefix(prefix))
 
         for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
             if(objectSummary.getKey().endsWith('.html')) {
@@ -238,6 +259,7 @@ class UploadS3Service {
             }
         }
     }
+
 
     def uploadFileToS3Bucket(String bucketName, File file) {
         uploadFileToS3Bucket(bucketName,file, "")
@@ -323,13 +345,14 @@ class UploadS3Service {
     }
 
 
-    String MD5OfFileInBucket(String bucketName, String fileName) {
+    String MD5OfFileInBucket(String bucketName, String fileName, String prefix) {
 
         AmazonS3Client s3 = DefaultAmazonS3Client()
         TransferManager tx = new TransferManager(s3);
         String MD5 = null
 
-        ObjectListing objectListing = s3.listObjects(new ListObjectsRequest().withBucketName(bucketName))
+        ObjectListing objectListing = s3.listObjects(
+                new ListObjectsRequest().withBucketName(bucketName).withPrefix(prefix))
 
         for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
 
@@ -342,25 +365,9 @@ class UploadS3Service {
         return MD5
     }
 
-
-    /*
-    private static BucketWebsiteConfiguration getWebsiteConfig(AmazonS3 s3Client, String bucketName) {
-
-        // 1. Get website config.
-        BucketWebsiteConfiguration bucketWebsiteConfiguration =
-                s3Client.getBucketWebsiteConfiguration(bucketName);
-        if (bucketWebsiteConfiguration == null)
-        {
-            System.out.println("No website config.");
-        }
-        else
-        {
-            System.out.println("Index doc:" +
-                    bucketWebsiteConfiguration.getIndexDocumentSuffix());
-            System.out.println("Error doc:" +
-                    bucketWebsiteConfiguration.getErrorDocument());
-        }
-        return bucketWebsiteConfiguration;
+    String MD5OfFileInBucket(String bucketName, String fileName) {
+        MD5OfFileInBucket(bucketName, fileName, "")
     }
-    */
+
+
 }

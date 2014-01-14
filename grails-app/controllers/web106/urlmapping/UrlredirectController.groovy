@@ -1,8 +1,6 @@
 package web106.urlmapping
 
 import web106.ResourceHolder
-import web106.auth.WorkGroup
-import web106.site.Website
 
 class UrlredirectController {
 
@@ -24,7 +22,7 @@ class UrlredirectController {
             workgroupName = params.workgroup
             websiteName =  params.websitename
 
-            def prefix = ResourceHolder.bucketprefix
+            def prefix = ResourceHolder.bucketGlobal
 
             def url = 'https://s3-eu-west-1.amazonaws.com/' + prefix+ "-" + workgroupName+'-'+websiteName+'/'
             url = url.toLowerCase()

@@ -26,24 +26,23 @@ class ResourceHolder {
          Live: '',
          Yahoo: '' ]
 
-    //Later Bucketprefix -> Bucket for project
     /**
-     * Prefix for s3 buckets, because all bucketNames across s3 are unique
+     * Bucket for all Data
      */
-    def static bucketprefix = "de.64pixel.web106"
+    static String bucketGlobal = "de.64pixel.web106"
 
     /**
      * Name for the file in a bucket which holds information of version and date
      */
-    def static bucketVersionFileName = "web106.version"
+    static String bucketVersionFileName = "web106.version"
 
     /**
      * Prefix for uploaded images e.g. gallery
      */
-    def static bucketprefixForImages = "images"
+    static String bucketprefixForImages = "images"
 
     /**
      * Bucket for storing css and js and other needed files
      */
-    def static bucketStaticContent = 'web106static'
+    static String bucketStaticContent = 'web106static'
 }

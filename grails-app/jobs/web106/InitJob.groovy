@@ -1,7 +1,7 @@
 package web106
 
 /**
- * Created by devnull on 10.01.14.
+ * Trigger for bootStrapWeb106Service.init()
  */
 class InitJob {
 
