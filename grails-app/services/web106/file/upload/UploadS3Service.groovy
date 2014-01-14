@@ -275,7 +275,6 @@ class UploadS3Service {
      */
     def uploadFileToS3Bucket(String bucketName, File file , String prefix) {
 
-        print prefix
         AmazonS3Client s3client = DefaultAmazonS3Client()
         TransferManager tx = new TransferManager(s3client);
 

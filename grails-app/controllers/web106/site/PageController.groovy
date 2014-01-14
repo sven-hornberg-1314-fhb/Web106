@@ -136,8 +136,6 @@ class PageController {
 		
 		//page id
 		//check rights
-		
-        print params
 
         def current = Page.find{
             id == params.id
@@ -239,8 +237,6 @@ class PageController {
 		params.template
 		
 		flash.template = params.template
-		print params
-
 	}
 
 

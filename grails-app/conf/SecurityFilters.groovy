@@ -64,7 +64,6 @@ class SecurityFilters {
 
                     String beforeController = session.getAttribute("beforeController");
                     session.removeAttribute("beforeController")
-                    print "set redirect"
 
                     redirect(controller: beforeController)
 
