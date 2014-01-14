@@ -47,6 +47,53 @@ class WebsiteController {
 
     }
 
+    def edit(){
+        def current = Website.find{
+            id == params.id
+        }
+        if(current == null) {
+            redirect action:  'index'
+        } else {
+
+            def title = current.title
+
+
+            session.setAttribute('editwebsiteid',params.id)
+
+            def model = [
+                    title: title,
+                    pages: current.page,
+                    id:params.id
+            ]
+
+            render view:'edit' , model : model
+        }
+    }
+
+    def delete(){
+        //find and delete component
+        def current = Website.find{
+            id == params.id
+        }
+
+        //delete using services
+        /*current?.page.each{
+            pageService.delete(it)
+        }
+
+        websiteService.delete(current)*/
+
+        //delete without services
+        current?.page.each{
+            Page.deleteAll(it)
+        }
+
+        current?.delete()
+
+        //back to index
+        redirect controller: params.controller
+    }
+
     def listown(){
 
         def aworkGroup = WorkGroup.find(){
@@ -142,6 +189,22 @@ class WebsiteController {
 
 
     }
+
+    def remoteSave() {
+
+        def currentWebsite = Website.find{
+            id == session.getAttribute ('editwebsiteid')
+        }
+
+        currentWebsite.title = params.title
+
+        currentWebsite.save(failOnError: true, flush: true)
+
+        //render "200" // Statuscode besser setzen
+
+        redirect view: index()
+    }
+
 
 
 
