@@ -74,13 +74,6 @@ class UploadS3Service {
         return tx.getAmazonS3Client().doesBucketExist(bucketName)
     }
 
-
-    public String generateUrl(String bucketName){
-        String url;
-        url = "https://s3-eu-west-1.amazonaws.com/" + bucketName + '/';
-        return url;
-    }
-
     /**
      * Creates a S3 bucket with name: bucketName
      * @param bucketName name of bucket
@@ -91,12 +84,8 @@ class UploadS3Service {
         TransferManager tx = new TransferManager(s3);
 
         //check if file exists
-        try {
-            if (!doesBucketExist(bucketName)) {
-                tx.getAmazonS3Client().createBucket(bucketName);
-            }
-        } catch (AmazonClientException ace) {
-            System.out.println("Error");
+        if (!doesBucketExist(bucketName)) {
+            tx.getAmazonS3Client().createBucket(bucketName);
         }
     }
 
@@ -113,7 +102,7 @@ class UploadS3Service {
         def returnVal = [:]
 
         GetObjectRequest request = new GetObjectRequest(bucketName, prefix + name);
-        S3Object object = s3client.getObject(request);
+        S3Object object = tx.getAmazonS3Client().getObject(request);
         InputStream objectData = object.getObjectContent();
         // Process the objectData stream.
 
@@ -143,7 +132,7 @@ class UploadS3Service {
         AmazonS3Client s3 = DefaultAmazonS3Client()
         TransferManager tx = new TransferManager(s3);
 
-        ObjectListing objectListing = s3.listObjects(
+        ObjectListing objectListing = tx.getAmazonS3Client().listObjects(
                 new ListObjectsRequest().withBucketName(bucketName).withPrefix(prefix))
 
         for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
@@ -197,44 +186,20 @@ class UploadS3Service {
         fileService.deleteTempFile("",ResourceHolder.bucketVersionFileName )
     }
 
-    def File DownloadFileFromBucket(String bucketName, String fileName) {
-
-        /*
-        AmazonS3Client s3client = DefaultAmazonS3Client()
-        TransferManager tx = new TransferManager(s3client);
-
-        GetObjectRequest request = new GetObjectRequest(bucketName, fileName);
-        S3Object object = s3client.getObject(request);
-        InputStream objectData = object.getObjectContent();
-        // Process the objectData stream.
-        objectData.close();
-
-        InputStream inputStream = objectData;
-        OutputStream outputStream = null;
-
-        final File tempFile = File.createTempFile(PREFIX, SUFFIX);
-        tempFile.deleteOnExit();
-        try (FileOutputStream out = new FileOutputStream(tempFile)) {
-            IOUtils.copy(in, out);
-        }
-        return tempFile;
-            // write the inputStream to a FileOutputStream
-            outputStream =
-                    new FileOutputStream();
-
-
-        */
-    }
-
-
-    def ContentFromFileInBucket(String bucketName, String fileName) {
+    /**
+     * Get the Content of a readable file
+     * @param bucketName BucketName
+     * @param fileName FileName
+     * @return Content as String
+     */
+    String ContentFromFileInBucket(String bucketName, String fileName) {
 
         AmazonS3Client s3Client = DefaultAmazonS3Client()
         TransferManager tx = new TransferManager(s3Client);
 
         GetObjectRequest rangeObjectRequest = new GetObjectRequest(
                 bucketName, fileName);
-        S3Object objectPortion = s3Client.getObject(rangeObjectRequest);
+        S3Object objectPortion = tx.getAmazonS3Client().getObject(rangeObjectRequest);
 
         InputStream objectData = objectPortion.getObjectContent();
         // Process the objectData stream.
@@ -269,7 +234,7 @@ class UploadS3Service {
         AmazonS3Client s3 = DefaultAmazonS3Client()
         TransferManager tx = new TransferManager(s3);
 
-        ObjectListing objectListing = s3.listObjects(
+        ObjectListing objectListing = tx.getAmazonS3Client().listObjects(
                 new ListObjectsRequest().withBucketName(bucketName).withPrefix(prefix))
 
         for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
@@ -293,8 +258,9 @@ class UploadS3Service {
     def deleteFile(String bucketName, String prefix, String key) {
         AmazonS3Client s3 = DefaultAmazonS3Client()
         TransferManager tx = new TransferManager(s3);
-        s3.deleteObject(new DeleteObjectRequest(bucketName, prefix + key))
+        AmazonS3 amazonS3 =  tx.getAmazonS3Client()
 
+        amazonS3.deleteObject(new DeleteObjectRequest(bucketName, prefix + key))
     }
 
 
@@ -313,30 +279,12 @@ class UploadS3Service {
         AmazonS3Client s3client = DefaultAmazonS3Client()
         TransferManager tx = new TransferManager(s3client);
 
-        //check if file exists
-        try {
-            if (!doesBucketExist(bucketName)) {
-                createS3Bucket(bucketName)
-            }
-        } catch (AmazonClientException ace) {
-            System.out.println("Error");
-        }
-
         def keyName = file.name
 
-        try {
-
-            PutObjectRequest por = new PutObjectRequest(bucketName, prefix + keyName, file)
-            por.setCannedAcl(CannedAccessControlList.BucketOwnerFullControl)
-            por.setCannedAcl(CannedAccessControlList.PublicRead)
-            s3client.putObject(por)
-
-
-        }
-        catch (Exception ex) {
-            print ex
-        }
-
+        PutObjectRequest por = new PutObjectRequest(bucketName, prefix + keyName, file)
+        por.setCannedAcl(CannedAccessControlList.BucketOwnerFullControl)
+        por.setCannedAcl(CannedAccessControlList.PublicRead)
+        tx.getAmazonS3Client().putObject(por)
     }
 
     /**
@@ -348,17 +296,9 @@ class UploadS3Service {
     def createWebsiteBucketS3Config(String bucketName, String indexDocFileName, String errorDocFileName ) {
 
         AmazonS3Client s3Client = DefaultAmazonS3Client()
+        TransferManager tx = new TransferManager(s3Client);
 
-        /*
-        AccessControlList acl = s3Client.getBucketAcl(bucketName);
-        acl.grantPermission(GroupGrantee.AllUsers, Permission.Read);
-
-        s3Client.setBucketAcl(bucketName, acl);
-        AccessControlList updatedAcl = s3Client.getBucketAcl(bucketName);
-        */
-
-        // Set new website configuration.
-        s3Client.setBucketWebsiteConfiguration(bucketName,
+        tx.getAmazonS3Client().setBucketWebsiteConfiguration(bucketName,
                 new BucketWebsiteConfiguration(indexDocFileName, errorDocFileName));
     }
 
@@ -372,12 +312,13 @@ class UploadS3Service {
     def UrlForBucketObject(String bucketName, String objectKey) {
 
         AmazonS3Client s3Client = DefaultAmazonS3Client()
+        TransferManager tx = new TransferManager(s3Client);
 
         GeneratePresignedUrlRequest generatePresignedUrlRequest =
                 new GeneratePresignedUrlRequest(bucketName, objectKey);
         generatePresignedUrlRequest.setMethod(HttpMethod.GET); // Default.
 
-        URL s = s3Client.generatePresignedUrl(generatePresignedUrlRequest);
+        URL s = tx.getAmazonS3Client().generatePresignedUrl(generatePresignedUrlRequest);
         return  s
     }
 
@@ -388,7 +329,7 @@ class UploadS3Service {
         TransferManager tx = new TransferManager(s3);
         String MD5 = null
 
-        ObjectListing objectListing = s3.listObjects(
+        ObjectListing objectListing = tx.getAmazonS3Client().listObjects(
                 new ListObjectsRequest().withBucketName(bucketName).withPrefix(prefix))
 
         for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
@@ -409,7 +350,7 @@ class UploadS3Service {
         TransferManager tx = new TransferManager(s3);
         String MD5 = null
 
-        ObjectListing objectListing = s3.listObjects(
+        ObjectListing objectListing = tx.getAmazonS3Client().listObjects(
                 new ListObjectsRequest().withBucketName(bucketName).withPrefix(prefix))
 
         for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
