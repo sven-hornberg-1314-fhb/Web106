@@ -70,7 +70,7 @@ class WebsiteController {
         }
 
         //delete without services
-        current?.page.each{
+        current?.page?.each{
             Page.deleteAll(it)
         }
 
@@ -109,8 +109,6 @@ class WebsiteController {
 
         def selectedWebsite = Website.find{id == website.id}
 
-
-        def title = selectedWebsite.title
         session.setAttribute("activeWebsiteName",selectedWebsite.title)
 
 
@@ -179,8 +177,6 @@ class WebsiteController {
         currentWebsite.title = params.title
 
         currentWebsite.save(failOnError: true, flush: true)
-
-        //render "200" // Statuscode besser setzen
 
         redirect view: index()
     }

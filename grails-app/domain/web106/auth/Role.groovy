@@ -39,4 +39,9 @@ class Role {
         append(authority, role.authority).
         isEquals();
     }
+
+    @Override
+    public int hashCode() {
+        super.hashCode()
+    }
 }

@@ -1,5 +1,6 @@
 package web106.auth
 
+import org.apache.commons.lang.builder.EqualsBuilder
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.AuthorityUtils
 
@@ -60,4 +61,29 @@ class User {
         return  grantedAuthorities
     }
 
+    @Override
+    String toString() {
+        return 'User:' + id + ', email:' + email
+    }
+
+    @Override
+    boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (obj == this)
+            return true;
+        if (!(obj instanceof User))
+            return false;
+
+        User user = (User) obj;
+        return new EqualsBuilder().
+                append(email, user.email).
+                append(grantedAuthorities, user.grantedAuthorities).
+                isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        super.hashCode()
+    }
 }
