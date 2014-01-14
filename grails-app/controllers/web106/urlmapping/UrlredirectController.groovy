@@ -22,14 +22,11 @@ class UrlredirectController {
             workgroupName = params.workgroup
             websiteName =  params.websitename
 
-            def prefix = ResourceHolder.bucketGlobal
+            def global = ResourceHolder.bucketGlobal
 
-            def url = 'https://s3-eu-west-1.amazonaws.com/' + prefix+ "-" + workgroupName+'-'+websiteName+'/'
+            def url = 'https://s3-eu-west-1.amazonaws.com/' + global+ "/" + workgroupName+'/'+websiteName+'/index.html'
             url = url.toLowerCase()
 
-            if(pageName) {
-                url += pageName + "/"
-            }
             redirect(url: url)
         } else {
             render status: 404
