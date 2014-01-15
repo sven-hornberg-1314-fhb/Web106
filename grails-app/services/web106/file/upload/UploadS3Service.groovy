@@ -40,7 +40,7 @@ class UploadS3Service {
      * Generates a default AmazonS3Client for Eu_West_1 with given Credentials
      * @return default AmazonS3Client
      */
-    @Cacheable('')
+    @Cacheable('AmazonS3Client')
     AmazonS3Client DefaultAmazonS3Client() {
 
 
