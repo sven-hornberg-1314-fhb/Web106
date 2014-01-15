@@ -1,7 +1,11 @@
 package web106.site
 
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 import org.apache.commons.lang.builder.EqualsBuilder
 
+@ToString
+@EqualsAndHashCode
 class Template {
 
     static constraints = {
@@ -9,30 +13,4 @@ class Template {
 	
 	String name
 
-    /*
-    @Override
-    String toString() {
-        return 'Template:' + name
-    }
-
-    @Override
-    boolean equals(Object obj) {
-        if (obj == null)
-            return false;
-        if (obj == this)
-            return true;
-        if (!(obj instanceof Template))
-            return false;
-
-        Template template = (Template) obj;
-        return new EqualsBuilder().
-                append(name, template.name).
-                isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        super.hashCode()
-    }
-*/
 }

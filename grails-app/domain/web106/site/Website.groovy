@@ -1,5 +1,7 @@
 package web106.site
 
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 import org.apache.commons.lang.builder.EqualsBuilder
 import web106.auth.WorkGroup
 
@@ -8,6 +10,8 @@ import web106.auth.WorkGroup
  * whole website
  * holds one or many pages and a workgroup
  */
+@ToString
+@EqualsAndHashCode
 class Website {
 
     String title
@@ -25,31 +29,4 @@ class Website {
 		websiteurl nullable:true
 
     }
-/*
-    @Override
-    String toString() {
-        return 'Website:' + id + ', Title:' + title
-    }
-
-    @Override
-    boolean equals(Object obj) {
-        if (obj == null)
-            return false;
-        if (obj == this)
-            return true;
-        if (!(obj instanceof Website))
-            return false;
-
-        Website website = (Website) obj;
-        return new EqualsBuilder().
-                append(title, website.title).
-                append(page, website.page).
-                isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        super.hashCode()
-    }
-*/
 }

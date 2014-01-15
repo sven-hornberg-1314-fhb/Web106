@@ -1,44 +1,19 @@
 package web106.auth
 
-import org.apache.commons.lang.builder.HashCodeBuilder
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 
 /**
  * UserRole domain object
  * connects users and roles in database
  * n-m relationship for user and role
  */
+@ToString
+@EqualsAndHashCode
 class UserRole implements Serializable {
 
 	User user
 	Role role
-
-    /*
-	boolean equals(other) {
-        if (other == null)
-            return false;
-        if (other == this)
-            return true;
-		if (!(other instanceof UserRole)) {
-			return false
-		}
-
-		other.user?.id == user?.id &&
-			other.role?.id == role?.id
-	}
-
-    @Override
-    String toString() {
-        return 'UserRole:' + id + ', User:' + user + ", Role:" + role
-    }
-
-	int hashCode() {
-		def builder = new HashCodeBuilder()
-		if (user) builder.append(user.id)
-		if (role) builder.append(role.id)
-		builder.toHashCode()
-	}
-    *
-    */
 
 	static UserRole get(long userId, long roleId) {
 		find 'from UserRole where user.id=:userId and role.id=:roleId',

@@ -1,10 +1,14 @@
 package web106.site
 
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 import org.apache.commons.lang.builder.EqualsBuilder
 
 /**
  * a single page for a website
  */
+@ToString
+@EqualsAndHashCode
 class Page {
 
 	String title
@@ -39,31 +43,4 @@ class Page {
         visibleTo blank:true
     }
 
-    /*
-    @Override
-    String toString() {
-        return 'Page:' + id + ', Title:' + title
-    }
-
-    @Override
-    boolean equals(Object obj) {
-        if (obj == null)
-            return false;
-        if (obj == this)
-            return true;
-        if (!(obj instanceof Page))
-            return false;
-
-        Page page = (Page) obj;
-        return new EqualsBuilder().
-                append(title, page.title).
-                append(boxes, page.boxes).
-                isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        super.hashCode()
-    }
-*/
 }
