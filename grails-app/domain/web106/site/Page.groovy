@@ -1,8 +1,5 @@
 package web106.site
 
-import web106.auth.WorkGroup
-
-
 /**
  * a single page for a website
  */

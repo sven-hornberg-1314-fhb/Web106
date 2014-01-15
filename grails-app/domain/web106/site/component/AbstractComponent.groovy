@@ -20,7 +20,7 @@ class AbstractComponent {
 	 * @return html
 	 */
 	String renderHTML() {
-			
+        new Exception("override RenderHTML")
 	}
 
     static constraints = {

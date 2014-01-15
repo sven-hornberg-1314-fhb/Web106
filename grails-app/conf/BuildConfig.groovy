@@ -12,7 +12,9 @@ grails.project.fork = [
     //  compile: [maxMemory: 256, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
 
     // configure settings for the test-app JVM, uses the daemon by default
-    test: [ maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
+
+        //commeted for coverrage test cause ( Error Forked Grails VM exited with error)
+    //    test: [ maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
     // configure settings for the run-app JVM
     run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
     // configure settings for the run-war JVM
@@ -51,7 +53,6 @@ grails.project.dependency.resolution = {
         // runtime 'mysql:mysql-connector-java:5.1.24'
 	    runtime 'mysql:mysql-connector-java:5.1.27'
         build 'org.apache.commons:commons-io:1.3.2'
-
 	}
 
     plugins {
@@ -69,7 +70,8 @@ grails.project.dependency.resolution = {
 		compile ":jquery-ui:1.10.3"
 
         compile ":codenarc:0.20"
-        //compile ":clover:3.2.0"
+        //compile ":clover:3.2.0" //Bug with version 2.3 https://jira.atlassian.com/browse/CLOV-1396
+        test ":code-coverage:1.2.7"
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.2" // or ":hibernate4:4.1.11.2"

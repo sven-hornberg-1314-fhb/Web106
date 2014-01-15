@@ -15,6 +15,9 @@ class ExportControllerSpec extends Specification {
     def cleanup() {
     }
 
-    void "test something"() {
+    def "ttest"() {
+        controller.cloudS3()
+
+        assert response.text.contains('Export Cloud S3')
     }
 }

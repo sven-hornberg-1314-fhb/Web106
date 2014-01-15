@@ -1,9 +1,8 @@
 package web106.file
 
 import grails.transaction.Transactional
+import org.apache.commons.codec.digest.DigestUtils
 
-import java.security.DigestInputStream
-import java.security.MessageDigest
 
 @Transactional
 class FileService {
@@ -12,7 +11,7 @@ class FileService {
     File createTempFile(String folder, String fileName, String content) {
 
         String tDir = System.getProperty("java.io.tmpdir");
-        File tempFile = null;
+        File tempFile
         if(folder != null && folder != "") {
 
             tempFile = new File(tDir + "/" + folder + "/" + fileName);
@@ -38,7 +37,7 @@ class FileService {
         def returnVal = false
 
         String tDir = System.getProperty("java.io.tmpdir");
-        File tempFile = null;
+        File tempFile
         try{
 
             if(folder != null && folder != "") {
@@ -65,7 +64,7 @@ class FileService {
 
     String MD5ofFile(File file) {
         FileInputStream fis = new FileInputStream(file)
-        String md5 = org.apache.commons.codec.digest.DigestUtils.md5Hex(fis)
+        String md5 = DigestUtils.md5Hex(fis)
         return md5
     }
 }
