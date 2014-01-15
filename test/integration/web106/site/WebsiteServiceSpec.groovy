@@ -2,7 +2,6 @@ package web106.site
 
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
-import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -16,35 +15,19 @@ class WebsiteServiceSpec extends Specification {
     @Shared Template template
     @Shared Website website
 
-    /*
-    @Autowired
-    private PageService pageService
 
-    void setupSpec() {
-        defineBeans {
-            pageService PageService, ref('grailsApplication')
-
-        }
-    }
-*/
     def setup() {
+
         template = new Template(name:'Berlin')
 
         website = new Website(title : 'simpleWebsite')
         website.page = []
 
-//        service.pageService =  applicationContext.getBean('PageService')
     }
 
-    def cleanup() {
-    }
-
-
-    void "Test if PageService is ready" (){
-        assert grailsApplication.mainContext.getBean('PageService') != null
-    }
-
-
+    /**
+     * Nested Pageservice, with pageRenderer -> needs to be startet with --integration
+     */
     def "create Pages from Website with more than 1 Page"() {
 
         setup:
