@@ -20,7 +20,7 @@ class WorkGroup {
 
     @Override
     String toString() {
-        return 'User:' + id + ', email:' + email
+        return 'Workgroup:' + id
     }
 
     @Override
