@@ -9,12 +9,9 @@ import spock.lang.Specification
 @TestFor(UrlredirectController)
 class UrlredirectControllerSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
 
     void "test something"() {
+
+        print "test me"
     }
 }

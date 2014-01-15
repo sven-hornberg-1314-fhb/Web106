@@ -2,7 +2,6 @@ package web106.site.component
 
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
-import org.apache.commons.lang.builder.EqualsBuilder
 
 /**
  * class for content, like in an editor

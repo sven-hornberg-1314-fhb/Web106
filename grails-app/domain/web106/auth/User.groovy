@@ -2,7 +2,6 @@ package web106.auth
 
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
-import org.apache.commons.lang.builder.EqualsBuilder
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.AuthorityUtils
 

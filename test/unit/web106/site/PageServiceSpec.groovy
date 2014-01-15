@@ -1,6 +1,5 @@
 package web106.site
 
-import grails.gsp.PageRenderer
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import grails.test.mixin.TestMixin
@@ -18,17 +17,6 @@ import web106.site.component.ContentComponent
 @Mock([Page,Template,Box,ContentComponent,WorkGroup])
 @TestMixin(GroovyPageUnitTestMixin)
 class PageServiceSpec extends Specification {
-
-    def PageService pageService
-
-
-
-    def setup() {
-
-    }
-
-    def cleanup() {
-    }
 
     void "Render Page to HTML for berlin template"() {
         setup:

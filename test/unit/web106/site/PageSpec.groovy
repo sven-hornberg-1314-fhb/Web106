@@ -6,7 +6,6 @@ import grails.test.mixin.support.GrailsUnitTestMixin
 import spock.lang.Shared;
 import spock.lang.Specification
 import grails.test.mixin.Mock
-import web106.site.*
 /**
  * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
  */
@@ -23,9 +22,6 @@ class PageSpec extends Specification {
 
         website = new Website(title : 'simpleWebsite')
         website.page = []
-    }
-
-    def cleanup() {
     }
 
     def "page set title"() {

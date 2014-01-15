@@ -10,12 +10,6 @@ import web106.file.FileService
 @TestFor(FileService)
 class FileServiceSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     def "create Tempfile"() {
 
         setup:
@@ -31,7 +25,7 @@ class FileServiceSpec extends Specification {
 
         then:
 
-            tempFile.exists() == true
+            tempFile.exists()
 
     }
 
@@ -50,7 +44,7 @@ class FileServiceSpec extends Specification {
 
         then:
 
-        tempFile.exists() == false
+        !tempFile.exists()
 
     }
 
