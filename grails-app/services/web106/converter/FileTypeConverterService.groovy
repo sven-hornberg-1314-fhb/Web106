@@ -2,7 +2,6 @@ package web106.converter
 
 import grails.transaction.Transactional
 import org.springframework.web.multipart.MultipartFile
-import web106.ResourceHolder
 import web106.file.upload.UploadS3Service
 
 @Transactional
@@ -22,7 +21,7 @@ class FileTypeConverterService {
         OutputStream outputStream
 
         byte [] byteArr= file.getBytes();
-        int read = 0;
+        int read
         byte[] bytes = new byte[1024];
         String extension = "";
         InputStream inputStream = new ByteArrayInputStream(byteArr);

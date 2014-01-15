@@ -54,7 +54,7 @@ class FileService {
                 returnVal = true
             }
 
-        }catch(Exception e){
+        }catch(IOException e){
 
             e.printStackTrace();
         }

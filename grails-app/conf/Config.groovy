@@ -37,6 +37,10 @@ grails.cache.config = {
         timeToIdleSeconds 86400
         timeToLiveSeconds 86400
     }
+
+    cache {
+        name 'AmazonS3Client'
+    }
 }
 
 // URL Mapping Cache Max Size, defaults to 5000

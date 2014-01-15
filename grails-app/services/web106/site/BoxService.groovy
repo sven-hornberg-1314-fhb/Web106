@@ -5,10 +5,10 @@ import grails.transaction.Transactional
 @Transactional
 class BoxService {
 
-    def serviceMethod() {
-
-    }
-	
+    /**
+     * creates a new empty Box
+     * @return new Box
+     */
 	Box newEmptyBox() {
 		return new Box()
 	}

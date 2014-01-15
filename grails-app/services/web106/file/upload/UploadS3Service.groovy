@@ -1,6 +1,5 @@
 package web106.file.upload
 
-import com.amazonaws.AmazonClientException
 import com.amazonaws.HttpMethod
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider
@@ -8,23 +7,19 @@ import com.amazonaws.regions.Region
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3Client
-import com.amazonaws.services.s3.model.AccessControlList
-import com.amazonaws.services.s3.model.Bucket
 import com.amazonaws.services.s3.model.BucketWebsiteConfiguration
 import com.amazonaws.services.s3.model.CannedAccessControlList
 import com.amazonaws.services.s3.model.DeleteObjectRequest
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest
 import com.amazonaws.services.s3.model.GetObjectRequest
-import com.amazonaws.services.s3.model.GroupGrantee
 import com.amazonaws.services.s3.model.ListObjectsRequest
 import com.amazonaws.services.s3.model.ObjectListing
-import com.amazonaws.services.s3.model.Permission
 import com.amazonaws.services.s3.model.PutObjectRequest
 import com.amazonaws.services.s3.model.S3Object
-import com.amazonaws.services.s3.model.S3ObjectInputStream
 import com.amazonaws.services.s3.model.S3ObjectSummary
 import com.amazonaws.services.s3.transfer.TransferManager
 import grails.converters.JSON
+import grails.plugin.cache.Cacheable
 import grails.transaction.Transactional
 import groovy.json.JsonSlurper
 import org.apache.commons.io.IOUtils
@@ -41,25 +36,20 @@ class UploadS3Service {
 
     def FileService fileService
 
-    AmazonS3Client s3client = null
-
     /**
      * Generates a default AmazonS3Client for Eu_West_1 with given Credentials
      * @return default AmazonS3Client
      */
+    @Cacheable('')
     AmazonS3Client DefaultAmazonS3Client() {
 
-        if(s3client == null) {
 
-            AWSCredentials credentials
-            AmazonS3 s3 = new AmazonS3Client(credentials = new ClasspathPropertiesFileCredentialsProvider().getCredentials());
-            Region region = Region.getRegion(Regions.EU_WEST_1);
-            s3.setRegion(region);
-            s3client = s3
+        AWSCredentials credentials
+        AmazonS3 s3 = new AmazonS3Client(credentials = new ClasspathPropertiesFileCredentialsProvider().getCredentials());
+        Region region = Region.getRegion(Regions.EU_WEST_1);
+        s3.setRegion(region);
 
-        }
-
-        return s3client
+        return s3
     }
 
     /**
@@ -347,7 +337,6 @@ class UploadS3Service {
 
         AmazonS3Client s3 = DefaultAmazonS3Client()
         TransferManager tx = new TransferManager(s3);
-        String MD5 = null
 
         ObjectListing objectListing = tx.getAmazonS3Client().listObjects(
                 new ListObjectsRequest().withBucketName(bucketName).withPrefix(prefix))
