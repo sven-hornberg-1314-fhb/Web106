@@ -15,6 +15,7 @@ class ContentComponent extends AbstractComponent{
 	
     String text;
 
+    /*
     @Override
     String toString() {
         return 'AbstractComponent:' + id + ', Name:' + name
@@ -40,4 +41,5 @@ class ContentComponent extends AbstractComponent{
     public int hashCode() {
         super.hashCode()
     }
+    */
 }

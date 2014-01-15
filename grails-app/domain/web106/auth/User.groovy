@@ -61,6 +61,7 @@ class User {
         return  grantedAuthorities
     }
 
+    /*
     @Override
     String toString() {
         return 'User:' + id + ', email:' + email
@@ -86,4 +87,5 @@ class User {
     public int hashCode() {
         super.hashCode()
     }
+    */
 }

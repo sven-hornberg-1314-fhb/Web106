@@ -31,6 +31,7 @@ class AbstractComponent {
     }
 
 
+    /*
     @Override
     String toString() {
         return 'AbstractComponent:' + id + ', Name:' + name
@@ -56,5 +57,5 @@ class AbstractComponent {
     public int hashCode() {
         super.hashCode()
     }
-
+*/
 }

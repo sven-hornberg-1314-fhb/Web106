@@ -12,6 +12,7 @@ class UserRole implements Serializable {
 	User user
 	Role role
 
+    /*
 	boolean equals(other) {
         if (other == null)
             return false;
@@ -36,6 +37,8 @@ class UserRole implements Serializable {
 		if (role) builder.append(role.id)
 		builder.toHashCode()
 	}
+    *
+    */
 
 	static UserRole get(long userId, long roleId) {
 		find 'from UserRole where user.id=:userId and role.id=:roleId',

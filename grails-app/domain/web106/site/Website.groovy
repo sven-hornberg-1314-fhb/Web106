@@ -25,7 +25,7 @@ class Website {
 		websiteurl nullable:true
 
     }
-
+/*
     @Override
     String toString() {
         return 'Website:' + id + ', Title:' + title
@@ -51,5 +51,5 @@ class Website {
     public int hashCode() {
         super.hashCode()
     }
-
+*/
 }

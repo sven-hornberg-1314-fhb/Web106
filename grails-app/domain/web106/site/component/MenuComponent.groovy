@@ -9,6 +9,7 @@ class MenuComponent extends AbstractComponent{
 
     String menuName
 
+    /*
     @Override
     String toString() {
         return 'AbstractComponent:' + id + ', Name:' + name
@@ -34,4 +35,5 @@ class MenuComponent extends AbstractComponent{
     public int hashCode() {
         super.hashCode()
     }
+    */
 }

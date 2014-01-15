@@ -39,6 +39,7 @@ class Page {
         visibleTo blank:true
     }
 
+    /*
     @Override
     String toString() {
         return 'Page:' + id + ', Title:' + title
@@ -64,5 +65,5 @@ class Page {
     public int hashCode() {
         super.hashCode()
     }
-
+*/
 }

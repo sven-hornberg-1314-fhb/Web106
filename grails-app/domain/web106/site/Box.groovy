@@ -12,6 +12,7 @@ class Box {
     List component
     static hasMany = [component:AbstractComponent]
 
+    /*
     @Override
     String toString() {
         return 'Box:' + idName
@@ -37,4 +38,5 @@ class Box {
     public int hashCode() {
         super.hashCode()
     }
+    */
 }

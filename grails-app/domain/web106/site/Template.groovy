@@ -9,6 +9,7 @@ class Template {
 	
 	String name
 
+    /*
     @Override
     String toString() {
         return 'Template:' + name
@@ -33,5 +34,5 @@ class Template {
     public int hashCode() {
         super.hashCode()
     }
-
+*/
 }

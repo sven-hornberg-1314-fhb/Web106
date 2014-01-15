@@ -20,6 +20,7 @@ class Role {
 		authority blank: false, unique: true
 	}
 
+    /*
     @Override
     String toString() {
         return "Role:" + id
@@ -44,4 +45,5 @@ class Role {
     public int hashCode() {
         super.hashCode()
     }
+    */
 }

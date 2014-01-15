@@ -18,6 +18,7 @@ class WorkGroup {
     static constraints = {
     }
 
+    /*
     @Override
     String toString() {
         return 'Workgroup:' + id
@@ -43,4 +44,5 @@ class WorkGroup {
     public int hashCode() {
         super.hashCode()
     }
+    */
 }
