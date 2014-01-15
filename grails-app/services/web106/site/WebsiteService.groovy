@@ -1,6 +1,5 @@
 package web106.site
 
-import grails.converters.JSON
 import grails.transaction.Transactional
 
 @Transactional

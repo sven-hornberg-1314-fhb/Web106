@@ -2,31 +2,32 @@ package web106.site
 
 import grails.plugin.cache.Cacheable
 import grails.transaction.Transactional
-import grails.gsp.PageRenderer
 import web106.ResourceHolder
 
 
 @Transactional
 class PageService {
 
-    PageRenderer groovyPageRenderer
+    def groovyPageRenderer
 
     Page create(final Page page) {
 	
 		return page.save();	
 	}
-	
+
 	Page saveOrUpdate(final Page page) {
-		
+        page.save()
 	}
-	
-	boolean delete(final Page) {
-		
+
+	void delete(final Page page) {
+		page.delete()
+
 	}
-	
-	boolean deleteById(final long id) {
-		
-	}
+
+	void deleteById(final long id) {
+		Page page = Page.findById(id)
+        page.delete()
+    }
 
     /**
      * Generates a String containing a template with components
@@ -35,9 +36,8 @@ class PageService {
      */
     String PageAsHtmlString(final long id ) {
         String content = ""
-        def currentPage = Page.find{
-            id == id
-        }
+        def currentPage = Page.findById(id)
+
         if(null != currentPage) {
 
                 def model = ModelforPageRendering(currentPage)
@@ -49,7 +49,7 @@ class PageService {
                     content = content.substring(1)
                 }
         }
-
+        return content
     }
 
     /**

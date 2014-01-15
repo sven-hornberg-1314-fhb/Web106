@@ -17,12 +17,6 @@ import web106.site.Box
 @TestFor(ContentComponent)
 class ContentComponentSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
 	def "create ContentComponent" () {
 		
 		setup:

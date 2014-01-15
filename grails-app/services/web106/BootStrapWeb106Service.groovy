@@ -12,7 +12,7 @@ class BootStrapWeb106Service {
     def UploadS3Service uploadS3Service
     def FileService fileService
 
-    ResourceLocator grailsResourceLocator
+    def grailsResourceLocator
 
     def js = ResourceHolder.js
     def css = ResourceHolder.css
@@ -38,6 +38,7 @@ class BootStrapWeb106Service {
         if(!uploadS3Service.doesBucketExist(ResourceHolder.bucketGlobal)) {
             //try to create
             uploadS3Service.createS3Bucket(ResourceHolder.bucketGlobal)
+            BucketS3ConfigIndexErrorPage(ResourceHolder.bucketGlobal)
         }
     }
 
@@ -53,7 +54,7 @@ class BootStrapWeb106Service {
         }
     }
 
-    void uploadIndexErrorPage(String bucketName) {
+    void BucketS3ConfigIndexErrorPage(String bucketName) {
 
         uploadS3Service.createWebsiteBucketS3Config(bucketName, 'index.html', 'error.html')
     }

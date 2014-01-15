@@ -9,13 +9,7 @@ import spock.lang.Specification
 @TestFor(ExportController)
 class ExportControllerSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
-    def "ttest"() {
+    def "Route to clouds3"() {
         controller.cloudS3()
 
         assert response.text.contains('Export Cloud S3')

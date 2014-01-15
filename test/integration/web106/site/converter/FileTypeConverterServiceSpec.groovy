@@ -13,12 +13,6 @@ import web106.converter.FileTypeConverterService
 @TestFor(FileTypeConverterService)
 class FileTypeConverterServiceSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     @Ignore
     def "Convert a MultipartFile to File"() {
 
