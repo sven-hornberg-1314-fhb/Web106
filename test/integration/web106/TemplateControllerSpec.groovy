@@ -16,7 +16,9 @@ class TemplateControllerSpec extends Specification {
             controller.berlin()
 
         then:
-            model.containsKey('header')
+            response.status == 200
+
+
     }
 
 }
