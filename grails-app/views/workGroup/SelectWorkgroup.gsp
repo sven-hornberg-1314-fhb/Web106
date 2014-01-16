@@ -17,6 +17,7 @@
 	
 	</div>
 	<div id="main" class="pure-u-5-6">
+
 	    <div class="contentPadding">
 		    <h3>Wähle eine Arbeitsgruppe:</h3>
 		    <g:each in="${workgroup}">
@@ -25,8 +26,16 @@
 		        <button type="submit" class="pure-button"> Arbeitsgruppe: ${it.name}</button>
 		    </g:form>
 		    </g:each>
-	
+
+
 			<h3>eine neue Arbeitsgruppe anlegen:</h3>
+
+            <g:if test="${flash.message}">
+                <ul>
+                    <li> ${flash.message}</li>
+                </ul>
+            </g:if>
+
 			<g:form name="newWorkgroup" action="create">
 			
 				<label>Name der Arbeitsgruppe</label>

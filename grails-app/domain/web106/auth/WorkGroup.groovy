@@ -19,5 +19,8 @@ class WorkGroup {
 	static hasMany = [user:User, website:Website, abstractComponent: AbstractComponent]
 
     static constraints = {
+        name(validator: {
+            return !WorkGroup.findByNameIlike(it)
+        })
     }
 }
