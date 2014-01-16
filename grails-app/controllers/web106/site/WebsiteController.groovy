@@ -38,7 +38,7 @@ class WebsiteController {
 
         def currentWebsite = Website.findById(idValue)
 
-        if(currentWebsite?.id == activeWebsite && currentWebsite?.workGroupId == activeWorkGroup){
+        if(currentWebsite?.workGroupId == activeWorkGroup){
             returnVal = true
         }
 

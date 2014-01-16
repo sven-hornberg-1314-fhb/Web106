@@ -61,7 +61,6 @@ class UrlredirectController {
                 boolean indexPage = uploadS3Service.fileExistsInBucket(global, "index.html", prefix)
                 if(indexPage) {
 
-                    //check page
                     boolean requestedPage = uploadS3Service.fileExistsInBucket(global, pageName , prefix)
                     if(requestedPage) {
 
