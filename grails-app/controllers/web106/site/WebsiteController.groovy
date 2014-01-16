@@ -43,10 +43,12 @@ class WebsiteController {
             websiteTitles = aworkGroup.website.title
         }
 
-        for(int i=0; i< websiteTitles.size(); i++) {
-            websiteTitles[i] = websiteTitles[i].toString().toUpperCase()
+        List<String> websiteTitlesStringlist = websiteTitles.toList()
+        def websiteTitlesUpper = []
+        websiteTitlesStringlist.each {
+            websiteTitlesUpper.add(it.toUpperCase())
         }
-
+        websiteTitles = websiteTitlesUpper
 
         if(!(params.title.toUpperCase() in websiteTitles)){
             website.save(failOnError: true)
@@ -107,6 +109,10 @@ class WebsiteController {
 
     }
 
+    /**
+     * Select website for view listown
+     * @return redirect to index
+     */
     def select() {
         Website website = Website.find {
 
@@ -160,7 +166,10 @@ class WebsiteController {
         render view: 'listwebsites', model: model
     }
 
-    //todo test double usage ?
+    /**
+     * Select website for view listwebsites
+     * @return view SuccessWebsiteSelection
+     */
     def selectWebsites() {
 
         def websiteId = params.id
