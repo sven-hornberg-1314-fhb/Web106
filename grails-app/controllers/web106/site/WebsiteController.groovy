@@ -33,10 +33,28 @@ class WebsiteController {
         website.title = params.title
         website.workGroup = aworkGroup
 
+        def websiteTitles =  []
 
-		website.save(failOnError: true)
+        if (aworkGroup.website != null){
+            websiteTitles = aworkGroup.website.title
+        }
 
-        redirect controller: params.controller
+        for(int i=0; i< websiteTitles.size(); i++) {
+            websiteTitles[i] = websiteTitles[i].toString().toUpperCase()
+        }
+
+
+        if(!(params.title.toUpperCase() in websiteTitles)){
+            website.save(failOnError: true)
+
+            redirect controller: params.controller
+        }
+        else{
+            flash.message = 'Website-Title exisitiert fuer Workgroup bereits'
+            redirect(controller: 'website', action: 'create')
+        }
+
+
 
     }
 
