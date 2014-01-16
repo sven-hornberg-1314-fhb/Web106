@@ -80,6 +80,7 @@ grails.project.dependency.resolution = {
 		runtime ":jquery:1.10.2.2"
 		
         runtime ":resources:1.2.1"
+
         // Uncomment these (or add new ones) to enable additional ResourceHolder capabilities
         //runtime ":zipped-ResourceHolder:1.0.1"
         //runtime ":cached-ResourceHolder:1.1"
