@@ -9,25 +9,39 @@ import web106.UserUtils
  */
 class WorkGroupController {
 
-    static defaultAction = "listWorkGroups"
+    static defaultAction = 'listWorkGroups'
     static allowedMethods = [selectWorkGroup:'POST']
 
 	def create() {
 
 		def mail  = UserUtils.newInstance().emailFromCurrentUser
 		User currentUser = User.find {email== mail}
-		
-		WorkGroup newWorkGroup = new WorkGroup() 
-		newWorkGroup.name = params.name
-		def usersList = [] 
-		usersList.add(newWorkGroup.user)
-		usersList.add(currentUser)
-		
-		newWorkGroup.user = usersList as Set
-		
-		newWorkGroup.save(FailonError: true)
 
-        setCurrentWorkgroup(newWorkGroup.id)
+		WorkGroup newWorkGroup = new WorkGroup()
+		newWorkGroup.name = params.name
+
+        if(!newWorkGroup.validate()){
+            flash.message = 'Name nicht erlaubt'
+            render view: 'SelectWorkgroup'
+
+            def currentWorkgroups = WorkGroup.findAll {user.id == currentUser.id}
+
+            def model = [
+                    workgroup : currentWorkgroups
+            ]
+
+            render view:"SelectWorkgroup", model: model
+        }else{
+            def usersList = []
+            usersList.add(newWorkGroup.user)
+            usersList.add(currentUser)
+
+            newWorkGroup.user = usersList as Set
+
+            newWorkGroup.save(FailonError: true)
+
+            setCurrentWorkgroup(newWorkGroup.id)
+        }
 
 	}
 	
