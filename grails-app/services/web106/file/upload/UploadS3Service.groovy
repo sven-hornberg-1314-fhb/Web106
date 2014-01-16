@@ -52,6 +52,23 @@ class UploadS3Service {
         return s3
     }
 
+    def deleteSubBucket(String bucketName, String prefix){
+
+        AmazonS3Client s3client = DefaultAmazonS3Client()
+        TransferManager tx = new TransferManager(s3client);
+        AmazonS3 amazonS3 = tx.getAmazonS3Client()
+
+        ObjectListing objectListing = tx.getAmazonS3Client().listObjects(
+                new ListObjectsRequest().withBucketName(bucketName).withPrefix(prefix))
+
+        for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+
+            def keyString = objectSummary.getKey()
+            amazonS3.deleteObject(bucketName, keyString)
+        }
+
+    }
+
     /**
      * checks if a bucket exist
      * @param s3client current S3Client

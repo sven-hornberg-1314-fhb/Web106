@@ -1,9 +1,13 @@
 package web106.site
 
+import web106.ResourceHolder
 import web106.auth.WorkGroup
+import web106.file.upload.UploadS3Service
 
 
 class WebsiteController {
+
+    def UploadS3Service uploadS3Service
 
     def activeWorkGroup
     def activeWebsite
@@ -60,10 +64,30 @@ class WebsiteController {
         website.title = params.title
         website.workGroup = aworkGroup
 
+        def websiteTitles =  []
 
-		website.save(failOnError: true)
+        if (aworkGroup.website != null){
+            websiteTitles = aworkGroup.website.title
+        }
 
-        redirect controller: params.controller
+        List<String> websiteTitlesStringlist = websiteTitles.toList()
+        def websiteTitlesUpper = []
+        websiteTitlesStringlist.each {
+            websiteTitlesUpper.add(it.toUpperCase())
+        }
+        websiteTitles = websiteTitlesUpper
+
+        if(!(params.title.toUpperCase() in websiteTitles)){
+            website.save(failOnError: true)
+
+            redirect controller: params.controller
+        }
+        else{
+            flash.message = 'Website-Title exisitiert fuer Workgroup bereits'
+            redirect(controller: 'website', action: 'create')
+        }
+
+
 
     }
 
@@ -78,7 +102,12 @@ class WebsiteController {
             Page.deleteAll(it)
         }
 
+        def prefix =  current.workGroup.name+ "/" + current.title + "/"
+
         current?.delete()
+
+        uploadS3Service.deleteSubBucket(ResourceHolder.bucketGlobal, prefix)
+
 
         //delete from session
         session.removeAttribute('activeWebsite')
@@ -107,6 +136,10 @@ class WebsiteController {
 
     }
 
+    /**
+     * Select website for view listown
+     * @return redirect to index
+     */
     def select() {
         Website website = Website.find {
 
@@ -160,7 +193,10 @@ class WebsiteController {
         render view: 'listwebsites', model: model
     }
 
-    //todo test double usage ?
+    /**
+     * Select website for view listwebsites
+     * @return view SuccessWebsiteSelection
+     */
     def selectWebsites() {
 
         def websiteId = params.id

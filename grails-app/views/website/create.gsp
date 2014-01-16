@@ -36,6 +36,8 @@
         <div class="pure-g-r">
         	<div class="pure-u-1-8"></div>
             <div class="pure-u-1-2"><h3>Legen Sie Ihre Webseite an</h3></div>
+
+
         </div>
 
         <div class="pure-g-r">
@@ -44,9 +46,14 @@
             <div class="pure-u-1-4">
                 <g:textField name="title" placeholder="Titel" required="true"/>
             </div>
+
         </div>
 
-
+        <g:if test="${flash.message}">
+            <ul>
+                <li> ${flash.message}</li>
+            </ul>
+        </g:if>
 
         <div class="pure-g-r">
          
