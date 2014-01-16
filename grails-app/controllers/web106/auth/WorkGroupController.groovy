@@ -27,7 +27,8 @@ class WorkGroupController {
 		
 		newWorkGroup.save(FailonError: true)
 
-		redirect( action: "listWorkGroups")
+        setCurrentWorkgroup(newWorkGroup.id)
+
 	}
 	
     def listWorkGroups() {
@@ -46,20 +47,21 @@ class WorkGroupController {
 
     def selectWorkGroup() {
 
-      long workId = Long.parseLong(params.workId)
+       setCurrentWorkgroup(params.workId)
 
-       session.setAttribute("activeWorkGroup",workId)
+    }
 
-       def selectedWorkgroup = WorkGroup.find{id == workId}
-       def name = selectedWorkgroup.name
-       session.setAttribute("activeWorkGroupName",selectedWorkgroup.name)
+    def setCurrentWorkgroup(workId){
+        session.setAttribute("activeWorkGroup",workId)
 
-       //reset activeWebsite
-       session.removeAttribute('activeWebsite')
-	   
-       render view: "SuccessWorkgroupSelection", model:[name: name]
+        def selectedWorkgroup = WorkGroup.find{id == workId}
+        def name = selectedWorkgroup.name
+        session.setAttribute("activeWorkGroupName",selectedWorkgroup.name)
 
+        //reset activeWebsite
+        session.removeAttribute('activeWebsite')
 
+        render view: "SuccessWorkgroupSelection", model:[name: name]
     }
 
 }

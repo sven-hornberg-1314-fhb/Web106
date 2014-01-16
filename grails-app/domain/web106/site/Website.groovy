@@ -15,6 +15,7 @@ class Website {
 
     String title
 	String websiteurl
+    boolean exported = false
 
     List page
 

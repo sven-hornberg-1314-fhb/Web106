@@ -75,6 +75,7 @@ class ExportController {
             }
 
         }
+
         //delete pages that a not existing anymore
         uploadS3Service.deleteNonExistingPages(bucketName,mapFiles.keySet().toList(), prefix)
 
@@ -99,6 +100,8 @@ class ExportController {
 
 
         URL url = uploadS3Service.UrlForBucketObject(bucketName, prefix + 'index.html')
+
+        website.exported = true
 
         redirect url: url
     }
@@ -147,6 +150,7 @@ class ExportController {
 
             item['id'] = it.id
             item['title'] = it.title
+            item['exported'] = it.exported
             item['paramsModel'] = paramsModel
             websitesView.add(item)
 
