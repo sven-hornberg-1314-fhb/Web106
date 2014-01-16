@@ -59,12 +59,6 @@ class WorkGroupController {
         render view:"SelectWorkgroup", model: model
     }
 
-    def selectWorkGroup() {
-
-       setCurrentWorkgroup(params.workId)
-
-    }
-
     def setCurrentWorkgroup(workId){
         session.setAttribute("activeWorkGroup",workId)
 

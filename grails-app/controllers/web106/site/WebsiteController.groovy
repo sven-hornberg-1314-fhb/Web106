@@ -80,14 +80,13 @@ class WebsiteController {
         if(!(params.title.toUpperCase() in websiteTitles)){
             website.save(failOnError: true)
 
-            redirect controller: params.controller
+            select(website.id)
+
         }
         else{
             flash.message = 'Website-Title exisitiert fuer Workgroup bereits'
             redirect(controller: 'website', action: 'create')
         }
-
-
 
     }
 
@@ -141,10 +140,11 @@ class WebsiteController {
      * Select website for view listown
      * @return redirect to index
      */
-    def select() {
+    def select(websiteId) {
+
         Website website = Website.find {
 
-            id == params.id
+            id == websiteId
         }
 
         session.setAttribute("activeWebsite", website.id)
@@ -152,8 +152,6 @@ class WebsiteController {
         def selectedWebsite = Website.find{id == website.id}
 
         session.setAttribute("activeWebsiteName",selectedWebsite.title)
-
-
 
         redirect controller: params.controller
 
