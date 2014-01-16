@@ -1,9 +1,13 @@
 package web106.site
 
+import web106.ResourceHolder
 import web106.auth.WorkGroup
+import web106.file.upload.UploadS3Service
 
 
 class WebsiteController {
+
+    def UploadS3Service uploadS3Service
 
     def activeWorkGroup
 
@@ -69,7 +73,12 @@ class WebsiteController {
             Page.deleteAll(it)
         }
 
+        def prefix =  current.workGroup.name+ "/" + current.title + "/"
+
         current?.delete()
+
+        uploadS3Service.deleteSubBucket(ResourceHolder.bucketGlobal, prefix)
+
 
         //delete from session
         session.removeAttribute('activeWebsite')
