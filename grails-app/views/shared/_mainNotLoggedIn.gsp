@@ -11,7 +11,7 @@
         <h1 style="text-align: center">Web106 Homepagebaukasten</h1>
     </div>
 
-    <div class="pure-g content" style="min-height: 18em;">
+    <div class="pure-u-1 content" style="min-height: 18em;">
         <div class="pure-u-1-4"></div>
         <div class="pure-u-1-2">
             <div style="height: 200px; width: 100%; background-color: khaki">
