@@ -52,3 +52,5 @@ projectFilesBackup/
 .project
 *~
 AwsCredentials.properties
+out/
+cobertura.ser
