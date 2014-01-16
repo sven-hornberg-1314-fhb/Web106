@@ -23,6 +23,43 @@ class ExportController {
 
     def PageService pageService
 
+
+    def activeWorkGroup
+    def activeWebsite
+
+    def beforeInterceptor = {
+
+        def activeWorkGroupSession = session.getAttribute('activeWorkGroup')
+        activeWorkGroup = activeWorkGroupSession
+
+        def activeWebsiteSession = session.getAttribute('activeWebsite')
+        activeWebsite = activeWebsiteSession
+
+        try {
+            if(params.id != null && !IsAllowed(params.id as long)) {
+                render status: 403, text: "Sie verfügen nicht über ausreichend Rechte um auf diesen Inhalt zuzugreifen."
+                return false
+            }
+        }
+        catch (NumberFormatException) {
+            render status: 403, text: "Sie verfügen nicht über ausreichend Rechte um auf diesen Inhalt zuzugreifen."
+            return false
+        }
+    }
+
+    boolean IsAllowed(long idValue) {
+
+        boolean returnVal = false
+
+        def currentWebsite = Website.findById(idValue)
+
+        if(currentWebsite?.id == activeWebsite && currentWebsite?.workGroupId == activeWorkGroup){
+            returnVal = true
+        }
+
+        return returnVal
+    }
+
     def index() {
 
         render view: "index"
