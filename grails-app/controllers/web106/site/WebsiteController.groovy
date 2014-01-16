@@ -40,29 +40,6 @@ class WebsiteController {
 
     }
 
-    def edit(){
-        def current = Website.find{
-            id == params.id
-        }
-        if(current == null) {
-            redirect action:  'index'
-        } else {
-
-            def title = current.title
-
-
-            session.setAttribute('editwebsiteid',params.id)
-
-            def model = [
-                    title: title,
-                    pages: current.page,
-                    id:params.id
-            ]
-
-            render view:'edit' , model : model
-        }
-    }
-
     def delete(){
         //find and delete component
         def current = Website.find{
@@ -75,6 +52,10 @@ class WebsiteController {
         }
 
         current?.delete()
+
+        //delete from session
+        session.removeAttribute('activeWebsite')
+        session.removeAttribute('activeWebsiteName')
 
         //back to index
         redirect controller: params.controller
