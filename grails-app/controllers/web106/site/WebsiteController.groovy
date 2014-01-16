@@ -76,6 +76,7 @@ class WebsiteController {
         }
 
         def prefix =  current.workGroup.name+ "/" + current.title + "/"
+        prefix = prefix.toLowerCase()
 
         current?.delete()
 

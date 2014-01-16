@@ -178,15 +178,18 @@ class PageController {
         }
 
         if(current) {
-            current?.boxes.each {
+            current.boxes?.each {
                 Box.deleteAll(it)
             }
+
+
+            current.delete(failOnError: true)
+
+            //back to index
+            redirect controller: params.controller
+        } else {
+
         }
-
-        current.delete(failOnError: true)
-
-        //back to index
-        redirect controller: params.controller
     }
 
     def remoteDrop(){
@@ -230,7 +233,7 @@ class PageController {
 
         currentPage.save(failOnError: true, flush: true)
 
-        render "200" // Statuscode besser setzen
+        render status: 200
     }
 	
 	def selecttemplate() {

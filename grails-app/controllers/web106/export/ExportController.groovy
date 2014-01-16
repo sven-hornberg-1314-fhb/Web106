@@ -48,6 +48,7 @@ class ExportController {
         Map<String,String> mapFiles = websiteService.createPagesForWebsite(website)
 
         def prefix =  website.workGroup.name+ "/" + website.title + "/"
+        prefix = prefix.toLowerCase()
 
         def bucketName = ResourceHolder.bucketGlobal
 
@@ -130,6 +131,8 @@ class ExportController {
             def paramsModel = [:]
 
             def prefix =  it.workGroup.name+ "/" + it.title + "/"
+            prefix = prefix.toLowerCase()
+
 
             def bucketName = ResourceHolder.bucketGlobal
 

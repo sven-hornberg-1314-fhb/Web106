@@ -14,7 +14,7 @@
         </g:if>
         </td>
 
-        <td><g:link class="pure-button" action="cloudS3export" id="${site.id}"><i class="fa fa-cloud-upload"></i></g:link></td>
+        <td><g:link target="_blank" class="pure-button" action="cloudS3export" id="${site.id}"><i class="fa fa-cloud-upload"></i></g:link></td>
         <td>${site.date}</td>
     </tr>
 

@@ -21,6 +21,8 @@ class ImageController {
         }
 
         def prefix =  website.workGroup.name+ "/" + website.title + "/" + ResourceHolder.bucketprefixForImages + "/"
+        prefix = prefix.toLowerCase()
+
         def list = uploadS3Service.FileNamesInBucket(ResourceHolder.bucketGlobal, prefix)
 
         def listWithBucketprefix = []

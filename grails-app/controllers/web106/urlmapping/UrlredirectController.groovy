@@ -55,6 +55,7 @@ class UrlredirectController {
                 def content= ""
                 def global = ResourceHolder.bucketGlobal
                 def prefix =  workgroupName + "/" + websiteName + "/"
+                prefix = prefix.toLowerCase()
 
                 //check for indexSite : means Website is online
                 boolean indexPage = uploadS3Service.fileExistsInBucket(global, "index.html", prefix)
