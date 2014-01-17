@@ -24,12 +24,12 @@ class ContentComponentController {
 
         try {
             if(params.id != null && !IsAllowed(params.id as long)) {
-                render status: 403, text: "Sie verfügen nicht über ausreichend Rechte um auf diesen Inhalt zuzugreifen."
+                redirect(controller: 'errorsWeb106', action: 'accessDenied')
                 return false
             }
         }
         catch (NumberFormatException) {
-            render status: 403, text: "Sie verfügen nicht über ausreichend Rechte um auf diesen Inhalt zuzugreifen."
+            redirect(controller: 'errorsWeb106', action: 'accessDenied')
             return false
         }
     }
