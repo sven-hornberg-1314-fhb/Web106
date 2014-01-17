@@ -19,7 +19,7 @@
         <div class="contentPadding">
 
             <h3>Website &nbsp;  <i>${title}</i>  &nbsp;  erfolgreich ausgewählt:</h3>
-            <g:link class="pure-button" controller="workGroup">Zurück</g:link>
+            <g:link class="pure-button" controller="website">Zurück</g:link>
         </div>
     </div>
 </div>

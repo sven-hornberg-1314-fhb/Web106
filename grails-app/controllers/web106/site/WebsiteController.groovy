@@ -12,6 +12,9 @@ class WebsiteController {
     def activeWorkGroup
     def activeWebsite
 
+    static allowedMethods = [create2: 'POST']
+
+
     def beforeInterceptor = {
 
         def activeWorkGroupSession = session.getAttribute('activeWorkGroup')
