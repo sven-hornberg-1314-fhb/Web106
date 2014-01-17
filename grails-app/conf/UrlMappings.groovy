@@ -17,7 +17,8 @@ class UrlMappings {
 
         //"/"(view:"/index")
         "500"(view:'/error')
-        "404"(view:'/error')
+        "404"([controller: "errorsWeb106", action: 'accessDenied'])
+        "405"([controller: "errorsWeb106", action: 'MethodNotAllowed'])
 
     }
 }

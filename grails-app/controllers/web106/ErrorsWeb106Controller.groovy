@@ -9,15 +9,22 @@ class ErrorsWeb106Controller {
     }
 
     def defaultError() {
-        render "es ist ein Fehler aufgetreten"
+        render view: 'default'
     }
 
 	def accessDenied(){
         render view: 'accessDenied'
 	}
 
+    /**
+     * Statuscode 405
+     */
+    def MethodNotAllowed() {
+        render view: '405'
+    }
+
     def oauth() {
-        render "Es scheint so, als wäre der Provider nicht erreichbar."
+        render view: 'oauth'
     }
 
 }

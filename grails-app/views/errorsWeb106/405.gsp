@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Zugriff Verweigert</title>
+    <title>Aktion nicht erlaubt</title>
 
     <g:render template="/shared/header" />
 
@@ -20,9 +20,9 @@
     </div>
     <div id="main" class="pure-u-5-6">
         <div class="contentPadding">
-            <h3>Der Zugriff auf die angeforderte Ressource ist nicht erlaubt.</h3>
+            <h3>Aktion nicht erlaubt</h3>
 
-            <p><i class="fa fa-exclamation-triangle"></i>&nbsp;Sie verfügen nicht über ausreichend Rechte um auf diesen Inhalt zuzugreifen.</p>
+            <p><i class="fa fa-exclamation-triangle"></i>&nbsp; Sie haben versucht eine Aktion auszuführen, die Ihnen nicht erlaubt ist.</p>
 
         </div>
     </div>
