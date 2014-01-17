@@ -20,9 +20,9 @@
     </div>
     <div id="main" class="pure-u-5-6">
         <div class="contentPadding">
-            <h3>Aktion nicht erlaubt</h3>
+            <h3><g:message code="error.access.notallowed" /></h3>
 
-            <p><i class="fa fa-exclamation-triangle"></i>&nbsp; Sie haben versucht eine Aktion auszuführen, die Ihnen nicht erlaubt ist.</p>
+            <p><i class="fa fa-exclamation-triangle"></i>&nbsp;<g:message code="error.access.notallowed.sub" /></p>
 
         </div>
     </div>

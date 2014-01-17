@@ -16,9 +16,9 @@
 
     <div id="main" class="pure-u-1">
         <div class="contentPadding">
-            <h3>Provider ist nicht erreichbar</h3>
+            <h3><g:message code="error.access.oauth" /></h3>
 
-            <p><i class="fa fa-exclamation-triangle"></i>&nbsp;Der gewählte Provider steht zur Zeit nicht zur Verfügung.</p>
+            <p><i class="fa fa-exclamation-triangle"></i>&nbsp; <g:message code="error.access.oauth.sub" /></p>
 
             <a href="${createLink(uri: '/')}"><div class="pure-button">Startseite</div></a>
         </div>
