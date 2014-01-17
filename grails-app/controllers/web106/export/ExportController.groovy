@@ -179,6 +179,8 @@ class ExportController {
                 def date = new Date(dateLong)
                 def formattedDate = date.format('yyyy-MM-dd')
                 item['date'] = formattedDate
+                item['exported'] = true
+
             }
 
 
@@ -187,7 +189,6 @@ class ExportController {
 
             item['id'] = it.id
             item['title'] = it.title
-            item['exported'] = it.exported
             item['paramsModel'] = paramsModel
             websitesView.add(item)
 
