@@ -14,13 +14,14 @@
         </g:if>
 
         <div class="pure-u-1 content">
-            <p>
+
                 <oauth:connect provider="google"><img src="${resource(dir:'images/assets', file:'google.png')}"/></oauth:connect>&nbsp;
 
                 <!--<oauth:connect provider="twitter">-->
                     <img class="greyout" src="${resource(dir:'images/assets', file:'twitter.png')}"/>
                 <!--</oauth:connect>-->
-            </p>
+        </div>
+        <div class="pure-u-1 content">
             <g:link controller="logout" action="index"><button class="pure-button" >Zurück</button></button></g:link>
         </div>
 

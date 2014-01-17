@@ -40,7 +40,8 @@ class WorkGroupController {
 
             newWorkGroup.save(FailonError: true)
 
-            setCurrentWorkgroup(newWorkGroup.id)
+            params.workId = newWorkGroup.id as String
+            selectWorkGroup()
         }
 
 	}
@@ -59,7 +60,9 @@ class WorkGroupController {
         render view:"SelectWorkgroup", model: model
     }
 
-    def setCurrentWorkgroup(workId){
+    def selectWorkGroup(){
+
+        long workId = Long.parseLong(params.workId)
         session.setAttribute("activeWorkGroup",workId)
 
         def selectedWorkgroup = WorkGroup.find{id == workId}

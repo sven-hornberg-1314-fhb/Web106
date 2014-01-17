@@ -80,7 +80,8 @@ class WebsiteController {
         if(!(params.title.toUpperCase() in websiteTitles)){
             website.save(failOnError: true)
 
-            select(website.id)
+            params.id = website.id
+            select()
 
         }
         else{
@@ -140,11 +141,11 @@ class WebsiteController {
      * Select website for view listown
      * @return redirect to index
      */
-    def select(websiteId) {
+    def select() {
 
         Website website = Website.find {
 
-            id == websiteId
+            id == params.id
         }
 
         session.setAttribute("activeWebsite", website.id)
@@ -153,7 +154,7 @@ class WebsiteController {
 
         session.setAttribute("activeWebsiteName",selectedWebsite.title)
 
-        redirect controller: params.controller
+        selectWebsites()
 
     }
 

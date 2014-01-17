@@ -71,3 +71,25 @@ body {
 .dropbox {
     min-height: 10em;
 }
+
+#login {
+    margin: 15px 0px;
+    padding: 0px;
+    text-align: center;
+    position:absolute;
+    left:30%;
+    top:10%;
+}
+
+#login .inner .fheader {
+    padding: 18px 26px 14px 26px;
+    background-color: #f7f7ff;
+    margin: 0px 0 14px 0;
+    color: #2e3741;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#login .inner .content{
+    margin-bottom: 20px;
+}
