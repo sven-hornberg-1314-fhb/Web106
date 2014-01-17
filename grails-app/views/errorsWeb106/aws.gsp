@@ -20,9 +20,9 @@
     </div>
     <div id="main" class="pure-u-5-6">
         <div class="contentPadding">
-            <h3>AWS Fehler</h3>
+            <h3><g:message code="error.access.aws" /></h3>
 
-            <p><i class="fa fa-exclamation-triangle"></i>&nbsp; Bei der Verarbeitung ist ein Fehler aufgetreten.</p>
+            <p><i class="fa fa-exclamation-triangle"></i>&nbsp; <g:message code="error.access.aws.sub" /></p>
 
         </div>
     </div>

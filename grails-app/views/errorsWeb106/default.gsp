@@ -20,9 +20,9 @@
     </div>
     <div id="main" class="pure-u-5-6">
         <div class="contentPadding">
-            <h3>Es ist ein Fehler aufgetreten.</h3>
+            <h3><g:message code="error.access.default" /></h3>
 
-            <p><i class="fa fa-exclamation-triangle"></i>&nbsp; Beschreiben Sie Ihre Aktion und melden Sie diesen Fehler.</p>
+            <p><i class="fa fa-exclamation-triangle"></i>&nbsp; <g:message code="error.access.default.sub" /></p>
 
         </div>
     </div>
