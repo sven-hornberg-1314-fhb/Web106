@@ -24,13 +24,12 @@
 
                             var draggableId = ui.draggable.attr("id");
                             var droppableId = $(this).attr("id");
+                            console.log(draggableId)
 
                             var box = new Object();
                             box.dragId = draggableId;
                             box.dropId = droppableId;
                             contentToBox(box);
-
-
 
                             $(this).appendTo($('#'+draggableId).html())
 
@@ -43,6 +42,16 @@
                     });
                 
         });
+
+        function reload(){
+            $.ajax({
+                url: "",
+                context: document.body,
+                success: function(s,x){
+                    $(this).html(s);
+                }
+            });
+        }
 
         function contentToBox(values) {
             <g:remoteFunction action="remoteDrop" params="values" asynchronous="true" ></g:remoteFunction>
@@ -63,12 +72,19 @@
 <div class="pure-g-r">
                 <div class="pure-u-1">
                     <div class="pure-g-r">
-                       <div class="pure-u-1-12"><g:link class="pure-button" uri="/">Start</g:link></div>
+                       <div class="pure-u-1-8"><g:link class="pure-button" uri="/">Start</g:link></div>
                        <div class="pure-u-1-6"><g:link class="pure-button" controller="page" action="preview" id="${id}" target="_blank">
                            <i class="fa fa-eye "></i> Vorschau</g:link>
                        </div>
-                       <div class="pure-u-1-12"><a class="pure-button" href="JavaScript:save(${id})" >
+                       <div class="pure-u-1-6"><a class="pure-button" href="JavaScript:save(${id})" >
                            <i class="fa fa-floppy-o "></i> Speichern</a></div>
+
+                        <div class="pure-u-1-12">
+
+                            <a class="pure-button" href="JavaScript:reload()" >
+                                <i class="fa fa-floppy-o "></i> Neu Anordnen</a>
+
+                        </div>
                     </div>
                 </div>
 
