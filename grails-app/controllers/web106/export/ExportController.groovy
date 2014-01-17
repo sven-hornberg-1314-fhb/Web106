@@ -136,12 +136,9 @@ class ExportController {
         }
         uploadS3Service.setWebsiteBucketVersion(bucketName, prefix,version)
 
-
-        URL url = uploadS3Service.UrlForBucketObject(bucketName, prefix + 'index.html')
-
         website.exported = true
 
-        redirect url: url
+        redirect action: 'cloudS3'
     }
 
     /**
