@@ -77,68 +77,78 @@ class ExportController {
      */
     def cloudS3export() {
 
-        Website website = Website.find() {
-            id == params.id
-        }
+        try {
 
-        //pageName : content
-        Map<String,String> mapFiles = websiteService.createPagesForWebsite(website)
+            Website website = Website.find() {
+                id == params.id
+            }
 
-        def prefix =  website.workGroup.name+ "/" + website.title + "/"
-        prefix = prefix.toLowerCase()
+            //pageName : content
+            Map<String,String> mapFiles = websiteService.createPagesForWebsite(website)
 
-        def bucketName = ResourceHolder.bucketGlobal
+            def prefix =  website.workGroup.name+ "/" + website.title + "/"
+            prefix = prefix.toLowerCase()
+
+            def bucketName = ResourceHolder.bucketGlobal
 
 
 
-        //upload Files into bucket subdir
-        for (it in mapFiles.keySet()) {
-            File file = null
+            //upload Files into bucket subdir
+            for (it in mapFiles.keySet()) {
+                File file = null
 
-            def filename = it + ".html"
+                def filename = it + ".html"
 
-            file = fileService.createTempFile(null,filename , mapFiles.get(it))
+                file = fileService.createTempFile(null,filename , mapFiles.get(it))
 
-            if (file != null) {
+                if (file != null) {
 
-                //check MD5
-                String MD5Local = fileService.MD5ofFile(file)
-                String MD5bucket = uploadS3Service.MD5OfFileInBucket(bucketName,filename, prefix)
+                    //check MD5
+                    String MD5Local = fileService.MD5ofFile(file)
+                    String MD5bucket = uploadS3Service.MD5OfFileInBucket(bucketName,filename, prefix)
 
-                if(!MD5bucket.equals(MD5Local)) {
-                    uploadS3Service.uploadFileToS3Bucket(bucketName, file, prefix)
+                    if(!MD5bucket.equals(MD5Local)) {
+                        uploadS3Service.uploadFileToS3Bucket(bucketName, file, prefix)
+                    }
+
+                    fileService.deleteTempFile(null, filename)
                 }
 
+            }
+
+            //delete pages that a not existing anymore
+            uploadS3Service.deleteNonExistingPages(bucketName,mapFiles.keySet().toList(), prefix)
+
+            //dummy index html
+            if(!mapFiles.keySet().contains('index')) {
+                String content = pageService.createDummyIndexPage(mapFiles.keySet().toList())
+                def filename = "index.html"
+
+                File file = fileService.createTempFile(null,filename ,content)
+                uploadS3Service.uploadFileToS3Bucket(bucketName, file, prefix)
                 fileService.deleteTempFile(null, filename)
             }
 
+            int version = 1
+
+            //set version of bucketexport
+            if(uploadS3Service.fileExistsInBucket(bucketName, ResourceHolder.bucketVersionFileName, prefix)) {
+                def bucketVersion = uploadS3Service.getWebsiteBucketVersion(bucketName, prefix)
+                version = bucketVersion.version + 1
+            }
+            uploadS3Service.setWebsiteBucketVersion(bucketName, prefix,version)
+
+            website.exported = true
+
+            redirect action: 'cloudS3'
+
+        } catch (AmazonServiceException) {
+            redirect controller: 'errorsWeb106' ,view: 'aws'
+        } catch (AmazonClientException) {
+            redirect controller: 'errorsWeb106' ,view: 'aws'
+        } catch (UnexpectedRollbackException) {
+            redirect controller: 'errorsWeb106' ,view: 'aws'
         }
-
-        //delete pages that a not existing anymore
-        uploadS3Service.deleteNonExistingPages(bucketName,mapFiles.keySet().toList(), prefix)
-
-        //dummy index html
-        if(!mapFiles.keySet().contains('index')) {
-            String content = pageService.createDummyIndexPage(mapFiles.keySet().toList())
-            def filename = "index.html"
-
-            File file = fileService.createTempFile(null,filename ,content)
-            uploadS3Service.uploadFileToS3Bucket(bucketName, file, prefix)
-            fileService.deleteTempFile(null, filename)
-        }
-
-        int version = 1
-
-        //set version of bucketexport
-        if(uploadS3Service.fileExistsInBucket(bucketName, ResourceHolder.bucketVersionFileName, prefix)) {
-            def bucketVersion = uploadS3Service.getWebsiteBucketVersion(bucketName, prefix)
-            version = bucketVersion.version + 1
-        }
-        uploadS3Service.setWebsiteBucketVersion(bucketName, prefix,version)
-
-        website.exported = true
-
-        redirect action: 'cloudS3'
     }
 
     /**
@@ -146,58 +156,68 @@ class ExportController {
      * @return
      */
     def listown() {
-        def aWorkgroupId = session.getAttribute("activeWorkGroup")
 
-        WorkGroup aWorkgroup = WorkGroup.find {
-            id == aWorkgroupId
-        }
+        try {
 
-        def websites = Website.findAll() {
-            workGroup == aWorkgroup
-        }
+            def aWorkgroupId = session.getAttribute("activeWorkGroup")
 
-        def model = [:]
+            WorkGroup aWorkgroup = WorkGroup.find {
+                id == aWorkgroupId
+            }
 
-        def websitesView = []
-        websites.each {
+            def websites = Website.findAll() {
+                workGroup == aWorkgroup
+            }
 
-            def item = [:]
-            def paramsModel = [:]
+            def model = [:]
 
-            def prefix =  it.workGroup.name+ "/" + it.title + "/"
-            prefix = prefix.toLowerCase()
+            def websitesView = []
+            websites.each {
+
+                def item = [:]
+                def paramsModel = [:]
+
+                def prefix =  it.workGroup.name+ "/" + it.title + "/"
+                prefix = prefix.toLowerCase()
 
 
-            def bucketName = ResourceHolder.bucketGlobal
+                def bucketName = ResourceHolder.bucketGlobal
 
-            if(uploadS3Service.fileExistsInBucket(bucketName, ResourceHolder.bucketVersionFileName, prefix)) {
-                def bucketVersion = uploadS3Service.getWebsiteBucketVersion(bucketName, prefix)
+                if(uploadS3Service.fileExistsInBucket(bucketName, ResourceHolder.bucketVersionFileName, prefix)) {
+                    def bucketVersion = uploadS3Service.getWebsiteBucketVersion(bucketName, prefix)
 
-                String dateS = bucketVersion.date
-                Long dateLong = parseLong(dateS)
+                    String dateS = bucketVersion.date
+                    Long dateLong = parseLong(dateS)
 
-                def date = new Date(dateLong)
-                def formattedDate = date.format('yyyy-MM-dd')
-                item['date'] = formattedDate
-                item['exported'] = true
+                    def date = new Date(dateLong)
+                    def formattedDate = date.format('yyyy-MM-dd')
+                    item['date'] = formattedDate
+                    item['exported'] = true
+
+                }
+
+
+                paramsModel['workgroupName'] = it.workGroup.name
+                paramsModel['websiteName'] = it.title
+
+                item['id'] = it.id
+                item['title'] = it.title
+                item['paramsModel'] = paramsModel
+                websitesView.add(item)
 
             }
 
 
-            paramsModel['workgroupName'] = it.workGroup.name
-            paramsModel['websiteName'] = it.title
+            model['websites'] = websitesView
+            model['project'] = grails.util.Metadata.current.'app.name'
 
-            item['id'] = it.id
-            item['title'] = it.title
-            item['paramsModel'] = paramsModel
-            websitesView.add(item)
-
+            render view : "listown", model: model
+        } catch (AmazonServiceException) {
+            redirect controller: 'errorsWeb106' ,view: 'aws'
+        } catch (AmazonClientException) {
+            redirect controller: 'errorsWeb106' ,view: 'aws'
+        } catch (UnexpectedRollbackException) {
+            redirect controller: 'errorsWeb106' ,view: 'aws'
         }
-
-
-        model['websites'] = websitesView
-        model['project'] = grails.util.Metadata.current.'app.name'
-
-        render view : "listown", model: model
     }
 }

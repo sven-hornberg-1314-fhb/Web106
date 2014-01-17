@@ -43,6 +43,7 @@ class UrlredirectController {
      * @return pagecontent or errorcode
      */
     def stream() {
+        try {
             def workgroupName
             def websiteName
             def pageName
@@ -86,5 +87,13 @@ class UrlredirectController {
                 render(status: 404)
             }
 
+
+    } catch (AmazonServiceException) {
+        redirect controller: 'errorsWeb106' ,view: 'aws'
+    } catch (AmazonClientException) {
+        redirect controller: 'errorsWeb106' ,view: 'aws'
+    } catch (UnexpectedRollbackException) {
+        redirect controller: 'errorsWeb106' ,view: 'aws'
     }
+   }
 }

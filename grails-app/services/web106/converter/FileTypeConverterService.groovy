@@ -2,12 +2,9 @@ package web106.converter
 
 import grails.transaction.Transactional
 import org.springframework.web.multipart.MultipartFile
-import web106.file.upload.UploadS3Service
 
 @Transactional
 class FileTypeConverterService {
-
-    def UploadS3Service uploadS3Service
 
     /**
      * Converts a MultipartFile to Java File

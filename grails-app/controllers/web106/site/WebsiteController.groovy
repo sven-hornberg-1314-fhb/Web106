@@ -95,30 +95,40 @@ class WebsiteController {
     }
 
     def delete(){
-        //find and delete component
-        def current = Website.find{
-            id == params.id
+
+        try {
+
+            //find and delete component
+            def current = Website.find{
+                id == params.id
+            }
+
+            //delete without services
+            current?.page?.each{
+                Page.deleteAll(it)
+            }
+
+            def prefix =  current.workGroup.name+ "/" + current.title + "/"
+            prefix = prefix.toLowerCase()
+
+            current?.delete()
+
+            uploadS3Service.deleteSubBucket(ResourceHolder.bucketGlobal, prefix)
+
+
+            //delete from session
+            session.removeAttribute('activeWebsite')
+            session.removeAttribute('activeWebsiteName')
+
+            //back to index
+            redirect controller: params.controller
+        } catch (AmazonServiceException) {
+            redirect controller: 'errorsWeb106' ,view: 'aws'
+        } catch (AmazonClientException) {
+            redirect controller: 'errorsWeb106' ,view: 'aws'
+        } catch (UnexpectedRollbackException) {
+            redirect controller: 'errorsWeb106' ,view: 'aws'
         }
-
-        //delete without services
-        current?.page?.each{
-            Page.deleteAll(it)
-        }
-
-        def prefix =  current.workGroup.name+ "/" + current.title + "/"
-        prefix = prefix.toLowerCase()
-
-        current?.delete()
-
-        uploadS3Service.deleteSubBucket(ResourceHolder.bucketGlobal, prefix)
-
-
-        //delete from session
-        session.removeAttribute('activeWebsite')
-        session.removeAttribute('activeWebsiteName')
-
-        //back to index
-        redirect controller: params.controller
     }
 
     def listown(){
