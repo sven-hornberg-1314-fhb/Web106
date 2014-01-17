@@ -236,7 +236,7 @@ class OauthController {
 
             RedirectHolder.setUri(params.redirectUrl)
             return redirect(url: url)
-        } catch(OAuthConnectionException ex) {
+        } catch(OAuthConnectionException) {
 
             redirect(controller: 'errorsWeb106', action: 'oauth')
         }
