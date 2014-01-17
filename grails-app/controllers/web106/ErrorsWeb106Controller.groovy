@@ -13,7 +13,7 @@ class ErrorsWeb106Controller {
     }
 
 	def accessDenied(){
-		render 'error403 '+params
+        render view: 'accessDenied'
 	}
 
     def oauth() {
