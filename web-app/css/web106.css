@@ -37,11 +37,12 @@ body {
     padding: 10px;
 }
 
+
 .component {
         background-color: #c2c7c9;
         margin: 0 auto;
         height: 50px;
-        width: 93%;
+        width: 45%;
         float: left;
         border: 2px solid #666666;
         background-color: #ccc;

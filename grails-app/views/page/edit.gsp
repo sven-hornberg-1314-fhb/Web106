@@ -114,9 +114,12 @@
                         <g:each var="con" in="${contents}">
 
                             <div id="${con.id}" class="component">
-                                ${con.name}<br>
+                                ${con.name} <br/>
+
                                 <g:link controller="ContentComponent">
-                                <i class="fa fa-cogs"></i>Komponente bearbeiten</g:link>
+                                <i title="Komponente bearbeiten" class="fa fa-cogs"></i></g:link>
+                                <i title="${con.text}" class="fa fa-info-circle"></i>
+
                             </div>
                         </g:each>
 
