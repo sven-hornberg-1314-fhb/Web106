@@ -13,7 +13,21 @@
 
         	
 
-            $('.component').draggable({ revert: true });
+            $('.component').draggable({
+                revert: true,
+                snap: ".dropbox",
+                start: function() {
+                    //this.style.opacity = '0.4';
+                },
+                drag: function() {
+                    //
+                },
+                stop: function() {
+                    //this.style.opacity = '1';
+                }
+
+
+            });
 
             $(".dropbox").droppable(
                     {
@@ -24,7 +38,6 @@
 
                             var draggableId = ui.draggable.attr("id");
                             var droppableId = $(this).attr("id");
-                            console.log(draggableId)
 
                             var box = new Object();
                             box.dragId = draggableId;
