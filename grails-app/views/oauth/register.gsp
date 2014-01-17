@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>Registrierung</title>
@@ -21,9 +22,9 @@
 
 <g:if test="${session.step=='Step2'}">
 
-<div id='login'>
-    <div class='inner'>
-            <div class='fheader'>Schritt 2 - Ergänzen Sie zusätzliche Informationen</div>
+<div id="login" class="contentPadding">
+    <div class="inner">
+            <div class="fheader">Schritt 2 - Ergänzen Sie zusätzliche Informationen</div>
 
             <g:form class="pure-form pure-form-aligned" url="[controller:'oauth',action:'register']">
                 <fieldset>
@@ -76,7 +77,7 @@
                     <button type="submit" class="pure-button pure-button-primary">Account erstellen</button>
                 </fieldset>
             </g:form>
-        <g:link controller="logout" action="index"><button class="pure-button pure-button-primary">Zurück</button></button></g:link>
+        <g:link controller="logout" action="index"><button class="pure-button pure-button-primary">Zurück</button></g:link>
     </div>
 </div>
 </g:if>
