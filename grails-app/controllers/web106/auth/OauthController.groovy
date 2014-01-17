@@ -1,5 +1,6 @@
 package web106.auth
 
+import org.scribe.exceptions.OAuthConnectionException
 import org.scribe.model.Token
 import org.scribe.model.Verifier
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -11,6 +12,7 @@ import uk.co.desirableobjects.oauth.scribe.SupportedOauthVersion
 import uk.co.desirableobjects.oauth.scribe.holder.RedirectHolder
 import uk.co.desirableobjects.oauth.scribe.exception.MissingRequestTokenException
 import grails.converters.JSON
+import web106.ErrorsWeb106Controller
 import web106.ResourceHolder
 
 /**
@@ -217,23 +219,27 @@ class OauthController {
      */
     def authenticate = {
 
-        String providerName = params.provider
-        OauthProvider provider = oauthService.findProviderConfiguration(providerName)
+        try {
+            String providerName = params.provider
+            OauthProvider provider = oauthService.findProviderConfiguration(providerName)
 
-        Token requestToken = EMPTY_TOKEN
-        if (provider.oauthVersion == SupportedOauthVersion.ONE) {
-            requestToken = provider.service.requestToken
+            Token requestToken = EMPTY_TOKEN
+            if (provider.oauthVersion == SupportedOauthVersion.ONE) {
+                requestToken = provider.service.requestToken
+            }
+
+            session[oauthService.findSessionKeyForRequestToken(providerName)] = requestToken
+            String url = oauthService.getAuthorizationUrl(providerName, requestToken)
+
+            //set provider to session
+            session.setAttribute("providername",providerName)
+
+            RedirectHolder.setUri(params.redirectUrl)
+            return redirect(url: url)
+        } catch(OAuthConnectionException ex) {
+
+            redirect(controller: 'errorsWeb106', action: 'oauth')
         }
-
-        session[oauthService.findSessionKeyForRequestToken(providerName)] = requestToken
-        String url = oauthService.getAuthorizationUrl(providerName, requestToken)
-
-        //set provider to session
-        session.setAttribute("providername",providerName)
-
-        RedirectHolder.setUri(params.redirectUrl)
-        return redirect(url: url)
-
     }
 
     /**

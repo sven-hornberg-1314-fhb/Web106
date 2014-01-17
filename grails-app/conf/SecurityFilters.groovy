@@ -27,8 +27,8 @@ class SecurityFilters {
 
     def filters = {
 
-        //controllers for startpage and oauth
-        def positiveControllers = ['oauth','logout','login','administration', 'urlredirect']
+        //controllers which bypass filter
+        def positiveControllers = ['oauth','logout','login','administration', 'urlredirect', 'errorsWeb106']
 
 
         sessionFilter(controller: '*') {
