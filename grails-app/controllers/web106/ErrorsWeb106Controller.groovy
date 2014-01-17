@@ -27,4 +27,8 @@ class ErrorsWeb106Controller {
         render view: 'oauth'
     }
 
+    def aws () {
+        render view: 'aws'
+    }
+
 }

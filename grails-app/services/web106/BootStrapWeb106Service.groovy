@@ -17,6 +17,8 @@ class BootStrapWeb106Service {
     def js = ResourceHolder.js
     def css = ResourceHolder.css
 
+
+
     /**
      * 'BootStrapWeb106Service init '
      */
