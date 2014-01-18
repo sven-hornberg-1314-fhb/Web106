@@ -73,7 +73,7 @@ class ExportController {
 
     /**
      * Exports files to bucket wih prefix
-     * @return URL to websiteBucket
+     * @return returns to overview
      */
     def cloudS3export() {
 
@@ -153,7 +153,7 @@ class ExportController {
 
     /**
      * Lists all websites for export
-     * @return
+     * @return list of websites
      */
     def listown() {
 

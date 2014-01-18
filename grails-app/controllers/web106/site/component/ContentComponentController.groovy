@@ -8,7 +8,7 @@ import grails.converters.JSON
  */
 class ContentComponentController {
 
-	static allowedMethods = [createComponent:'POST']
+	static allowedMethods = [createComponent:'POST', edit2: 'POST']
 
 	def activeWorkGroup
 
@@ -34,6 +34,11 @@ class ContentComponentController {
         }
     }
 
+    /**
+     * Tests if user is allowed to view contentcomponent
+     * @param idValue Id of contentcomponent
+     * @return true is allowed , false not allowed
+     */
     boolean IsAllowed(long idValue) {
 
         boolean returnVal = false
@@ -47,15 +52,25 @@ class ContentComponentController {
 
         return returnVal
     }
-	
+
+    /**
+     * Index view
+     */
 	def index() {
 		render view:'index'
 	}
-	
+
+    /**
+     * Create view
+     */
 	def create() {
 		render view:'create'
 	}
-	
+
+    /**
+     * Creates a new contentcomponent
+     * @return controller index
+     */
 	def createComponent() {
 		
 			
@@ -76,12 +91,20 @@ class ContentComponentController {
 			redirect controller: params.controller
 	}
 
+    /**
+     * Returns all ContentComponents as JSON
+     * @return JSON
+     */
 	def list() {
 		def contents = ContentComponent.findAll()
 		
 		render contents as JSON
 	}
-	
+
+    /**
+     * Shows all contentcomponents which belongs to the same Workgroup
+     * @return list of contentcomponents
+     */
 	def listown() {
 		
 		def aworkGroup = WorkGroup.find(){
@@ -99,7 +122,11 @@ class ContentComponentController {
 				
 		render view: 'listown', model : model
 	}
-	
+
+    /**
+     * Edit for contentcomponent
+     * @return view edit
+     */
 	def edit() {
         ContentComponent current = ContentComponent.find{
             id == params.id
@@ -117,6 +144,10 @@ class ContentComponentController {
 		render view:"edit", model:model
 	}
 
+    /**
+     * 2 Step for edit, for formdata
+     * @return index view
+     */
     def edit2(){
         def current = ContentComponent.find{
             id == params.hid
@@ -130,7 +161,11 @@ class ContentComponentController {
 
         redirect controller: params.controller
     }
-	
+
+    /**
+     * Deletes a contentcomponent
+     * @return index view
+     */
 	def delete() {
         //find and delete component
         def current = ContentComponent.find{

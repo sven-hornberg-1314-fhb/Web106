@@ -271,8 +271,6 @@ class PageController {
         def currentPage = Page.findById(idValue)
         def websiteOfCurrentPage = currentPage?.website
 
-        print currentPage?.website.title
-
         Long aLong = activeWebsite.toLong()
         if(websiteOfCurrentPage?.id.equals(aLong) && websiteOfCurrentPage?.workGroupId == activeWorkGroup){
             returnVal = true

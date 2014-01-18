@@ -20,7 +20,7 @@ class UploadFileController {
 
     /**
      * Upload an image for a workgroup + site in s3 bucket
-     * @return
+     * @return index page
      */
 	def uploadImage() {
 
@@ -61,6 +61,10 @@ class UploadFileController {
         }
 	}
 
+    /**
+     * Shows an overview of all uploaded files
+     * @return overview of files
+     */
     def list() {
 
         try {
@@ -101,6 +105,10 @@ class UploadFileController {
         }
     }
 
+    /**
+     * Deletes all files in a "subbucket" (files with prefix)
+     * @return cleared subbucket
+     */
     def delete() {
 
         try {

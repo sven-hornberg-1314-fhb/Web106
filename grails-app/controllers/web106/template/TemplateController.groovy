@@ -13,7 +13,11 @@ class TemplateController {
         activeWorkGroup = activeWorkGroupSession
 
     }
-	
+
+    /**
+     * Index view of all Templates
+     * @return overview
+     */
     def index() { 
 		
 		def model = [
@@ -21,14 +25,22 @@ class TemplateController {
 		]
 		render(template:"index", model : model )		
 	}
-	
+
+    /**
+     * Example for Kairo template
+     * @return
+     */
 	def kairo() {
 		
 		def model = defaultmodelKairo()
 		
 		render(template:"kairo/template", model: model)
 	}
-	
+
+    /**
+     * Default content for Kairo template
+     * @return content for Kairo
+     */
 	def defaultmodelKairo() {
 		def model = [
 			centermessagebox:true,
@@ -41,14 +53,21 @@ class TemplateController {
 		]
         return model
 	}
-	
-	
+
+    /**
+     * Example for Berlin template
+     * @return content for Berlin
+     */
 	def berlin() {
 		
 		def model = defaultmodelBerlin()
 		render(template:"berlin/template", model:model)
 	}
-	
+
+    /**
+     * Default content for Berlin template
+     * @return conent for Berlin
+     */
 	def defaultmodelBerlin() {
 		def model = [
 			centermessagebox:true,
@@ -62,11 +81,19 @@ class TemplateController {
         return model
 	}
 
+    /**
+     * JSON for All Tempaltes
+     * @return JSON
+     */
     def list() {
 		
         render Template.all as JSON;
     }
 
+    /**
+     * Returns all templatenames as list
+     * @return list of names
+     */
     def listNames() {
 
          def templates = Template.findAll()
@@ -77,6 +104,4 @@ class TemplateController {
 
         return tempList
     }
-
-
 }

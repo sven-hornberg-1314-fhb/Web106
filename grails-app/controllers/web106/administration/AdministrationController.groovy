@@ -8,31 +8,56 @@ import web106.auth.*
  * Controller for all admin functions with roles and users
  */
 @Secured(['ROLE_ADMIN'])
-class AdministrationController {  
-  
-  def index() {
-    render (view: "/controllers")
-  }
+class AdministrationController {
 
-  def manageUsers(){
-      redirect controller: 'adminUser'
-  }
+    /**
+     * Stanard grails controller list
+     * @return view controllers
+     */
+    def index() {
+        render(view: "/controllers")
+    }
 
-  def activate(User u){
-      User.findById(u.getId()).enabled=true
-  }
+    /**
+     * User overview
+     * @return view adminuser
+     */
+    def manageUsers() {
+        redirect controller: 'adminUser'
+    }
 
-    def manageRoles(){
+    /**
+     * Activate an user
+     * @param u User
+     * @return User is enabled
+     */
+    def activate(User u) {
+        User.findById(u.getId()).enabled = true
+    }
+
+    /**
+     * Role overview
+     * @return view overview roles
+     */
+    def manageRoles() {
         redirect controller: 'adminRole'
     }
 
-    def manageUserRoles(){
+    /**
+     * RoleUser overview
+     * @return view roles for users
+     */
+    def manageUserRoles() {
         redirect controller: 'adminUserRole'
     }
 
-    def clearSession(){
+    /**
+     * Clearing sessiondata, which belongs to website and workgroup
+     * @return cleared session
+     */
+    def clearSession() {
 
-        def attributes = ['activeWebsite','activeWebsiteName','activeWorkGroup','activeWorkGroupName']
+        def attributes = ['activeWebsite', 'activeWebsiteName', 'activeWorkGroup', 'activeWorkGroupName']
 
         attributes.each {
             session.removeAttribute(it)

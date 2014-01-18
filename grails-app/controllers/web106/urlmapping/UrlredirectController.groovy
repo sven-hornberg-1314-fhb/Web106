@@ -21,13 +21,13 @@ class UrlredirectController {
         def workgroupName
         def websiteName
 
-        if(params?.workgroup && params?.websitename) {
+        if (params?.workgroup && params?.websitename) {
             workgroupName = params.workgroup
-            websiteName =  params.websitename
+            websiteName = params.websitename
 
             def global = ResourceHolder.bucketGlobal
 
-            def url = 'http://s3-eu-west-1.amazonaws.com/' + global+ "/" + workgroupName+'/'+websiteName+'/index.html'
+            def url = 'http://s3-eu-west-1.amazonaws.com/' + global + "/" + workgroupName + '/' + websiteName + '/index.html'
             url = url.toLowerCase()
 
             redirect(url: url)
@@ -48,29 +48,29 @@ class UrlredirectController {
             def websiteName
             def pageName
 
-            if(params?.workgroup && params?.websitename) {
+            if (params?.workgroup && params?.websitename) {
                 workgroupName = params.workgroup
-                websiteName =  params.websitename
+                websiteName = params.websitename
                 pageName = params.page
 
-                def content= ""
+                def content = ""
                 def global = ResourceHolder.bucketGlobal
-                def prefix =  workgroupName + "/" + websiteName + "/"
+                def prefix = workgroupName + "/" + websiteName + "/"
                 prefix = prefix.toLowerCase()
 
                 //check for indexSite : means Website is online
                 boolean indexPage = uploadS3Service.fileExistsInBucket(global, "index.html", prefix)
-                if(indexPage) {
+                if (indexPage) {
 
-                    boolean requestedPage = uploadS3Service.fileExistsInBucket(global, pageName , prefix)
-                    if(requestedPage) {
+                    boolean requestedPage = uploadS3Service.fileExistsInBucket(global, pageName, prefix)
+                    if (requestedPage) {
 
                         //stream requestedPage
-                        content = uploadS3Service.ContentFromFileInBucket(global,prefix + pageName)
+                        content = uploadS3Service.ContentFromFileInBucket(global, prefix + pageName)
 
                     } else {
                         //stream indexfile
-                        content = uploadS3Service.ContentFromFileInBucket(global,prefix + 'index.html')
+                        content = uploadS3Service.ContentFromFileInBucket(global, prefix + 'index.html')
 
                     }
 
@@ -88,12 +88,12 @@ class UrlredirectController {
             }
 
 
-    } catch (AmazonServiceException) {
-        redirect controller: 'errorsWeb106' ,view: 'aws'
-    } catch (AmazonClientException) {
-        redirect controller: 'errorsWeb106' ,view: 'aws'
-    } catch (UnexpectedRollbackException) {
-        redirect controller: 'errorsWeb106' ,view: 'aws'
+        } catch (AmazonServiceException) {
+            redirect controller: 'errorsWeb106', view: 'aws'
+        } catch (AmazonClientException) {
+            redirect controller: 'errorsWeb106', view: 'aws'
+        } catch (UnexpectedRollbackException) {
+            redirect controller: 'errorsWeb106', view: 'aws'
+        }
     }
-   }
 }

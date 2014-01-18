@@ -4,7 +4,9 @@ import web106.ResourceHolder
 import web106.auth.WorkGroup
 import web106.file.upload.UploadS3Service
 
-
+/**
+ * Controller for all methods that belongs to websites
+ */
 class WebsiteController {
 
     def UploadS3Service uploadS3Service
@@ -35,6 +37,11 @@ class WebsiteController {
         }
     }
 
+    /**
+     * Check if user is allowed to view website
+     * @param idValue Id of website
+     * @return true is allowed , false not allowed
+     */
     boolean IsAllowed(long idValue) {
 
         boolean returnVal = false
@@ -48,15 +55,26 @@ class WebsiteController {
         return returnVal
     }
 
-
+    /**
+     * Index view
+     * @return index view
+     */
     def index() {
         render view: "index"
     }
 
+    /**
+     * Create view
+     * @return create view
+     */
     def create(){
         render view: 'create'
     }
 
+    /**
+     * 2 Step for create process
+     * @return create view
+     */
     def create2(){
         def aworkGroup = WorkGroup.find(){
             id == activeWorkGroup
@@ -94,6 +112,10 @@ class WebsiteController {
 
     }
 
+    /**
+     * Delete website
+     * @return
+     */
     def delete(){
 
         try {
@@ -103,23 +125,24 @@ class WebsiteController {
                 id == params.id
             }
 
+            if(current) {
             //delete without services
-            current?.page?.each{
-                Page.deleteAll(it)
+                current.page?.each{
+                    Page.deleteAll(it)
+                }
+
+                def prefix =  current.workGroup.name+ "/" + current.title + "/"
+                prefix = prefix.toLowerCase()
+
+                current?.delete()
+
+                uploadS3Service.deleteSubBucket(ResourceHolder.bucketGlobal, prefix)
+
+
+                //delete from session
+                session.removeAttribute('activeWebsite')
+                session.removeAttribute('activeWebsiteName')
             }
-
-            def prefix =  current.workGroup.name+ "/" + current.title + "/"
-            prefix = prefix.toLowerCase()
-
-            current?.delete()
-
-            uploadS3Service.deleteSubBucket(ResourceHolder.bucketGlobal, prefix)
-
-
-            //delete from session
-            session.removeAttribute('activeWebsite')
-            session.removeAttribute('activeWebsiteName')
-
             //back to index
             redirect controller: params.controller
         } catch (AmazonServiceException) {
@@ -131,6 +154,10 @@ class WebsiteController {
         }
     }
 
+    /**
+     * Lists all websites for a workgroup
+     * @return listown view
+     */
     def listown(){
 
         def aworkGroup = WorkGroup.find(){
@@ -171,6 +198,10 @@ class WebsiteController {
 
     }
 
+    /**
+     * Shows the active website in a view
+     * @return view active website
+     */
     def activeWebsite() {
 
         def model = [:]
@@ -189,6 +220,10 @@ class WebsiteController {
         render view : 'activewebsite', model: model
     }
 
+    /**
+     * List a websites for list websites view
+     * @return own websites
+     */
     def listWebsites(){
 
         def aworkGroup = WorkGroup.find(){
@@ -225,6 +260,10 @@ class WebsiteController {
 
     }
 
+    /**
+     * Save for function, that can be called from javascript
+     * @return saves the websites
+     */
     def remoteSave() {
 
         def currentWebsite = Website.find{
