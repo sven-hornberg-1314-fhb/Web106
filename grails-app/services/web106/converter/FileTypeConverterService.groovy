@@ -3,6 +3,9 @@ package web106.converter
 import grails.transaction.Transactional
 import org.springframework.web.multipart.MultipartFile
 
+/**
+ * Service for converting files
+ */
 @Transactional
 class FileTypeConverterService {
 
