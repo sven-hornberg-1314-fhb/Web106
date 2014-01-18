@@ -7,6 +7,8 @@ import com.amazonaws.AmazonClientException
 import com.amazonaws.AmazonServiceException
 
 import com.amazonaws.auth.*
+import com.amazonaws.regions.Region
+import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.*
 import com.amazonaws.services.elasticbeanstalk.*
 import com.amazonaws.services.elasticbeanstalk.model.*
@@ -26,12 +28,12 @@ import org.apache.commons.io.FilenameUtils
 
 
 @Field def FileNameAWSCredentials = "AwsCredentials.properties"
-@Field def FileNameWarFile = "web106.war"
+@Field def FileNameWarFile = "web105.war"
 @Field boolean deploymentIsFine = true
 @Field def applicationVersion = "1"
-@Field def applicationName = "web106"
+@Field def applicationName = "web105"
 @Field def description = "homepage construction kit"
-@Field def environmentName = 'web106environment'
+@Field def environmentName = 'web105environment'
 
 void AwsCredentialsExists() {
     File f = new File(FileNameAWSCredentials);
@@ -70,7 +72,7 @@ void CheckKeys() {
 
 void CreateWarFile() {
     println 'Try to create war file...'
-    def command = 'grails war ' + FileNameWarFile
+    def command = 'grails prod war ' + FileNameWarFile
     def proc = command.execute()
     proc.waitFor()
 
@@ -99,6 +101,8 @@ void Deploy() {
 
         AWSCredentials credentials = new PropertiesCredentials(new FileInputStream(FileNameAWSCredentials));
         AmazonS3 s3 = new AmazonS3Client(credentials)
+        Region region = Region.getRegion(Regions.EU_WEST_1);
+        s3.setRegion(region)
 
         AWSElasticBeanstalk elasticBeanstalk = new AWSElasticBeanstalkClient(credentials)
 
@@ -126,6 +130,8 @@ void Deploy() {
         autoCreateApplication: true, sourceBundle: new S3Location(bucketName, key)
         )
 
+
+
         def createApplicationVersionResult = elasticBeanstalk.createApplicationVersion(createApplicationRequest)
         println "Registered application version $createApplicationVersionResult"
 
@@ -137,11 +143,14 @@ void Deploy() {
     } catch (AmazonServiceException ex) {
         println 'Error: AmazonService'
         println 'Message:' + ex.getMessage()
+        deploymentIsFine = false
     } catch (AmazonClientException ex) {
         println 'Error: AmazonClient' + ex.getMessage()
+        deploymentIsFine = false
     } catch (Exception ex) {
         println 'Something went wrong:'
         println ex.getMessage()
+        deploymentIsFine = false
     }
 }
 

@@ -30,24 +30,24 @@ environments {
             url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
         }
     }
+
     production {
         dataSource {
-		driverClassName = "com.mysql.jdbc.Driver"
-    		dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
-    		username = "web106"
-    		password = "D|u>vYo+8J"
-            	dbCreate = "update"
- 		url = "jdbc:mysql://web106.cklr3ydv9uj8.eu-west-1.rds.amazonaws.com:3306/web106_prod"
-           	properties {
-		       maxActive = -1
-		       minEvictableIdleTimeMillis=1800000
-		       timeBetweenEvictionRunsMillis=1800000
-		       numTestsPerEvictionRun=3
-		       testOnBorrow=true
-		       testWhileIdle=true
-		       testOnReturn=false
-		       validationQuery="SELECT 1"
-		       jdbcInterceptors="ConnectionState"
+            username = "web106db"
+            password = "web106db"
+            pooled = true
+            dbCreate = "update"
+            driverClassName = "com.mysql.jdbc.Driver"
+            url = "jdbc:mysql://web106db.cb8urdyi7a61.eu-west-1.rds.amazonaws.com:3306/db?user=web106db&password=web106db"
+            dialect = org.hibernate.dialect.MySQL5InnoDBDialect
+            properties {
+                validationQuery = "SELECT 1"
+                testOnBorrow = true
+                testOnReturn = true
+                testWhileIdle = true
+                timeBetweenEvictionRunsMillis = 1800000
+                numTestsPerEvictionRun = 3
+                minEvictableIdleTimeMillis = 1800000
             }
         }
     }

@@ -107,8 +107,9 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
-	//TODO change www.changeme.com to specified server URL of amazon server
-        grails.serverURL = "http://www.changeme.com/${appName}"
+        grails.serverURL = "http://web103-env.elasticbeanstalk.com/"
+        //grails.serverURL = "http://www.changeme.com/${appName}"
+
     }
 }
 
