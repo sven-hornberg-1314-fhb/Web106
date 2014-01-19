@@ -109,9 +109,9 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
-        //grails.serverURL = "http://web103-env.elasticbeanstalk.com/"
+        grails.serverURL = "http://web106.elasticbeanstalk.com"
         //grails.serverURL = "http://www.changeme.com/${appName}"
-        grails.serverURL = "http://localhost:8080"
+        //grails.serverURL = "http://localhost:8080"
     }
 }
 
