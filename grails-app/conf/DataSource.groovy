@@ -33,12 +33,12 @@ environments {
 
     production {
         dataSource {
-            username = "web106"
-            password = "D|u>vYo+8J"
+            username = ""
+            password = ""
             pooled = true
             dbCreate = "update"
             driverClassName = "com.mysql.jdbc.Driver"
-            url = "jdbc:mysql://web106.cklr3ydv9uj8.eu-west-1.rds.amazonaws.com:3306/web106_prod?user=web106&password=D|u>vYo+8J"
+            url = "jdbc:mysql://"
             dialect = org.hibernate.dialect.MySQL5InnoDBDialect
             properties {
                 validationQuery = "SELECT 1"
