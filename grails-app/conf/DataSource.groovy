@@ -33,21 +33,23 @@ environments {
 
     production {
         dataSource {
-            username = ""
-            password = ""
-            pooled = true
-            dbCreate = "update"
+            url = System.getProperty("JDBC_CONNECTION_STRING")
             driverClassName = "com.mysql.jdbc.Driver"
-            url = "jdbc:mysql://"
+            dbCreate = "update"
             dialect = org.hibernate.dialect.MySQL5InnoDBDialect
+            username = System.getProperty("PARAM1")
+            password = System.getProperty("PARAM2")
+
+            //configure DBCP
             properties {
-                validationQuery = "SELECT 1"
-                testOnBorrow = true
-                testOnReturn = true
-                testWhileIdle = true
-                timeBetweenEvictionRunsMillis = 1800000
-                numTestsPerEvictionRun = 3
-                minEvictableIdleTimeMillis = 1800000
+                minEvictableIdleTimeMillis=1800000
+                timeBetweenEvictionRunsMillis=1800000
+                numTestsPerEvictionRun=3
+                testOnBorrow=true
+                testWhileIdle=true
+                testOnReturn=true
+
+                validationQuery="SELECT 1"
             }
         }
     }

@@ -4,22 +4,16 @@
    <head>
    <meta charset="UTF-8" />
    <title>${web106title}</title>
-   <g:render template="/shared/header" />
-   <g:if test="${request.requestURL.contains('localhost') == false}">
-       ${web106header}
-   </g:if>
+   <g:render template="/shared/headertemplate" />
 
-   <g:if test="${request.requestURL.contains('localhost')}">
-	  <style type="text/css">
-	  <!--
-	  -->
-	 </style>
+   ${web106header}
 
    <g:javascript library="jquery" />
    <r:require module="jquery-ui"/>
 
 
 <r:layoutResources />
+<g:if test="${centermessagebox==true}">
 
 <script type="text/javascript">
         $(function() {

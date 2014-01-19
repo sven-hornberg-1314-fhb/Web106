@@ -4,21 +4,16 @@
    <head>
        <meta charset="UTF-8" />
        <title>${web106title}</title>
-       <g:render template="/shared/header" />
-       <g:if test="${request.requestURL.contains('localhost') == false}">
-               ${web106header}
-       </g:if>
-       <g:if test="${request.requestURL.contains('localhost')}">
-           <style type="text/css">
-           <!--
-           -->
-           </style>
+       <g:render template="/shared/headertemplate" />
 
-           <g:javascript library="jquery" />
-           <r:require module="jquery-ui"/>
+       ${web106header}
+
+       <g:javascript library="jquery" />
+       <r:require module="jquery-ui"/>
 
 
-           <r:layoutResources />
+       <r:layoutResources />
+       <g:if test="${centermessagebox==true}">
 
            <script type="text/javascript">
                $(function() {
@@ -31,8 +26,6 @@
                });
            </script>
        </g:if>
-
-
 </head>
 <body>
 
