@@ -22,7 +22,7 @@
                 <!--</oauth:connect>-->
         </div>
         <div class="pure-u-1 content">
-            <g:link controller="logout" action="index"><button class="pure-button" >Zurück</button></button></g:link>
+            <g:link controller="logout" action="index"><button class="pure-button" >Zurück</button></g:link>
         </div>
 
     </div>

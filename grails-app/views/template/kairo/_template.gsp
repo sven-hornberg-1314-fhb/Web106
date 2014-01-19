@@ -7,13 +7,13 @@
        <g:render template="/shared/headertemplate" />
 
        ${web106header}
+   <g:if test="${centermessagebox==true}">
 
        <g:javascript library="jquery" />
        <r:require module="jquery-ui"/>
 
 
        <r:layoutResources />
-       <g:if test="${centermessagebox==true}">
 
            <script type="text/javascript">
                $(function() {

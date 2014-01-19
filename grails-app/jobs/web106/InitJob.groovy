@@ -4,6 +4,7 @@ import groovy.util.logging.Log
 
 /**
  * Trigger for bootStrapWeb106Service.init()
+ * Is not running well on t1.micro -> quarzt is removed
  */
 @Log
 class InitJob {
