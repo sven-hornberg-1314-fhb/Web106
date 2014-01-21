@@ -11,7 +11,9 @@ class Deploy:
     bucketName = "web106eb"
     fileName = "web106.war"
     applicationName = "web106"
-    dbName = "dbeb"
+    environmentName = "web106env"
+    label = "web106prod"
+    dbName = "ebdb"
     dbUser = "web106db"
     dbUserPassword = "web106db"
     region = "eu-west-1"
@@ -19,6 +21,8 @@ class Deploy:
     bucketKey = None
     bucketUrl = None
     applicationUrl = None
+    solutionStackName = "64bit Amazon Linux running Tomcat 7"
+    templateName = "t7web106"
 
     option_settings=[]
     bsContainer = "aws:elasticbeanstalk:application:environment"
@@ -92,6 +96,9 @@ class Deploy:
 
         while db.endpoint == None:
             time.sleep(5)
+            instances = connRds.get_all_dbinstances(self.dbName)
+            db = instances[0]
+
             date = datetime.datetime.now()
             print "waiting for endpoint "+str(date.hour)+":"+str(date.minute)
          
@@ -129,26 +136,25 @@ class Deploy:
         )    
         
         try:
-            print self.bucketName
-            self.bucketKey = 'web106.war'
+            
             #1
-            wlayer.Layer1.create_application(connEB, "web106")
+            wlayer.Layer1.create_application(connEB, self.applicationName)
     
             #2
             wlayer.Layer1.create_application_version(
-                connEB, application_name="web106",version_label="1", 
+                connEB, application_name=self.applicationName,version_label=self.label, 
                 s3_bucket=self.bucketName, s3_key=self.bucketKey, 
                 auto_create_application=True
             )
             #3
             wlayer.Layer1.create_configuration_template(connEB,
-                 application_name=self.applicationName, template_name="t7web106",
-                 solution_stack_name="32bit Amazon Linux running Tomcat 7")
+                 application_name=self.applicationName, template_name=self.templateName,
+                 solution_stack_name=self.solutionStackName)
             
             #4
             wlayer.Layer1.create_environment(connEB,
-            application_name=self.applicationName, environment_name="web106env",
-            template_name="t7web106", cname_prefix=self.applicationName, option_settings=self.option_settings
+            application_name=self.applicationName, environment_name=self.environmentName,
+            template_name=self.templateName, cname_prefix=self.applicationName, option_settings=self.option_settings
             )   
             
            
@@ -169,10 +175,7 @@ class Deploy:
             date = datetime.datetime.now()
             print "waiting for green status "+str(date.hour)+":"+str(date.minute)
         
-        print 'Deployed!'
-        #url
-        status = wlayer.Layer1.describe_environments(connEB)
-        print status['DescribeEnvironmentsResponse']['DescribeEnvironmentsResult']['Environments'][0]['CNAME']            
+        
 
     def createAwsCredentialsFile(self):
         fileName = "AwsCredentials.properties"
@@ -205,8 +208,8 @@ class Deploy:
         status = wlayer.Layer1.describe_application_versions(connEB, self.applicationName)   
         label = status['DescribeApplicationVersionsResponse']['DescribeApplicationVersionsResult']['ApplicationVersions'][0]['VersionLabel']
         
-        wlayer.Layer1.update_environment(connEB, environment_name="web106env", version_label=label,
-                                        template_name="t7web106",option_settings=self.option_settings)
+        wlayer.Layer1.update_environment(connEB, environment_name=self.environmentName, version_label=label,
+                                        template_name=self.templateName,option_settings=self.option_settings)
                                         
         statusFlag = "Red"
         while statusFlag != "Green":
@@ -218,7 +221,10 @@ class Deploy:
             date = datetime.datetime.now()
             print "waiting for green status "+str(date.hour)+":"+str(date.minute)
                                         
-        print "Version " + label + " of " + self.applicationName + "is now deployed." 
+        print "Version " + label + " of " + self.applicationName + " is now deployed." 
+        #url
+        status = wlayer.Layer1.describe_environments(connEB)
+        print status['DescribeEnvironmentsResponse']['DescribeEnvironmentsResult']['Environments'][0]['CNAME']            
 
 if __name__ == "__main__":
     d = Deploy()
