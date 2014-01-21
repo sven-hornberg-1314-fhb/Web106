@@ -1,9 +1,9 @@
-import os,boto, boto.rds,time,datetime, boto.beanstalk
+import os,boto, boto.rds,time,datetime, boto.beanstalk,collections
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 import boto.beanstalk.layer1 as wlayer
 from boto.exception import BotoServerError
-
+from boto.vpc import VPCConnection
 
 class Deploy:
     awsAccessKey = ""
@@ -23,30 +23,39 @@ class Deploy:
     applicationUrl = None
     solutionStackName = "64bit Amazon Linux running Tomcat 7"
     templateName = "t7web106"
+    
+    rdsSecurityGroup = "web106rds"
+    ec2SecurityGroup = "web106ec2"
+    
+    timerSleep = 15
 
     option_settings=[]
     bsContainer = "aws:elasticbeanstalk:application:environment"
     javaContainer = "aws:elasticbeanstalk:container:tomcat:jvmoptions"
     generalContainer = 'aws:autoscaling:asg'
 
+    SecurityGroupRule = collections.namedtuple("SecurityGroupRule", ["ip_protocol", "from_port", "to_port", "cidr_ip", "src_group_name"])
+
     def __init__(self):
         date = datetime.datetime.now()
         print('starting deployment at '+str(date.hour)+":"+str(date.minute))
 
-        self.createAwsCredentialsFile()           
-        self.createWarFile()
-        self.deleteAwsCredentialsFile()  
-        self.uploadWarFile()
-        self.createDbRds()
+        #self.createAwsCredentialsFile()           
+        #self.createWarFile()
+        #self.deleteAwsCredentialsFile()  
 
-        self.fillOptionSettings()
+        #self.uploadWarFile()
 
-        self.beanstalk()
+
+        #self.createDbRds()
+
+        #self.fillOptionSettings()
+
+        #self.beanstalk()
        
-        self.deployApp()
-    
-    def checkoutProjectFromGit(self):
-        print "checkout"
+        #self.deployApp()
+       
+        self.sg()
     
        
     def createWarFile(self):
@@ -83,6 +92,9 @@ class Deploy:
             aws_access_key_id=self.awsAccessKey, 
             aws_secret_access_key=self.awsSecretKey
         )
+        
+        #connRds.create_dbsecurity_group(self.rdsSecurityGroup, 'rds web106')
+        #connRds.authorize_dbsecurity_group(self.rdsSecurityGroup, self.ec2SecurityGroup)        
         db = None
             
         try:
@@ -95,7 +107,7 @@ class Deploy:
         db = instances[0]
 
         while db.endpoint == None:
-            time.sleep(5)
+            time.sleep(self.timerSleep)
             instances = connRds.get_all_dbinstances(self.dbName)
             db = instances[0]
 
@@ -171,7 +183,7 @@ class Deploy:
             statusFlag = status['DescribeEnvironmentsResponse']['DescribeEnvironmentsResult']['Environments'][0]['Health']
             
             
-            time.sleep(5)
+            time.sleep(self.timerSleep)
             date = datetime.datetime.now()
             print "waiting for green status "+str(date.hour)+":"+str(date.minute)
         
@@ -217,16 +229,95 @@ class Deploy:
             statusFlag = status['DescribeEnvironmentsResponse']['DescribeEnvironmentsResult']['Environments'][0]['Health']
             
             
-            time.sleep(5)
+            time.sleep(self.timerSleep)
             date = datetime.datetime.now()
             print "waiting for green status "+str(date.hour)+":"+str(date.minute)
                                         
         print "Version " + label + " of " + self.applicationName + " is now deployed." 
         #url
         status = wlayer.Layer1.describe_environments(connEB)
-        print status['DescribeEnvironmentsResponse']['DescribeEnvironmentsResult']['Environments'][0]['CNAME']            
+        print status['DescribeEnvironmentsResponse']['DescribeEnvironmentsResult']['Environments'][0]['CNAME']    
 
+    def sg(self):
+        
+      
+        connEc2 = boto.ec2.connect_to_region(self.region,
+            aws_access_key_id=self.awsAccessKey, 
+            aws_secret_access_key=self.awsSecretKey
+        ) 
+        
+        vpcid = connEc2.get_all_security_groups()[0].vpc_id
+       
+        
+        sgEc2 = self.get_or_create_security_group(connEc2, self.ec2SecurityGroup, vpcid, "web106group")
+        rule = SecurityGroupRule("tcp", "3306", "3306", "0.0.0.0/0", None)
+        #self.authorize(connEc2, sgEc2, rule)
+        
+                
+         
+        connRds = boto.rds.connect_to_region(self.region,
+           aws_access_key_id=self.awsAccessKey, 
+           aws_secret_access_key=self.awsSecretKey
+        ) 
+        
+        instances = connRds.get_all_dbinstances('dbeb')
+        db = instances[0]
+        
+        
+        rdsgp = connRds.get_all_dbsecurity_groups()[1]
+        myEC = connEc2.get_all_security_groups([self.ec2SecurityGroup])[0]
+       
+        #rdsgp.authorize(ec2_group=sgEc2)
+        
+        #connRds.authorize_dbsecurity_group(self.rdsSecurityGroup, cidr_ip='0.0.0.0/0')
+   
+        #connRds.create_dbsecurity_group(self.rdsSecurityGroup, 'rds web106')
+        #connRds.authorize_dbsecurity_group(self.rdsSecurityGroup, self.ec2SecurityGroup)        
+      
+        #boto.rds.dbsecuritygroup.DBSecurityGroup.authorize(sgEc2)
+        #print sgEc2
+        #db.modify(security_groups=[sgEc2])        
+        
+        #print "sg"
+
+
+    def get_or_create_security_group(self, c, group_name, vpcid, descriptionval=""):
+        groups = [g for g in c.get_all_security_groups() if g.name == group_name]
+        group = groups[0] if groups else None
+        if not group:
+            print "Creating group '%s'..."%(group_name,)
+            group = c.create_security_group(name=group_name, description=descriptionval,vpc_id=vpcid)
+        return group           
+        
+    def modify_sg(self, c, group, rule, authorize=False, revoke=False):
+        src_group = None
+        if rule.src_group_name:
+            src_group = c.get_all_security_groups([rule.src_group_name,])[0]
+ 
+        if authorize and not revoke:
+            print "Authorizing missing rule %s..."%(rule,)
+            group.authorize(ip_protocol=rule.ip_protocol,
+                from_port=rule.from_port,
+                to_port=rule.to_port,
+                cidr_ip=rule.cidr_ip,
+                src_group=src_group)
+        elif not authorize and revoke:
+            print "Revoking unexpected rule %s..."%(rule,)
+            group.revoke(ip_protocol=rule.ip_protocol,
+                from_port=rule.from_port,
+                to_port=rule.to_port,
+                cidr_ip=rule.cidr_ip,
+                src_group=src_group)
+ 
+ 
+    def authorize(self,c, group, rule):
+         """Authorize `rule` on `group`."""
+         return self.modify_sg(c, group, rule, authorize=True)
+        
+    
 if __name__ == "__main__":
+    SecurityGroupRule = collections.namedtuple("SecurityGroupRule", ["ip_protocol", "from_port", "to_port", "cidr_ip", "src_group_name"])
+
     d = Deploy()
     
 
