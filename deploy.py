@@ -2,6 +2,8 @@ import os,boto, boto.rds,time,datetime, boto.beanstalk
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 import boto.beanstalk.layer1 as wlayer
+from boto.exception import BotoServerError
+
 
 class Deploy:
     awsAccessKey = ""
@@ -28,15 +30,16 @@ class Deploy:
         print('starting deployment at '+str(date.hour)+":"+str(date.minute))
 
         self.createAwsCredentialsFile()           
-        #self.createWarFile()
+        self.createWarFile()
         self.deleteAwsCredentialsFile()  
-        #self.uploadWarFile()
-        #self.createDbRds()
+        self.uploadWarFile()
+        self.createDbRds()
 
         self.fillOptionSettings()
 
-        #self.beanstalk()
+        self.beanstalk()
        
+        self.deployApp()
     
     def checkoutProjectFromGit(self):
         print "checkout"
@@ -77,11 +80,13 @@ class Deploy:
             aws_secret_access_key=self.awsSecretKey
         )
         db = None
-    
-        check = connRds.get_all_dbinstances("dbeb")
-        if(len(check) == 0):
-            db = connRds.create_dbinstance("dbeb",5,"db.t1.micro",self.dbUser,self.dbUserPassword) 
-    
+            
+        try:
+            db = connRds.create_dbinstance(self.dbName,5,"db.t1.micro",self.dbUser,self.dbUserPassword) 
+        
+        except:
+            print "DBInstance already exists"        
+            
         instances = connRds.get_all_dbinstances(self.dbName)
         db = instances[0]
 
@@ -91,6 +96,7 @@ class Deploy:
             print "waiting for endpoint "+str(date.hour)+":"+str(date.minute)
          
         self.dbEndpoint = db.endpoint[0]
+            
         
     def fillOptionSettings(self):
          
@@ -143,10 +149,15 @@ class Deploy:
             wlayer.Layer1.create_environment(connEB,
             application_name=self.applicationName, environment_name="web106env",
             template_name="t7web106", cname_prefix=self.applicationName, option_settings=self.option_settings
-            )            
+            )   
+            
+           
         
         except:
             print 'delete envrionment and application, if you want to build from scratch'
+        
+        
+        
         #5
         statusFlag = "Red"
         while statusFlag != "Green":
@@ -184,6 +195,30 @@ class Deploy:
         os.remove(fileName)
         print "removed AwsCredentials.properties File" 
         
+        
+    def deployApp(self):
+        #connect
+        connEB = boto.beanstalk.connect_to_region(self.region,
+            aws_access_key_id=self.awsAccessKey, 
+            aws_secret_access_key=self.awsSecretKey
+        ) 
+        status = wlayer.Layer1.describe_application_versions(connEB, self.applicationName)   
+        label = status['DescribeApplicationVersionsResponse']['DescribeApplicationVersionsResult']['ApplicationVersions'][0]['VersionLabel']
+        
+        wlayer.Layer1.update_environment(connEB, environment_name="web106env", version_label=label,
+                                        template_name="t7web106",option_settings=self.option_settings)
+                                        
+        statusFlag = "Red"
+        while statusFlag != "Green":
+            status = wlayer.Layer1.describe_environments(connEB)
+            statusFlag = status['DescribeEnvironmentsResponse']['DescribeEnvironmentsResult']['Environments'][0]['Health']
+            
+            
+            time.sleep(5)
+            date = datetime.datetime.now()
+            print "waiting for green status "+str(date.hour)+":"+str(date.minute)
+                                        
+        print "Version " + label + " of " + self.applicationName + "is now deployed." 
 
 if __name__ == "__main__":
     d = Deploy()
