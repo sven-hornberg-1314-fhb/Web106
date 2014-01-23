@@ -185,11 +185,8 @@ class PageController {
 
             current.delete(failOnError: true)
 
-            //back to index
-            redirect controller: params.controller
-        } else {
-
         }
+        redirect controller: params.controller
     }
 
     def remoteDrop(){

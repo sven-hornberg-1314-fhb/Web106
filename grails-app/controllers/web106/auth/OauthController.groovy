@@ -12,7 +12,6 @@ import uk.co.desirableobjects.oauth.scribe.SupportedOauthVersion
 import uk.co.desirableobjects.oauth.scribe.holder.RedirectHolder
 import uk.co.desirableobjects.oauth.scribe.exception.MissingRequestTokenException
 import grails.converters.JSON
-import web106.ErrorsWeb106Controller
 import web106.ResourceHolder
 
 /**
