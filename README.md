@@ -10,9 +10,7 @@ https://github.com/sven-hornberg-1314-fhb/Web106/wiki
 
 Travis-CI: 
  [![Build Status](http://travis-ci.org/sven-hornberg-1314-fhb/Web106.png)](http://travis-ci.org/sven-hornberg-1314-fhb/Web106)
- DroneIo: 
- [![Build Status](https://drone.io/github.com/sven-hornberg-1314-fhb/Web106/status.png)](https://drone.io/github.com/sven-hornberg-1314-fhb/Web106/latest)
- 
+
 #### Deploy 
 
 https://github.com/sven-hornberg-1314-fhb/Web106-deploy
@@ -21,4 +19,3 @@ https://github.com/sven-hornberg-1314-fhb/Web106-deploy
 
 travis-ci:  https://travis-ci.org/sven-hornberg-1314-fhb/Web106/builds
 
-drone.io:   https://drone.io/github.com/sven-hornberg-1314-fhb/Web106
