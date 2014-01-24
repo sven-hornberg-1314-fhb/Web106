@@ -60,7 +60,7 @@
             $.ajax({
                 url: "",
                 context: document.body,
-                success: function(s,x){
+                success: function(s){
                     $(this).html(s);
                 }
             });
@@ -81,7 +81,7 @@
 
         
 </head>
-<body>
+<body onload="JavaScript:reload();">
 <div class="pure-g-r">
                 <div class="pure-u-1">
                     <div class="pure-g-r">
@@ -89,12 +89,12 @@
                        <div class="pure-u-1-6"><g:link class="pure-button" controller="page" action="preview" id="${id}" target="_blank">
                            <i class="fa fa-eye "></i> Vorschau</g:link>
                        </div>
-                       <div class="pure-u-1-6"><a class="pure-button" href="JavaScript:save(${id})" >
+                       <div class="pure-u-1-6"><a class="pure-button" href="JavaScript:save(${id});" >
                            <i class="fa fa-floppy-o "></i> Speichern</a></div>
 
                         <div class="pure-u-1-12">
 
-                            <a class="pure-button" href="JavaScript:reload()" >
+                            <a class="pure-button" href="JavaScript:reload();" >
                                 <i class="fa fa-floppy-o "></i> Neu Anordnen</a>
 
                         </div>
@@ -113,7 +113,7 @@
 
                         <g:each var="con" in="${contents}">
 
-                            <div id="${con.id}" class="component">
+                            <div id="${con.id}" class="component" draggable="true">
                                 ${con.name} <br/>
 
                                 <g:link controller="ContentComponent">
@@ -126,7 +126,7 @@
                     </div>
 				</div>
 			</div>
-						
+
 
 	<r:layoutResources />
 </body>
