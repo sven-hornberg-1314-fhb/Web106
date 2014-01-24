@@ -209,7 +209,7 @@ class ExportController {
 
 
             model['websites'] = websitesView
-            model['project'] = grails.util.Metadata.current.'app.name'
+            //model['project'] = grails.util.Metadata.current.'app.name'
 
             render view : "listown", model: model
         } catch (AmazonServiceException) {

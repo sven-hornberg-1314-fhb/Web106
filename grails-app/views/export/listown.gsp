@@ -9,7 +9,7 @@
         <g:if test="${site.exported}">
 
                 <g:link target="_blank" class="pure-button"
-                        url="/${project}/live/${site.paramsModel.workgroupName}/${site.paramsModel.websiteName}">
+                        url="/live/${site.paramsModel.workgroupName}/${site.paramsModel.websiteName}">
                     Live</g:link>
         </g:if>
         </td>
