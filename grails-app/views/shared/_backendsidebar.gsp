@@ -16,13 +16,7 @@
         </g:link>
         </li>
 
-
-
-
-
         <li><g:link controller="WorkGroup">Arbeitsgruppen</g:link></li>
-
-
 
 		<li class="pure-menu-heading" style="background-color: #CCCCCC;">Webseite</li>
 		<li><g:link controller="Website" >Webseiten</g:link></li>
@@ -31,10 +25,7 @@
 
 
 		<li class="pure-menu-heading" style="background-color: #CCCCCC;">Bausteine</li>
-		<li><g:link controller="MenuComponent" >Menü</g:link></li>
 		<li><g:link controller="ContentComponent" >Text</g:link></li>
-
-
 
 		<li class="pure-menu-heading" style="background-color: #CCCCCC;">Module</li>
 		<li><g:link controller="uploadFile" >Dateiupload</g:link></li>
