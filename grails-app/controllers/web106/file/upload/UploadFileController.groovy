@@ -44,6 +44,7 @@ class UploadFileController {
                 } else {
 
                     def prefix =  website.workGroup.name+ "/" + website.title + "/" + ResourceHolder.bucketprefixForImages + "/"
+                    prefix = prefix.toLowerCase()
 
                     //upload to bucket/workgroup/site/imagebucket
                     uploadS3Service.uploadFileToS3Bucket(ResourceHolder.bucketGlobal,convertedFile, prefix)
@@ -78,6 +79,8 @@ class UploadFileController {
             }
 
             def prefix =  website.workGroup.name+ "/" + website.title + "/" + ResourceHolder.bucketprefixForImages + "/"
+            prefix = prefix.toLowerCase()
+
             def list = uploadS3Service.FileNamesInBucket(ResourceHolder.bucketGlobal, prefix)
 
             def pictures= []
