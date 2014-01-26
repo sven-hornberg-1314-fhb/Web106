@@ -1,5 +1,10 @@
 package web106.file.upload
 
+import com.amazonaws.auth.BasicAWSCredentials
+
+import javax.servlet.ServletContext
+
+import static org.codehaus.groovy.grails.web.context.ServletContextHolder.getServletContext
 import com.amazonaws.HttpMethod
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider
@@ -27,6 +32,9 @@ import org.apache.commons.io.IOUtils
 import web106.ResourceHolder
 import web106.file.FileService
 
+import javax.servlet.Servlet
+
+
 /**
  *
  * Later maybe migration to 'net.java.dev.jets3t:jets3t:0.9.0'
@@ -44,8 +52,14 @@ class UploadS3Service {
     AmazonS3Client DefaultAmazonS3Client() {
 
 
-        AWSCredentials credentials
-        AmazonS3 s3 = new AmazonS3Client(credentials = new ClasspathPropertiesFileCredentialsProvider().getCredentials());
+        ServletContext servletContext = getServletContext()
+        def config = ConfigSlurper().parse(servletContext.getResource("/WEB-INF/AwsCredentials.properties"))
+
+        BasicAWSCredentials awsCredentials = new BasicAWSCredentials();
+        awsCredentials.AWSAccessKeyId = config.parse("accessKey")
+        awsCredentials.AWSSecretKey = config.parse("secretKey")
+
+        AmazonS3 s3 = new AmazonS3Client(credentials = awsCredentials);
         Region region = Region.getRegion(Regions.EU_WEST_1);
         s3.setRegion(region);
 
