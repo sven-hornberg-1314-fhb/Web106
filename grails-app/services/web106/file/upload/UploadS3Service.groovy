@@ -54,6 +54,7 @@ class UploadS3Service {
 
     def deleteSubBucket(String bucketName, String prefix){
 
+        prefix = prefix.toLowerCase();
         AmazonS3Client s3client = DefaultAmazonS3Client()
         TransferManager tx = new TransferManager(s3client);
         AmazonS3 amazonS3 = tx.getAmazonS3Client()
@@ -102,6 +103,7 @@ class UploadS3Service {
      */
     def getWebsiteBucketVersion(String bucketName, String prefix) {
 
+        prefix = prefix.toLowerCase();
         def name = ResourceHolder.bucketVersionFileName
         AmazonS3Client s3client = DefaultAmazonS3Client()
         TransferManager tx = new TransferManager(s3client);
@@ -134,6 +136,7 @@ class UploadS3Service {
      */
     def fileExistsInBucket(String bucketName ,String fileName, String prefix) {
 
+        prefix = prefix.toLowerCase();
         boolean returnVal = false
 
         AmazonS3Client s3 = DefaultAmazonS3Client()
@@ -177,6 +180,7 @@ class UploadS3Service {
      */
     def setWebsiteBucketVersion(String bucketName,String prefix, int version) {
 
+        prefix = prefix.toLowerCase();
         def date = new Date()
 
         def fileContent = [:]
@@ -238,6 +242,7 @@ class UploadS3Service {
     def deleteNonExistingPages(String bucketName, List<String> pagesNames, String prefix) {
         //only html files
 
+        prefix = prefix.toLowerCase();
         AmazonS3Client s3 = DefaultAmazonS3Client()
         TransferManager tx = new TransferManager(s3);
 
@@ -263,6 +268,7 @@ class UploadS3Service {
      * @param key key
      */
     def deleteFile(String bucketName, String prefix, String key) {
+        prefix = prefix.toLowerCase();
         AmazonS3Client s3 = DefaultAmazonS3Client()
         TransferManager tx = new TransferManager(s3);
         AmazonS3 amazonS3 =  tx.getAmazonS3Client()
@@ -282,6 +288,7 @@ class UploadS3Service {
      */
     def uploadFileToS3Bucket(String bucketName, File file , String prefix) {
 
+        prefix = prefix.toLowerCase();
         AmazonS3Client s3client = DefaultAmazonS3Client()
         TransferManager tx = new TransferManager(s3client);
 
@@ -331,6 +338,7 @@ class UploadS3Service {
 
     String MD5OfFileInBucket(String bucketName, String fileName, String prefix) {
 
+        prefix = prefix.toLowerCase();
         AmazonS3Client s3 = DefaultAmazonS3Client()
         TransferManager tx = new TransferManager(s3);
         String MD5 = null
@@ -350,6 +358,8 @@ class UploadS3Service {
     }
 
     List<String> FileNamesInBucket(String bucketName, String prefix) {
+
+        prefix = prefix.toLowerCase();
         def files = []
 
         AmazonS3Client s3 = DefaultAmazonS3Client()
