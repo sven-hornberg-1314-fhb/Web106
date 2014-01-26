@@ -17,6 +17,8 @@ class Role {
 
 	static mapping = {
 		cache true
+        cache usage: 'read-only'
+
 	}
 
 	static constraints = {
