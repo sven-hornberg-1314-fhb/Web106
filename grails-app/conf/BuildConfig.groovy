@@ -64,7 +64,7 @@ grails.project.dependency.resolution = {
         compile ':cache:1.1.1'
         compile ":cache-ehcache:1.0.0"
 	    compile ":spring-security-core:1.2.7.3"
-        compile ':oauth:2.3'
+        compile ':oauth:2.4'
         compile ":aws-sdk:1.6.4"
         //compile ":quartz:1.0.1"
 		compile ":jquery-ui:1.10.3"

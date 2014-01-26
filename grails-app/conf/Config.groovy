@@ -165,7 +165,7 @@ oauth {
         }
 
         twitter {
-            api =      org.scribe.builder.api.TwitterApi
+            api =    api.TwitterApiExample
             key =  'RbZjsZWh5oYnwD9Vo7Vq1Q'
             secret =   'gTbl8T6oDeWKkMeVH7MtbzyPLjeSn8OhZwvYvZdj8'
             callback = '${grails.serverURL}/oauth/twitter/callback'
