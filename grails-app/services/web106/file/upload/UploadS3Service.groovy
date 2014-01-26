@@ -51,13 +51,10 @@ class UploadS3Service {
     @Cacheable('AmazonS3Client')
     AmazonS3Client DefaultAmazonS3Client() {
 
-
-        ServletContext servletContext = getServletContext()
-        def config = ConfigSlurper().parse(servletContext.getResource("/WEB-INF/AwsCredentials.properties"))
-
         BasicAWSCredentials awsCredentials = new BasicAWSCredentials();
-        awsCredentials.AWSAccessKeyId = config.parse("accessKey")
-        awsCredentials.AWSSecretKey = config.parse("secretKey")
+        awsCredentials.AWSAccessKeyId = System.getProperty("AWS_ACCESS_KEY_ID")
+        awsCredentials.AWSSecretKey = System.getProperty("AWS_SECRET_KEY")
+
 
         AmazonS3 s3 = new AmazonS3Client(credentials = awsCredentials);
         Region region = Region.getRegion(Regions.EU_WEST_1);
