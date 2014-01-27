@@ -1,5 +1,7 @@
 package web106.file.upload
 
+import com.amazonaws.AmazonClientException
+import com.amazonaws.AmazonServiceException
 import web106.ResourceHolder
 import web106.converter.FileTypeConverterService
 import web106.site.Website
@@ -53,9 +55,9 @@ class UploadFileController {
             }
 
 		    redirect (action:'index')
-        } catch (AmazonServiceException) {
+        } catch (AmazonServiceException ex) {
             redirect controller: 'errorsWeb106' ,view: 'aws'
-        } catch (AmazonClientException) {
+        } catch (AmazonClientException ex) {
             redirect controller: 'errorsWeb106' ,view: 'aws'
         } catch (UnexpectedRollbackException) {
             redirect controller: 'errorsWeb106' ,view: 'aws'

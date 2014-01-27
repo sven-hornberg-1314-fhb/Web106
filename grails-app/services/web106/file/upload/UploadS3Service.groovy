@@ -1,13 +1,11 @@
 package web106.file.upload
 
 import com.amazonaws.auth.BasicAWSCredentials
+import org.codehaus.groovy.grails.commons.ApplicationHolder
 
-import javax.servlet.ServletContext
 
-import static org.codehaus.groovy.grails.web.context.ServletContextHolder.getServletContext
 import com.amazonaws.HttpMethod
 import com.amazonaws.auth.AWSCredentials
-import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider
 import com.amazonaws.regions.Region
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3
@@ -32,7 +30,6 @@ import org.apache.commons.io.IOUtils
 import web106.ResourceHolder
 import web106.file.FileService
 
-import javax.servlet.Servlet
 
 
 /**
@@ -48,19 +45,42 @@ class UploadS3Service {
      * Generates a default AmazonS3Client for Eu_West_1 with given Credentials
      * @return default AmazonS3Client
      */
-    @Cacheable('AmazonS3Client')
+
     AmazonS3Client DefaultAmazonS3Client() {
 
-        BasicAWSCredentials awsCredentials = new BasicAWSCredentials();
-        awsCredentials.AWSAccessKeyId = System.getProperty("AWS_ACCESS_KEY_ID")
-        awsCredentials.AWSSecretKey = System.getProperty("AWS_SECRET_KEY")
+        def values = readAwsCredentials()
+        def AWSAccessKeyId = values[0]
+        def AWSSecretKey = values[1]
 
+        AWSCredentials awsCredentials = new BasicAWSCredentials(AWSAccessKeyId,AWSSecretKey);
 
-        AmazonS3 s3 = new AmazonS3Client(credentials = awsCredentials);
+        AmazonS3 s3 = new AmazonS3Client(awsCredentials);
         Region region = Region.getRegion(Regions.EU_WEST_1);
         s3.setRegion(region);
 
         return s3
+    }
+
+    /**
+     * reads key values from propertiesfile
+     * @return values
+     */
+    @Cacheable('AmazonS3Client')
+    def readAwsCredentials() {
+        File awsFile = ApplicationHolder.application.parentContext.getResource("WEB-INF/AwsCredentials.properties").file
+        def properties = [:]
+
+        if(awsFile.exists()){
+            def matcher
+
+            awsFile.eachLine {line ->
+                if ((matcher =~ /^([^#=].*?)=(.+)$/)) {
+                    properties[matcher[0][1]] = matcher[0][2]
+                }
+            }
+        }
+        def values = properties.values()
+        return values
     }
 
     def deleteSubBucket(String bucketName, String prefix){
