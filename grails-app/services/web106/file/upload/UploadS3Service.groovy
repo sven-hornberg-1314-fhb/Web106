@@ -49,8 +49,8 @@ class UploadS3Service {
     AmazonS3Client DefaultAmazonS3Client() {
 
         def values = readAwsCredentials()
-        def AWSAccessKeyId = values[0]
-        def AWSSecretKey = values[1]
+        def AWSAccessKeyId = values.split('\n')[0].split('=')[1].trim()
+        def AWSSecretKey = values.split('\n')[1].split('=')[1].trim()
 
         AWSCredentials awsCredentials = new BasicAWSCredentials(AWSAccessKeyId,AWSSecretKey);
 
@@ -68,19 +68,13 @@ class UploadS3Service {
     @Cacheable('AmazonS3Client')
     def readAwsCredentials() {
         File awsFile = ApplicationHolder.application.parentContext.getResource("WEB-INF/AwsCredentials.properties").file
-        def properties = [:]
-
+        String fileContents = null
         if(awsFile.exists()){
-            def matcher
 
-            awsFile.eachLine {line ->
-                if ((matcher =~ /^([^#=].*?)=(.+)$/)) {
-                    properties[matcher[0][1]] = matcher[0][2]
-                }
-            }
+
+             fileContents = awsFile.text
         }
-        def values = properties.values()
-        return values
+        return fileContents
     }
 
     def deleteSubBucket(String bucketName, String prefix){
